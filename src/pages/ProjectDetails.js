@@ -22,12 +22,12 @@ const ProjectDetails = () => {
   };
 
   const onAddCrewClick = () => {
-    navigate(`/add-crew?${param?.id}`)
+    navigate(`/crew-management?${param?.id}`)
   };
 
-  const onAddCrewTime = () => {
-    setIsCrewTimeModal(true);
-  };
+//   const onAddCrewTime = () => {
+//     setIsCrewTimeModal(true);
+//   };
 
   console.log("projectCrew ======>", projectCrews);
 

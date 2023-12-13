@@ -39,7 +39,7 @@ function Routing() {
                     element={<ProjectDetails />}
                   />
                   <Route path="/user-details/:id?" element={<UserDetails />} />
-                  <Route path="/add-crew/:id?" element={<AddCrew />} />
+                  <Route path="/crew-management/:id?" element={<AddCrew />} />
                   <Route path="*" element={<div>404 Error</div>} />
                 </Routes>
               </div>
