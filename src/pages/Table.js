@@ -21,7 +21,7 @@ const Table = ({ list }) => {
               <td>{item.name}</td>
               <td>{item.status}</td>
               <td>{item.description}</td>
-              <td><button className="btn btn-info detail-btn">Details</button></td>
+              <td className="details-td"><button className="btn btn-info detail-btn">Details</button></td>
             </tr>
           );
         })}
