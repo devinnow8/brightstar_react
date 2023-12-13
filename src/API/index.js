@@ -24,10 +24,14 @@ export const getProjectCrews = async (id) => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
-
 export const getUserDetails = async (data) => {
-    const apiUrl = `${url}/api/user`;
-    return await makeApiCall("get", apiUrl, data, headers);
+  const apiUrl = `${url}/api/user`;
+  return await makeApiCall("get", apiUrl, data, headers);
+};
+
+export const getUserDetailsInfo = async (id) => {
+  const apiUrl = `${url}/api/user/${id}`;
+  return await makeApiCall("get", apiUrl, id, headers);
 };
 
 // export const getAllCrew = async (data) => {

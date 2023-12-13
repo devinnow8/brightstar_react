@@ -1,15 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Table = ({ list, abc }) => {
+const Table = ({ list, abc,detailHandler }) => {
   const navigate = useNavigate();
-  const detailHandler = (id) => {
-    navigate(`/project-details/${id}`, {
-      state: {
-        id: id,
-      },
-    });
-  };
+  
 
   return (
     <div className="table-responsive">
