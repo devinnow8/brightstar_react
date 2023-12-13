@@ -9,7 +9,7 @@ const SideBar = () => {
   console.log(sideBarItems);
   return (
     <>
-      <div className="col-md-3 col-xl-2 bg-dark">
+      <div className="col-md-3 col-xl-2 bg-dark" style={{height: '100vh'}}>
         <div className="sidebar text-white">
           <h3 className="logo">BrightStar</h3>
           <ul

@@ -7,12 +7,15 @@ $primary-color: #49adff;
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(-1 * var(--bs-gutter-y));
+  height: 100%;
   .sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-height: 100vh;
     padding: 20px;
+    position: fixed;
+    top: 0;
     .logo {
       color: #49adff;
       font-weight: 700;
@@ -29,6 +32,7 @@ $primary-color: #49adff;
   }
   .main-content {
     padding: 20px;
+    flex-grow: 1;
     th {
       vertical-align: middle;
       padding-left: 14px;
@@ -48,6 +52,31 @@ $primary-color: #49adff;
       display: flex;
       justify-content: flex-end;
       padding-right: 14px;
+    }
+  }
+  .project-details {
+    padding: 20px;
+    flex-grow: 1;
+    .back-btn {
+      padding: 8px 32px;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      font-weight: 600;
+    }
+    .title {
+      font-weight: 700;
+      font-size: 26px;
+      margin: 30px 0px;
+    }
+    .project-col {
+      margin-bottom: 22px;
+      .card {
+        box-shadow: 0px 0px 12px rgba(0,0,0,0.18);
+        border: none;
+        padding: 20px;
+        height: 100%;
+      }
     }
   }
 }
