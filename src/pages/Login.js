@@ -17,7 +17,7 @@ const Login = () => {
       .then((res) => {
         if (res.status === 200) {
           localStorage.setItem("accessToken", res?.data?.access_token);
-          navigate("/home");
+          navigate("/projects");
         }
       })
       .catch((err) => console.log("error while logging in", err));
@@ -27,7 +27,7 @@ const Login = () => {
     <div className="auth-form">
       <form>
         <div class="form-outline mb-3">
-        <label class="form-label" for="form2Example1">
+          <label class="form-label" for="form2Example1">
             Email address
           </label>
           <input
@@ -40,7 +40,7 @@ const Login = () => {
         </div>
 
         <div class="form-outline mb-3">
-        <label class="form-label" for="form2Example2">
+          <label class="form-label" for="form2Example2">
             Password
           </label>
           <input

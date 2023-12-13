@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
@@ -9,14 +10,25 @@ import UserDetails from "../pages/UserDetails";
 import AddCrew from "../pages/AddCrew";
 
 function Routing() {
-  let logged = true;
+  const accessToken = localStorage.getItem("accessToken");
+  const [logged, isLogged] = useState(accessToken);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      isLogged(accessToken !== null);
+      setLoading(false);
+    };
+
+    checkLoginStatus();
+  }, [accessToken]);
+
   return (
     <>
       <Router>
         {logged ? (
           <>
             <main className="main">
-              <SideBar />
+              <SideBar isLogged={isLogged} />
               <div className="right-content">
                 <Routes>
                   <Route path="/projects" element={<HomePage />} />

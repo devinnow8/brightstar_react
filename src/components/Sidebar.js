@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const SideBar = () => {
+const SideBar = ({ isLogged }) => {
   const sideBarItems = [
     { name: "Projects", route: "/projects" },
     { name: "Users", route: "/users" },
     { name: "Equipment", route: "/equipments" },
   ];
+  const navigate = useNavigate();
+
+  const signOutHandler = (event) => {
+    event.preventDefault();
+    localStorage.removeItem("accessToken");
+    isLogged((prevLogged) => !prevLogged);
+    navigate("/");
+    // console.log("yuhuu", loggedIn);
+  };
   console.log(sideBarItems);
   return (
     <>
-        <div className="sidebar text-white">
-          <h3 className="logo">BrightStar</h3>
-          <div className="sidebar-menu">
+      <div className="sidebar text-white">
+        <h3 className="logo">BrightStar</h3>
+        <div className="sidebar-menu">
           <ul
             className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu"
@@ -20,14 +30,9 @@ const SideBar = () => {
               return (
                 <li className="nav-item" key={key}>
                   {/* <Link to=></Link> */}
-                  <a
-                    href={item.route}
-                    className="nav-link align-middle px-0"
-                  >
+                  <a href={item.route} className="nav-link align-middle px-0">
                     <i className="fs-4 bi-house"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">
-                      {item.name}
-                    </span>
+                    <span className="ms-1 d-none d-sm-inline">{item.name}</span>
                   </a>
                 </li>
               );
@@ -70,16 +75,16 @@ const SideBar = () => {
                 <hr className="dropdown-divider" />
               </li>
               <li>
-                <a className="dropdown-item" href="/">
+                <a className="dropdown-item" href="/" onClick={signOutHandler}>
                   Sign out
                 </a>
               </li>
             </ul>
           </div>
-          </div>
         </div>
+      </div>
 
-          {/* <div className="col py-3">content area...</div> */}
+      {/* <div className="col py-3">content area...</div> */}
     </>
   );
 };

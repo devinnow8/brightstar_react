@@ -11,6 +11,10 @@ const AddCrew = () => {
       >
         Back
       </button>
+
+      <label className="" for="project">
+        Project
+      </label>
       <div className="dropdown">
         <button
           className="btn btn-primary back-btn dropdown-toggle"
@@ -20,8 +24,51 @@ const AddCrew = () => {
           aria-expanded="false"
           onSelect={(e) => console.log("event ===>", e)}
         >
-          Dropdown button
+          Project Codes
         </button>
+
+        <label className="" for="project">
+          Foreman
+        </label>
+        <button
+          className="btn btn-primary back-btn dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onSelect={(e) => console.log("event ===>", e)}
+        >
+          Project Codes
+        </button>
+
+        <label className="" for="project">
+          General Foreman
+        </label>
+        <button
+          className="btn btn-primary back-btn dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onSelect={(e) => console.log("event ===>", e)}
+        >
+          Project Codes
+        </button>
+
+        <label className="" for="project">
+          Ops Manager
+        </label>
+        <button
+          className="btn btn-primary back-btn dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onSelect={(e) => console.log("event ===>", e)}
+        >
+          Project Codes
+        </button>
+
         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li>
             <a className="dropdown-item" href="#">
