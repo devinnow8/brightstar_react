@@ -23,7 +23,6 @@ const Login = () => {
       .catch((err) => console.log("error while logging in", err));
   };
 
-  console.log("kkkkkkkk");
   return (
     <div className="auth-form">
       <form>

@@ -6,6 +6,7 @@ import Table from "../pages/Table";
 const ProjectsList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  let abc = ["S.No", "Name", "Status", "Description", "Action"];
   const getAllProjcetData = async () => {
     try {
       const data = await getAllProjectList({
@@ -28,10 +29,10 @@ const ProjectsList = () => {
   }, []);
   console.log(list);
   return (
-      <>
-        {loading && <Loader />}
-        <Table list={list?.data} />
-      </>
+    <div>
+      {loading && <Loader />}
+      <Table list={list?.data} abc={abc} />
+    </div>
   );
 };
 
