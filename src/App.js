@@ -1,11 +1,12 @@
-import './App.css';
-import Login from './pages/Login';
+import "./App.css";
+
+import Routing from "./routes";
 
 function App() {
   return (
-    <div className="App">
-      <Login/>
-    </div>
+    <>
+      <Routing/>
+    </>
   );
 }
 

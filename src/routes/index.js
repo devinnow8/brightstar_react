@@ -1,16 +1,17 @@
-import { Routes, Route } from "react-router-dom";
-import App from "../App";
-import HomePage from "../pages/HomePage";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+// import HomePage from "../pages/HomePage";
+// import Login from "../pages/Login";
+// import Equipments from "../pages/Equipments";
+import SideBar from "../components/Sidebar";
 
-function Router() {
+function Routing() {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/home" element={<HomePage />} />
-      </Routes>
-    </div>
+    <>
+      <Router>
+        <SideBar />
+      </Router>
+    </>
   );
 }
 
-export default Router;
+export default Routing;
