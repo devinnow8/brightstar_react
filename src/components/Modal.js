@@ -5,11 +5,11 @@ const Modal = () => {
     <>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-info detail-btn"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
-        Launch demo modal
+        + Add Crew Time
       </button>
 
       <div

@@ -1,20 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Table = ({ list, abc,detailHandler }) => {
+const Table = ({ list, tableHeadings, detailHandler }) => {
   const navigate = useNavigate();
-  
 
   return (
     <div className="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-          {abc.map((item, key) => (
-            <th scope="col" key={key}>
-              {item}
-            </th>
-          ))}
+            {tableHeadings?.map((item, key) => (
+              <th scope="col" key={key}>
+                {item}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -22,7 +21,7 @@ const Table = ({ list, abc,detailHandler }) => {
             ?.sort((a, b) => {
               return a.id - b.id;
             })
-            .map((item, key) => {
+            ?.map((item, key) => {
               return (
                 <tr key={key}>
                   <th scope="row">{item.id}</th>

@@ -8,7 +8,7 @@ const ProjectsList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  let abc = ["S.No", "Name", "Status", "Description", "Action"];
+  let tableHeadings = ["S.No", "Name", "Status", "Description", "Action"];
   const getAllProjectData = async () => {
     try {
       const data = await getAllProjectList();
@@ -36,7 +36,7 @@ const ProjectsList = () => {
   return (
     <div>
       {loading && <Loader />}
-      <Table list={list?.data} abc={abc} detailHandler={detailHandler} />
+      <Table list={list?.data} tableHeadings={tableHeadings} detailHandler={detailHandler} />
     </div>
   );
 };
