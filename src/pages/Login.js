@@ -53,18 +53,6 @@ const Login = () => {
           />
         </div>
         <div className="form-check">
-          <div>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="form2Example31"
-            />
-            <label className="form-check-label" htmlFor="form2Example31">
-              {" "}
-              Remember me{" "}
-            </label>
-          </div>
           <div className="">
             <a href="#!">Forgot password?</a>
           </div>
