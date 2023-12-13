@@ -9,9 +9,9 @@ const SideBar = () => {
   console.log(sideBarItems);
   return (
     <>
-      <div className="col-md-3 col-xl-2 bg-dark" style={{height: '100vh'}}>
         <div className="sidebar text-white">
           <h3 className="logo">BrightStar</h3>
+          <div className="sidebar-menu">
           <ul
             className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu"
@@ -32,24 +32,7 @@ const SideBar = () => {
                 </li>
               );
             })}
-            {/* <li>
-              <a
-                href="#submenu1"
-                data-bs-toggle="collapse"
-                className="nav-link px-0 align-middle"
-              >
-                <i className="fs-4 bi-speedometer2"></i>{" "}
-                <span className="ms-1 d-none d-sm-inline">Users</span>{" "}
-              </a>
-            </li>
-            <li>
-              <a href="#" className="nav-link px-0 align-middle">
-                <i className="fs-4 bi-table"></i>{" "}
-                <span className="ms-1 d-none d-sm-inline">Equipments</span>
-              </a>
-            </li> */}
           </ul>
-          <hr />
           <div className="dropdown pb-4">
             <a
               href="/"
@@ -93,8 +76,8 @@ const SideBar = () => {
               </li>
             </ul>
           </div>
+          </div>
         </div>
-      </div>
 
           {/* <div className="col py-3">content area...</div> */}
     </>

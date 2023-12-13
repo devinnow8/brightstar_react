@@ -15,7 +15,7 @@ function Routing() {
           <>
             <main className="main">
               <SideBar />
-              <div className="col-md-9 col-xl-10">
+              <div className="right-content">
                 <Routes>
                   <Route path="/projects" element={<HomePage />} />
                   <Route path="/equipments" element={<Equipments />} />

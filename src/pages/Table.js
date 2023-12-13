@@ -15,11 +15,13 @@ const Table = ({ list, abc }) => {
     <div className="table-responsive">
       <table class="table table-striped">
         <thead>
+          <tr>
           {abc.map((item, key) => (
             <th scope="col" key={key}>
               {item}
             </th>
           ))}
+          </tr>
         </thead>
         <tbody>
           {list

@@ -50,26 +50,30 @@ const ProjectDetails = () => {
       <div className="row">
         <div className="col-md-12 col-lg-12 project-col">
           <div className="card">
-            <p>
-              <strong>Name:</strong> {projectDetails?.name}
-            </p>
-            <p>
-              <strong>Acumatica_project_id:</strong>{" "}
-              {projectDetails?.acumatica_project_id}
-            </p>
-            <p>
-              <strong>Description:</strong> {projectDetails?.description}
-            </p>
-            <p>
-              <strong>External_id_source:</strong>{" "}
-              {projectDetails?.external_id_source}
-            </p>
-            <p>
-              <strong>Status:</strong> {projectDetails?.status}
-            </p>
-            <p>
-              <strong>CreatedAt:</strong> {projectDetails?.created_at}
-            </p>
+            <div className="card-data">
+                <p className="heading">Name:</p>
+                <p className="data">{projectDetails?.name}</p>
+              </div>
+              <div className="card-data">
+                <p className="heading">Acumatica_project_id:</p>
+                <p className="data">{projectDetails?.acumatica_project_id}</p>
+              </div>
+              <div className="card-data">
+                <p className="heading">Description:</p>
+                <p className="data">{projectDetails?.description}</p>
+              </div>
+              <div className="card-data">
+                <p className="heading">External_id_source:</p>
+                <p className="data">{projectDetails?.external_id_source}</p>
+              </div>
+              <div className="card-data">
+                <p className="heading">Status:</p>
+                <p className="data">{projectDetails?.status}</p>
+              </div>
+              <div className="card-data">
+                <p className="heading">CreatedAt:</p>
+                <p className="data">{projectDetails?.created_at}</p>
+              </div>
           </div>
         </div>
       </div>
