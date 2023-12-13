@@ -28,10 +28,10 @@ const ProjectsList = () => {
   }, []);
   console.log(list);
   return (
-    <div>
-      {loading && <Loader />}
-      <Table list={list?.data} />
-    </div>
+      <>
+        {loading && <Loader />}
+        <Table list={list?.data} />
+      </>
   );
 };
 

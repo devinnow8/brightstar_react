@@ -3,7 +3,7 @@ import ProjectsList from "../components/ProjectsList";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="main-content">
       <ProjectsList />
     </div>
   );
