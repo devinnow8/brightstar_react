@@ -5,22 +5,22 @@ import Equipments from "../pages/Equipments";
 import SideBar from "../components/Sidebar";
 
 function Routing() {
-  let logged = true;
+  let logged = false;
   return (
     <>
       <Router>
         {logged ? (
           <>
-            <div className="screens-container">
+            <main className="main">
               <SideBar />
-              <div className="screens-section-container">
+              <div className="col-md-9 col-xl-10">
                 <Routes>
                   <Route path="/projects" element={<HomePage />} />
                   <Route path="/equipments" element={<Equipments />} />
                   <Route path="*" element={<div>404 Error</div>} />
                 </Routes>
               </div>
-            </div>
+            </main>
           </>
         ) : (
           <>

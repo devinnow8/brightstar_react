@@ -1,0 +1,36 @@
+
+.main {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    .logo {
+      color: #49adff;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .nav-item {
+      margin-bottom: 12px;
+      .nav-link {
+        color: #fff;
+        font-weight: 600;
+        padding: 0;
+      }
+    }
+  }
+}
+input {
+  &:focus {
+    box-shadow: unset;
+    outline: none;
+  }
+}
+
+@import "./auth.scss";

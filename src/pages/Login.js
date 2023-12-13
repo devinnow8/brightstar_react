@@ -25,9 +25,12 @@ const Login = () => {
 
   console.log("kkkkkkkk");
   return (
-    <div>
+    <div className="auth-form">
       <form>
-        <div class="form-outline mb-4">
+        <div class="form-outline mb-3">
+        <label class="form-label" for="form2Example1">
+            Email address
+          </label>
           <input
             onChange={(e) => onChange(e)}
             type="email"
@@ -35,12 +38,12 @@ const Login = () => {
             id="form2Example1"
             class="form-control"
           />
-          <label class="form-label" for="form2Example1">
-            Email address
-          </label>
         </div>
 
-        <div class="form-outline mb-4">
+        <div class="form-outline mb-3">
+        <label class="form-label" for="form2Example2">
+            Password
+          </label>
           <input
             onChange={(e) => onChange(e)}
             type="password"
@@ -48,39 +51,30 @@ const Login = () => {
             id="form2Example2"
             class="form-control"
           />
-          <label class="form-label" for="form2Example2">
-            Password
-          </label>
         </div>
-
-        <div className="row mb-4">
-          <div className="col d-flex justify-content-center">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="formname2Example31"
-                checked
-              />
-              <label className="form-check-label" htmlFor="form2Example31">
-                {" "}
-                Remember me{" "}
-              </label>
-            </div>
+        <div className="form-check">
+          <div>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="form2Example31"
+            />
+            <label className="form-check-label" htmlFor="form2Example31">
+              {" "}
+              Remember me{" "}
+            </label>
           </div>
-
-          <div className="col">
+          <div className="">
             <a href="#!">Forgot password?</a>
           </div>
         </div>
-
         <button
           type="button"
-          className="btn btn-primary btn-block mb-4"
+          className="btn btn-primary submit-btn"
           onClick={onSignIn}
         >
-          Sign in
+          Log In
         </button>
       </form>
     </div>
