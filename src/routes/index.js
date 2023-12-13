@@ -3,9 +3,10 @@ import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
 import Equipments from "../pages/Equipments";
 import SideBar from "../components/Sidebar";
+import Users from "../pages/Users";
 
 function Routing() {
-  let logged = false;
+  let logged = true;
   return (
     <>
       <Router>
@@ -17,6 +18,7 @@ function Routing() {
                 <Routes>
                   <Route path="/projects" element={<HomePage />} />
                   <Route path="/equipments" element={<Equipments />} />
+                  <Route path="/users" element={<Users />} />
                   <Route path="*" element={<div>404 Error</div>} />
                 </Routes>
               </div>
