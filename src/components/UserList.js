@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserDetails } from "../API/index";
-import Loader from "./Loader";
-import Table from "./Table";
+import Loader from "../pages/Loader";
+import Table from "../pages/Table";
 
 const UserList = () => {
   const [list, setList] = useState([]);
@@ -32,6 +32,7 @@ const UserList = () => {
         {loading && <Loader />}
         <Table list={list?.data} abc={abc} />
       </div>
+      export default ProjectsList;
     </div>
   );
 };

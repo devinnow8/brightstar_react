@@ -7,7 +7,7 @@ const ProjectsList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   let abc = ["S.No", "Name", "Status", "Description", "Action"];
-  const getAllProjcetData = async () => {
+  const getAllProjectData = async () => {
     try {
       const data = await getAllProjectList();
       if (data) {
@@ -22,7 +22,7 @@ const ProjectsList = () => {
   };
 
   useEffect(() => {
-    getAllProjcetData();
+    getAllProjectData();
   }, []);
   console.log(list);
   return (
