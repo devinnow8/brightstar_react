@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Equipments from "../pages/Equipments";
 import SideBar from "../components/Sidebar";
 import Users from "../pages/Users";
+import ProjectDetails from "../pages/ProjectDetails";
 
 function Routing() {
   let logged = true;
@@ -19,6 +20,7 @@ function Routing() {
                   <Route path="/projects" element={<HomePage />} />
                   <Route path="/equipments" element={<Equipments />} />
                   <Route path="/users" element={<Users />} />
+                  <Route path="/projects/project-details" element={<ProjectDetails />} />
                   <Route path="*" element={<div>404 Error</div>} />
                 </Routes>
               </div>

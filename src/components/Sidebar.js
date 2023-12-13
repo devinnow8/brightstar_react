@@ -65,7 +65,7 @@ const SideBar = () => {
                 height="30"
                 className="rounded-circle"
               />
-              <span className="d-none d-sm-inline mx-1">loser</span>
+              <span className="d-none d-sm-inline mx-1">Winner</span>
             </a>
             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
               <li>
