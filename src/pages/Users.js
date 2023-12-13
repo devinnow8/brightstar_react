@@ -8,7 +8,7 @@ const UserList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  let abc = ["S.No", "Name", "Status", "Action"];
+  let abc = ["S.No", "Name", "Status", "Description", "Action"];
   const getAllUsersData = async () => {
     try {
       const data = await getUserDetails();

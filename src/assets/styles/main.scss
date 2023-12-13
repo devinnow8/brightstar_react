@@ -20,10 +20,11 @@ $primary-color: #49adff;
     top: 0;
     left: 0;
     height: 100%;
-    overflow-y: auto;
+    // overflow-y: auto;
     background-color: #1a1a1a;
     padding: 20px;
     width: 240px;
+    padding-bottom: 70px;
     .logo {
       color: #49adff;
       font-weight: 700;

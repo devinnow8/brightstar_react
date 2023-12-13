@@ -13,7 +13,7 @@ const Modal = () => {
       </button>
 
       <div
-        className="modal fade"
+        className="modal fade centered"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
