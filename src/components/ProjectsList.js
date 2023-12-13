@@ -9,10 +9,7 @@ const ProjectsList = () => {
   let abc = ["S.No", "Name", "Status", "Description", "Action"];
   const getAllProjcetData = async () => {
     try {
-      const data = await getAllProjectList({
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmVmZXJyZWRfdXNlcl9uYW1lIjoiYWthc2hAdGVzdC5jb20iLCJuYW1lIjoiYWthc2ggcGFuZGV5IiwiaWF0IjoxNzAyNDQ5MTY3LCJleHAiOjE3MDI2MjE5Njd9.D3zf5eF2WNkf7B7kvGncPu3U7wPvjBYdq7mAzQRzmi8",
-      });
+      const data = await getAllProjectList();
       if (data) {
         setList(data);
         setLoading(false);
