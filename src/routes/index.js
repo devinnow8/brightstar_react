@@ -19,18 +19,14 @@ function AuthRoute({ children }) {
   );
 }
 
-function Routing({ logged, isLogged }) {
-  const accessToken = localStorage.getItem("accessToken");
+function Routing() {
   return (
     <>
       <main className="main">
         <div className="right-content">
           <Routes>
             {}
-            <Route
-              path="/"
-              element={<Login logged={logged} isLogged={isLogged} />}
-            />
+            <Route path="/" element={<Login />} />
             {Object.values(ROUTES).map((route) => {
               return (
                 <Route
