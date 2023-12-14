@@ -95,9 +95,9 @@ const AddProjectCrewUser = ({ userOptions }) => {
                         return (
                           <tr
                             className={
-                              selectedUser === item.id ? "activeRow" : ""
+                              selectedUser.id === item.id ? "activeRow" : ""
                             }
-                            onClick={() => setSelectedUser(item.id)}
+                            onClick={() => setSelectedUser(item)}
                             key={key}
                           >
                             <td>{item.id}</td>
