@@ -1,9 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const Table = ({ list, tableHeadings, detailHandler }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="table-responsive">
       <table class="table table-striped">

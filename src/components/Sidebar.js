@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ isLogged }) => {
+  const navigate = useNavigate();
   const sideBarItems = [
     { name: "Projects", route: "/projects" },
     { name: "Users", route: "/users" },
     { name: "Equipment", route: "/equipments" },
   ];
-  const navigate = useNavigate();
 
   const signOutHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     localStorage.removeItem("accessToken");
     isLogged((prevLogged) => !prevLogged);
     navigate("/");
-    // console.log("yuhuu", loggedIn);
   };
+
   console.log(sideBarItems);
   return (
     <>

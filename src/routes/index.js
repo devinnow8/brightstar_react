@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import Login from "../pages/Login";
@@ -9,19 +8,7 @@ import ProjectDetails from "../pages/ProjectDetails";
 import UserDetails from "../pages/UserDetails";
 import CrewManagement from "../pages/AddCrew";
 
-function Routing() {
-  const accessToken = localStorage.getItem("accessToken");
-  const [logged, isLogged] = useState(accessToken);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const checkLoginStatus = () => {
-      isLogged(accessToken !== null);
-      setLoading(false);
-    };
-
-    checkLoginStatus();
-  }, [accessToken]);
-
+function Routing({ logged, isLogged }) {
   return (
     <>
       <Router>
@@ -31,7 +18,7 @@ function Routing() {
               <SideBar isLogged={isLogged} />
               <div className="right-content">
                 <Routes>
-                  <Route path="/projects" element={<HomePage />} />
+                  <Route path="/projects" element={<HomePage />} exact />
                   <Route path="/equipments" element={<Equipments />} />
                   <Route path="/users" element={<Users />} />
                   <Route
@@ -41,6 +28,7 @@ function Routing() {
                   <Route path="/user-details/:id?" element={<UserDetails />} />
                   <Route path="/crew-management/:id?" element={<CrewManagement />} />
                   <Route path="*" element={<div>404 Error</div>} />
+                  {/* <Route path="/" element={<Login />} /> */}
                 </Routes>
               </div>
             </main>
@@ -48,7 +36,11 @@ function Routing() {
         ) : (
           <>
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route
+                path="/"
+                element={<Login logged={logged} isLogged={isLogged} />}
+              />
+              {/* <Route path="/projects" element={<HomePage />} exact /> */}
             </Routes>
           </>
         )}
