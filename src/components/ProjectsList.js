@@ -34,10 +34,10 @@ const ProjectsList = () => {
   }, []);
   console.log(list);
   return (
-    <div>
+    <>
       {loading && <Loader />}
       <Table list={list?.data} tableHeadings={tableHeadings} detailHandler={detailHandler} />
-    </div>
+    </>
   );
 };
 

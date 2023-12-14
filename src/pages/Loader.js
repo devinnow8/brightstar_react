@@ -1,7 +1,9 @@
 function Loader() {
   return (
-    <div class="spinner-border" role="status">
+    <div className="loader">
+      <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
+      </div>  
     </div>
   );
 }

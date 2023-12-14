@@ -166,6 +166,15 @@ $primary-color: #49adff;
         margin-bottom: 2rem;
       }
     }
+    .loader {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      .spinner-border {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
   }
 }
 input {
