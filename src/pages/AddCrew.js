@@ -238,7 +238,7 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser userOptions={userOptions} />
+      <AddProjectCrewUser userOptions={employeeOptions} />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const AddProjectCrewUser = ({ userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
-  const crewTableHeadings = ["Id", "User_Id", "Crew_Id"];
+  const crewTableHeadings = ["User Id", "Name"];
 
   const onAddNewUser = () => {
     console.log("selectedUser", selectedUser);
@@ -97,15 +97,15 @@ const AddProjectCrewUser = ({ userOptions }) => {
                         return (
                           <tr
                             className={
-                              selectedUser.id === item.id ? "activeRow" : ""
+                              selectedUser.value === item.value ? "activeRow" : ""
                             }
                             onClick={() => setSelectedUser(item)}
                             key={key}
                           >
-                            <td>{item.id}</td>
-                            <td>{item.user_id}</td>
-                            <td>{item.crew_id}</td>
-                            <td>{item.description}</td>
+                            {/* <td>{item.id}</td> */}
+                            <td>{item.value}</td>
+                            <td>{item.name}</td>
+                            {/* <td>{item.description}</td> */}
                             <td className="details-td"></td>
                           </tr>
                         );
