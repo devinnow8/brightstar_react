@@ -72,44 +72,47 @@ const CrewManagement = () => {
           ))}
         </div>
       </div>
-      <div className="table-responsive team-table">
-        <table class="table table-striped">
-          <thead>
-            {tableHeadings.map((item, key) => (
-              <th scope="col" className="table-heading" key={key}>
-                {item}
-              </th>
-            ))}
-          </thead>
-          <tbody>
-            {dummyData?.map((item, key) => {
-              return (
-                <tr key={key}>
-                  <th scope="row">{item.name}</th>
-                  <td>{item.boss_user_id}</td>
-                  <td>{item.project_id}</td>
-                  <td className="details-td">
-                    {/* <button
-                      className="btn btn-info detail-btn"
-                      //   onClick={() => detailHandler(item.id)}
-                    >
-                      Details
-                    </button> */}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <div className="team-table-wrapper">
+        <div className="table-responsive team-table">
+          <table class="table table-striped">
+            <thead>
+              {tableHeadings.map((item, key) => (
+                <th scope="col" className="table-heading" key={key}>
+                  {item}
+                </th>
+              ))}
+            </thead>
+            <tbody>
+              {dummyData?.map((item, key) => {
+                return (
+                  <tr key={key}>
+                    <th scope="row">{item.name}</th>
+                    <td>{item.boss_user_id}</td>
+                    <td>{item.project_id}</td>
+                    <td className="details-td">
+                      {/* <button
+                        className="btn btn-info detail-btn"
+                        //   onClick={() => detailHandler(item.id)}
+                      >
+                        Details
+                      </button> */}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       <div className="text-end">
-      <button
-          className="primary-btn mb-4"
-          // onClick={() => navigate("/projects")}
-        >
-          Add Team Projects
-      </button>
+        <button
+            className="primary-btn mb-4"
+            // onClick={() => navigate("/projects")}
+          >
+            Add Team Projects
+        </button>
       </div>
+      </div>
+      
     </div>
   );
 };

@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AllCrewsTable = (props) => {
+  const location = useLocation();
+  console.log(location.pathname, 'location');
   const { crewData } = props;
   const tableHeadings = ["Name", "Boss_Id", "Project_Id"];
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const AllCrewsTable = (props) => {
   };
   
   return (
-    <div className="table-responsive crew-table">
+    <div className={`table-responsive crew-table ${location.pathname === '/all-crews-management' ? 'all-crew-table' : ""}`}>
       <table class="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (
