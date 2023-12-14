@@ -12,7 +12,7 @@ const AllCrewsTable = (props) => {
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
-    navigate(`/crew-management?${item?.id}`, {
+    navigate(`/crew-management/${item?.id}`, {
       state: { project_id: item?.project_id },
     });
   };

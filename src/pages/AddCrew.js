@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Dropdown,
   DropdownToggle,
@@ -23,6 +23,8 @@ const CrewManagement = () => {
   const [loading, setLoading] = useState(true);
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
+
+  const { state } = useLocation()
 
   const fetchData = async () => {
     try {
