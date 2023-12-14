@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import AddCrewModal from "../components/AddCrewModal";
 import AddCrewTimeModal from "../components/Modal";
 import { useNavigate } from "react-router-dom";
 import { getAllCrews } from "../API";
-import ProjectCrewTable from "../components/ProjectCrewTable";
 import AllCrewsTable from "../components/AllCrewsTable";
+import AddNewCrewModal from "../components/AddNewCrewModal";
 
 const AllCrewsManagement = () => {
   const [crewData, setCrewData] = useState([]);
@@ -21,8 +20,8 @@ const AllCrewsManagement = () => {
       );
   };
   useEffect(() => {
-    fetchAllCrews()
-  },[]);
+    fetchAllCrews();
+  }, []);
   const navigate = useNavigate();
   console.log("crewData ===>", crewData);
   return (
@@ -35,15 +34,10 @@ const AllCrewsManagement = () => {
       </button>
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
-        {/* <AddCrewModal
-          projectId={projectDetails?.id}
-          onAddCrewClick={onAddCrewClick}
-        />
-        <AddCrewTimeModal /> */}
+        <AddNewCrewModal />
+        <AddCrewTimeModal />
       </div>
-      {crewData.length > 0 && (
-        <AllCrewsTable crewData={crewData} />
-      )}
+      {crewData.length > 0 && <AllCrewsTable crewData={crewData} />}
     </div>
   );
 };
