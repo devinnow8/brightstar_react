@@ -11,7 +11,7 @@ const AddProjectCrewUser = ({ userOptions }) => {
     <>
       <button
         type="button"
-        className="btn btn-info detail-btn"
+        className="btn btn-info detail-btn primary-btn mb-4 px-3"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         // onClick={() => onAddCrewClick()}
@@ -82,7 +82,7 @@ const AddProjectCrewUser = ({ userOptions }) => {
 
               <>
                 <div className="table-responsive">
-                  <table class="table table-striped">
+                  <table class="table crew-modal-table table-striped">
                     <thead>
                       <tr>
                         {crewTableHeadings?.map((item, key) => (
