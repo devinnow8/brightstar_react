@@ -3,12 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import Routing from "./routes";
 import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/js/bootstrap.min.js";
-// import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

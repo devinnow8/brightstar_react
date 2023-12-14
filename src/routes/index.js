@@ -1,50 +1,44 @@
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login";
-import Equipments from "../pages/Equipments";
 import SideBar from "../components/Sidebar";
-import Users from "../pages/Users";
-import ProjectDetails from "../pages/ProjectDetails";
-import UserDetails from "../pages/UserDetails";
-import CrewManagement from "../pages/AddCrew";
 
-function Routing({ logged, isLogged }) {
+import { ROUTES } from "../utils/routes";
+function AuthRoute({ children }) {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    //Not signed in
+    return <Navigate to="/" />;
+  }
+  //Signed in
   return (
     <>
-      <Router>
-        {logged ? (
-          <>
-            <main className="main">
-              <SideBar isLogged={isLogged} />
-              <div className="right-content">
-                <Routes>
-                  <Route path="/projects" element={<HomePage />} exact />
-                  <Route path="/equipments" element={<Equipments />} />
-                  <Route path="/users" element={<Users />} />
-                  <Route
-                    path="/project-details/:id?"
-                    element={<ProjectDetails />}
-                  />
-                  <Route path="/user-details/:id?" element={<UserDetails />} />
-                  <Route path="/crew-management/:id?" element={<CrewManagement />} />
-                  <Route path="*" element={<div>404 Error</div>} />
-                  {/* <Route path="/" element={<Login />} /> */}
-                </Routes>
-              </div>
-            </main>
-          </>
-        ) : (
-          <>
-            <Routes>
-              <Route
-                path="/"
-                element={<Login logged={logged} isLogged={isLogged} />}
-              />
-              {/* <Route path="/projects" element={<HomePage />} exact /> */}
-            </Routes>
-          </>
-        )}
-      </Router>
+      {" "}
+      <SideBar />
+      {children}
+    </>
+  );
+}
+
+function Routing() {
+  return (
+    <>
+      <main className="main">
+        <div className="right-content">
+          <Routes>
+            {}
+            <Route path="/" element={<Login />} />
+            {Object.values(ROUTES).map((route) => {
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<AuthRoute>{route.element}</AuthRoute>}
+                />
+              );
+            })}
+          </Routes>
+        </div>
+      </main>
     </>
   );
 }

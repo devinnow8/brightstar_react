@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ isLogged }) => {
+const SideBar = () => {
   const navigate = useNavigate();
   const sideBarItems = [
     { name: "Projects", route: "/projects" },
@@ -12,7 +12,7 @@ const SideBar = ({ isLogged }) => {
   const signOutHandler = (event) => {
     // event.preventDefault();
     localStorage.removeItem("accessToken");
-    isLogged((prevLogged) => !prevLogged);
+    // isLogged((prevLogged) => !prevLogged);
     navigate("/");
   };
 
