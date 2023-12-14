@@ -59,7 +59,7 @@ const SideBar = () => {
               );
             })}
           </ul>
-          <div className="dropdown pb-4">
+          <div className="dropdown">
             <a
               href="/"
               className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"

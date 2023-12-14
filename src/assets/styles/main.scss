@@ -35,16 +35,22 @@ $primary-color: #49adff;
     height: 100%;
     // overflow-y: auto;
     background-color: #1a1a1a;
-    padding: 20px;
+    
     width: 240px;
     padding-bottom: 70px;
     .logo {
       color: #49adff;
       font-weight: 700;
       margin-bottom: 1.5rem;
+      padding: 20px;
     }
     .nav-item {
-      margin-bottom: 12px;
+      margin-bottom: 5px;
+      padding: 3px 20px 10px 20px;
+      &.selectedTab {
+        background-color: #494949;
+        width: 100%
+      }
       .nav-link {
         color: #fff;
         font-weight: 600;
@@ -54,9 +60,12 @@ $primary-color: #49adff;
     .sidebar-menu {
       display: flex;
       flex-direction: column;
-      // height: calc(100% - 30px);
       height: 100%;
       justify-content: space-between;
+      .dropdown {
+        padding-bottom: 4rem;
+        padding-left: 20px;
+      }
     }
   }
   .project-details {
@@ -234,8 +243,6 @@ input {
     outline: none;
   }
 }
-.selectedTab {
-  background-color: red;
-}
+
 
 @import "./auth.scss";
