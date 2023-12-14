@@ -37,7 +37,7 @@ const AddCrewModal = (props) => {
     <>
       <button
         type="button"
-        className="btn btn-info detail-btn"
+        className="btn btn-info primary-btn px-3"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         onClick={() => onAddCrewClick()}
