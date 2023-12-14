@@ -3,7 +3,8 @@ import React, { useState } from "react";
 const AddProjectCrewUser = ({ userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const crewTableHeadings = ["Id", "User_Id", "Crew_Id"];
-  console.log("userOptions55", userOptions);
+
+  const onAddNewUser = () => {};
   return (
     <>
       <button
@@ -114,11 +115,13 @@ const AddProjectCrewUser = ({ userOptions }) => {
             </div>
             <div class="modal-footer">
               <button
-                // onClick={() => onClickAddCrew()}
+                data-bs-dismiss="modal"
                 type="button"
                 class="primary-btn"
+                aria-label="Close"
+                onClick={() => onAddNewUser()}
               >
-                + Add
+                Submit
               </button>
             </div>
           </div>
