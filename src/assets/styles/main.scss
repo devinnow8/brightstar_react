@@ -179,12 +179,10 @@ $primary-color: #49adff;
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
         margin-bottom: 3rem;
-        .crew-flex {
-          display: flex;
           label {
             display: block;
             font-weight: 500;
-            font-size: 17px;
+            font-size: 16px;
             margin-bottom: 5px;
           }
           .dropdown {
@@ -197,8 +195,13 @@ $primary-color: #49adff;
               background-color: #2583d0;
             }
           }
-          
-        }
+          .form-select {
+            padding: 9px;
+            &:focus {
+              border-color: $primary-color;
+              box-shadow: unset;
+            }
+          }
       }
       .team-table {
         height: 100%;

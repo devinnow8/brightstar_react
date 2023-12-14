@@ -108,74 +108,102 @@ const CrewManagement = () => {
         <div className="crew-flex row">
           {projectOptions.length > 0 ? (
             <>
-              <select
-                onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select"
-                aria-label="Default select example"
-              >
-                {projectOptions &&
-                  projectOptions?.map((option) => {
-                    return (
-                      <option
-                        selected={selectedOptions["project"] === option.value}
-                        value={option.value}
-                      >
-                        {option.name}
-                      </option>
-                    );
-                  })}
-              </select>
-              <select
-                onChange={(e) => handleSelectChange(e, "employee")}
-                class="form-select"
-                aria-label="Default select example"
-              >
-                {employeeOptions &&
-                  employeeOptions?.map((option) => {
-                    return (
-                      <option
-                        selected={selectedOptions["employee"] === option.value}
-                        value={option.value}
-                      >
-                        {option.name}
-                      </option>
-                    );
-                  })}
-              </select>
-              <select
-                onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select"
-                aria-label="Default select example"
-              >
-                {projectOptions &&
-                  projectOptions?.map((option) => {
-                    return (
-                      <option
-                        selected={selectedOptions["project1"] === option.value}
-                        value={option.value}
-                      >
-                        {option.name}
-                      </option>
-                    );
-                  })}
-              </select>
-              <select
-                onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select"
-                aria-label="Default select example"
-              >
-                {projectOptions &&
-                  projectOptions?.map((option) => {
-                    return (
-                      <option
-                        selected={selectedOptions["project2"] === option.value}
-                        value={option.value}
-                      >
-                        {option.name}
-                      </option>
-                    );
-                  })}
-              </select>
+              <div className="col-md-6 col-lg-3">
+                <div className="mb-3 mb-lg-0">
+                  <label htmlFor="">Label 1</label>
+                  <select
+                    onChange={(e) => handleSelectChange(e, "project")}
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    {projectOptions &&
+                      projectOptions?.map((option) => {
+                        return (
+                          <option
+                            selected={
+                              selectedOptions["project"] === option.value
+                            }
+                            value={option.value}
+                          >
+                            {option.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div>
+                  <label htmlFor="">Label 2</label>
+                  <select
+                    onChange={(e) => handleSelectChange(e, "employee")}
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    {employeeOptions &&
+                      employeeOptions?.map((option) => {
+                        return (
+                          <option
+                            selected={
+                              selectedOptions["employee"] === option.value
+                            }
+                            value={option.value}
+                          >
+                            {option.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div>
+                  <label htmlFor="">Label 3</label>
+                  <select
+                    onChange={(e) => handleSelectChange(e, "project")}
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    {projectOptions &&
+                      projectOptions?.map((option) => {
+                        return (
+                          <option
+                            selected={
+                              selectedOptions["project1"] === option.value
+                            }
+                            value={option.value}
+                          >
+                            {option.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-3">
+                <div>
+                  <label htmlFor="">Label 4</label>
+                  <select
+                    onChange={(e) => handleSelectChange(e, "project")}
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    {projectOptions &&
+                      projectOptions?.map((option) => {
+                        return (
+                          <option
+                            selected={
+                              selectedOptions["project2"] === option.value
+                            }
+                            value={option.value}
+                          >
+                            {option.name}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
+              </div>
             </>
           ) : (
             <Loader />
