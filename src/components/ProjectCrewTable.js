@@ -9,7 +9,7 @@ const ProjectCrewTable = (props) => {
     navigate(`/crew-management?${item?.id}`)
   }
   return (
-    <div className="table-responsive">
+    <div className="table-responsive crew-table">
       <table class="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (

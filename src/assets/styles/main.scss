@@ -8,6 +8,10 @@ $primary-color: #49adff;
   height: 42px;
   border-radius: 8px;
   font-weight: 500;
+  &:hover {
+    background: #49adff;
+    color: #fff;
+  }
 }
 
 .main {
@@ -57,8 +61,7 @@ $primary-color: #49adff;
   }
     
   .project-details {
-    padding: 20px;
-    flex-grow: 1;
+    // padding: 20px;
     .back-btn {
       padding: 8px 32px;
       background-color: $primary-color;
@@ -72,7 +75,7 @@ $primary-color: #49adff;
       margin: 30px 0px;
     }
     .project-col {
-      margin-bottom: 22px;
+      margin-bottom: 10px;
       .card {
         box-shadow: 0px 0px 12px rgba(0,0,0,0.18);
         border: none;
@@ -81,22 +84,28 @@ $primary-color: #49adff;
         .card-data {
           display: flex;
           .heading {
-            width: 25%;
+            width: 28%;
             font-weight: 600;
             @media (max-width: 1024px) {
               width: 40%;
             }
-            @media (max-width: 768px) {
-              width: 45%;
-            }
-          }
-          .data {
-            width: 75%;
-            @media (max-width: 1024px) {
+            @media (max-width: 820px) {
               width: 60%;
             }
             @media (max-width: 768px) {
-              width: 55%;
+              width: 60%;
+            }
+          }
+          .data {
+            width: 72%;
+            @media (max-width: 1024px) {
+              width: 60%;
+            }
+            @media (max-width: 820px) {
+              width: 40%;
+            }
+            @media (max-width: 768px) {
+              width: 40%;
             }
           }
         }
@@ -106,6 +115,24 @@ $primary-color: #49adff;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .title {
+        margin: 18px 0px;
+      }
+    }
+    .crew-table {
+      height: 250px;
+      overflow-y: auto;
+      @media (max-height: 800px) {
+        height: 172px;
+      }
+      .detail-btn {
+        @media (max-width: 820px) {
+          font-size: 14px;
+          line-height: 1.4;
+          padding: 0px 12px;
+          height: 50px;
+        }
+      }
     }
   }
   .right-content {
@@ -161,14 +188,14 @@ $primary-color: #49adff;
         }
       }
       .team-table {
-        height: 400px;
+        height: 300px;
         overflow-y: auto;
         margin-bottom: 2rem;
       }
     }
     .loader {
       position: absolute;
-      top: 38%;
+      top: 40%;
       left: 50%;
       .spinner-border {
         width: 3rem;

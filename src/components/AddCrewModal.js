@@ -51,7 +51,7 @@ const AddCrewModal = (props) => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
                 Add New Crew To This Project
               </h5>
               <button
@@ -111,7 +111,7 @@ const AddCrewModal = (props) => {
               <button
                 onClick={() => onClickAddCrew()}
                 type="button"
-                class="btn btn-primary"
+                class="primary-btn"
               >
                 + Add
               </button>

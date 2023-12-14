@@ -42,26 +42,30 @@ const UserDetails = () => {
           ) : (
             <div className="col-md-12 col-lg-12 project-col">
               <div className="card">
-                <p>
-                  <strong>Name:</strong> {projectDetails?.name}
-                </p>
-                <p>
-                  <strong>Acumatica_employee_id:</strong>{" "}
-                  {projectDetails?.employee_id}
-                </p>
-                <p>
-                  <strong>Email:</strong> {projectDetails?.email}
-                </p>
-                <p>
-                  <strong>External_id_source:</strong>{" "}
-                  {projectDetails?.external_id_source}
-                </p>
-                <p>
-                  <strong>Status:</strong> {projectDetails?.status}
-                </p>
-                <p>
-                  <strong>CreatedAt:</strong> {projectDetails?.created_at}
-                </p>
+                <div className="card-data">
+                  <p className="heading">Name:</p>
+                  <p className="data">{projectDetails?.name}</p>
+                </div>
+                <div className="card-data">
+                  <p className="heading">Acumatica_employee_id:</p>
+                  <p className="data">{projectDetails?.employee_id}</p>
+                </div>
+                <div className="card-data">
+                  <p className="heading">Email:</p>
+                  <p className="data">{projectDetails?.email}</p>
+                </div>
+                <div className="card-data">
+                  <p className="heading">External_id_source:</p>
+                  <p className="data">{projectDetails?.external_id_source}</p>
+                </div>
+                <div className="card-data">
+                  <p className="heading">Status:</p>
+                  <p className="data">{projectDetails?.status}</p>
+                </div>
+                <div className="card-data">
+                  <p className="heading">CreatedAt:</p>
+                  <p className="data">{projectDetails?.created_at}</p>
+                </div>
               </div>
             </div>
           )}
