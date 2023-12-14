@@ -22,12 +22,12 @@ const ProjectDetails = () => {
   };
 
   const onAddCrewClick = () => {
-    navigate(`/crew-management?${param?.id}`)
+    navigate(`/crew-management?${param?.id}`);
   };
 
-//   const onAddCrewTime = () => {
-//     setIsCrewTimeModal(true);
-//   };
+  //   const onAddCrewTime = () => {
+  //     setIsCrewTimeModal(true);
+  //   };
 
   console.log("projectCrew ======>", projectCrews);
 
@@ -87,14 +87,24 @@ const ProjectDetails = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="crew-info">
         <h1 className="title">Crew Info</h1>
-        <button
-          onClick={() => onAddCrewClick()}
-          className="btn btn-info detail-btn"
-        >
-          + Add Crew
-        </button>
+        <div>
+          <button
+            onClick={() => onAddCrewClick()}
+            className="btn btn-info primary-btn me-3 px-3"
+          >
+            + Add Crew
+          </button>
+          <button
+            type="button"
+            className="btn btn-info primary-btn px-3"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            + Add Crew Time
+          </button>
+        </div>
         <Modal />
         {/* <button
           onClick={() => onAddCrewTime()}

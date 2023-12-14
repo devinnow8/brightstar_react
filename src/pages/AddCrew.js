@@ -1,91 +1,117 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 const AddCrew = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [secondDropdownOpen, setSecondDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
   const navigate = useNavigate();
   return (
-    <div className="project-details">
+    <div className="crew-mgmt">
       <button
-        className="btn btn-primary back-btn"
+        className="primary-btn mb-4"
         onClick={() => navigate("/projects")}
       >
         Back
       </button>
 
-      <label className="" for="project">
-        Project
-      </label>
-      <div className="dropdown">
-        <button
-          className="btn btn-primary back-btn dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          onSelect={(e) => console.log("event ===>", e)}
-        >
-          Project Codes
-        </button>
-
-        <label className="" for="project">
-          Foreman
-        </label>
-        <button
-          className="btn btn-primary back-btn dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          onSelect={(e) => console.log("event ===>", e)}
-        >
-          Project Codes
-        </button>
-
-        <label className="" for="project">
-          General Foreman
-        </label>
-        <button
-          className="btn btn-primary back-btn dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          onSelect={(e) => console.log("event ===>", e)}
-        >
-          Project Codes
-        </button>
-
-        <label className="" for="project">
-          Ops Manager
-        </label>
-        <button
-          className="btn btn-primary back-btn dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          onSelect={(e) => console.log("event ===>", e)}
-        >
-          Project Codes
-        </button>
-
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a className="dropdown-item" href="#">
-              Action
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Another action
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" href="#">
-              Something else here
-            </a>
-          </li>
-        </ul>
+      <div className="crew-mgmt-card">
+        <div className="crew-flex row">
+          <div className="col-md-6 col-lg-3">
+            <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+              <label htmlFor="Project">Project</label>
+              <DropdownToggle
+                onSelect={(e) => console.log("event ===>", e)}
+                caret
+              >
+                Dropdown
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>Header</DropdownItem>
+                <DropdownItem>Some Action</DropdownItem>
+                <DropdownItem text>Dropdown Item Text</DropdownItem>
+                <DropdownItem disabled>Action (disabled)</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Foo Action</DropdownItem>
+                <DropdownItem>Bar Action</DropdownItem>
+                <DropdownItem>Quo Action</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <Dropdown isOpen={secondDropdownOpen}  toggle={toggle}>
+              <label htmlFor="Project">Project</label>
+              <DropdownToggle
+                onSelect={(e) => console.log("event ===>", e)}
+                caret
+                className=""
+              >
+                Dropdown
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>Header</DropdownItem>
+                <DropdownItem>Some Action</DropdownItem>
+                <DropdownItem text>Dropdown Item Text</DropdownItem>
+                <DropdownItem disabled>Action (disabled)</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Foo Action</DropdownItem>
+                <DropdownItem>Bar Action</DropdownItem>
+                <DropdownItem>Quo Action</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <Dropdown isOpen={secondDropdownOpen}  toggle={toggle}>
+              <label htmlFor="Project">Project</label>
+              <DropdownToggle
+                onSelect={(e) => console.log("event ===>", e)}
+                caret
+                className=""
+              >
+                Dropdown
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>Header</DropdownItem>
+                <DropdownItem>Some Action</DropdownItem>
+                <DropdownItem text>Dropdown Item Text</DropdownItem>
+                <DropdownItem disabled>Action (disabled)</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Foo Action</DropdownItem>
+                <DropdownItem>Bar Action</DropdownItem>
+                <DropdownItem>Quo Action</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <div className="col-md-6 col-lg-3">
+            <Dropdown isOpen={secondDropdownOpen}  toggle={toggle}>
+              <label htmlFor="Project">Project</label>
+              <DropdownToggle
+                onSelect={(e) => console.log("event ===>", e)}
+                caret
+                className=""
+              >
+                Dropdown
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem header>Header</DropdownItem>
+                <DropdownItem>Some Action</DropdownItem>
+                <DropdownItem text>Dropdown Item Text</DropdownItem>
+                <DropdownItem disabled>Action (disabled)</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Foo Action</DropdownItem>
+                <DropdownItem>Bar Action</DropdownItem>
+                <DropdownItem>Quo Action</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+        </div>
       </div>
     </div>
   );

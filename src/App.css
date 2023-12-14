@@ -2,3 +2,7 @@
 body {
   font-family: 'Poppins', sans-serif !important;
 }
+::selection {
+  background-color: #49adff;
+  color: #fff;
+}

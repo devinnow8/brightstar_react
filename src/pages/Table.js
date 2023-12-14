@@ -10,7 +10,7 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
         <thead>
           <tr>
             {tableHeadings?.map((item, key) => (
-              <th scope="col" key={key}>
+              <th scope="col" className="table-heading" key={key}>
                 {item}
               </th>
             ))}

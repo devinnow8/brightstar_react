@@ -6,7 +6,7 @@ const ProjectCrewTable = (props) => {
       <table class="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (
-            <th scope="col" key={key}>
+            <th scope="col" className="table-heading" key={key}>
               {item}
             </th>
           ))}
@@ -16,7 +16,7 @@ const ProjectCrewTable = (props) => {
             .map((item, key) => {
               return (
                 <tr key={key}>
-                  <th scope="row">{item.name}</th>
+                  <th scope="row" >{item.name}</th>
                   <td>{item.boss_user_id}</td>
                   <td>{item.project_id}</td>
                   <td className="details-td">

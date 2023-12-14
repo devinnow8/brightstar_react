@@ -3,23 +3,23 @@ import React from "react";
 const Modal = () => {
   return (
     <>
-      <button
+      {/* <button
         type="button"
         className="btn btn-info detail-btn"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
         + Add Crew Time
-      </button>
+      </button> */}
 
       <div
-        className="modal fade centered"
+        className="modal fade "
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
