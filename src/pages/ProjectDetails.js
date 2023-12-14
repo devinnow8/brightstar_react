@@ -7,7 +7,7 @@ import ProjectCrewTable from "../components/ProjectCrewTable";
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
   const [projectCrews, setProjectCrews] = useState([]);
-  const [isCrewTimeModal, setIsCrewTimeModal] = useState(false);
+  // const [isCrewTimeModal, setIsCrewTimeModal] = useState(false);
   const navigate = useNavigate();
   const param = useParams();
 
