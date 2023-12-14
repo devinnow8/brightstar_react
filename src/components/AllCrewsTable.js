@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-const ProjectCrewTable = (props) => {
-  const { projectCrews } = props;
+const AllCrewsTable = (props) => {
+  const { crewData } = props;
   const tableHeadings = ["Name", "Boss_Id", "Project_Id"];
   const navigate = useNavigate();
 
@@ -10,6 +10,7 @@ const ProjectCrewTable = (props) => {
       state: { project_id: item?.project_id },
     });
   };
+  
   return (
     <div className="table-responsive crew-table">
       <table class="table table-striped">
@@ -21,7 +22,7 @@ const ProjectCrewTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {projectCrews.map((item, key) => {
+          {crewData.map((item, key) => {
             return (
               <tr key={key}>
                 <th scope="row">{item.name}</th>
@@ -32,7 +33,7 @@ const ProjectCrewTable = (props) => {
                     className="btn btn-info detail-btn"
                     onClick={() => onClickCrewManagement(item)}
                   >
-                    Crew Management
+                    All Crews Management
                   </button>
                 </td>
               </tr>
@@ -44,4 +45,4 @@ const ProjectCrewTable = (props) => {
   );
 };
 
-export default ProjectCrewTable;
+export default AllCrewsTable;

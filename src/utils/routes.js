@@ -6,6 +6,8 @@ import Users from "../pages/Users";
 import ProjectDetails from "../pages/ProjectDetails";
 import UserDetails from "../pages/UserDetails";
 import CrewManagement from "../pages/AddCrew";
+import AllCrewsManagement from "../pages/AllCrewsManagement";
+
 export const ROUTES = {
   HOME: {
     path: "/projects",
@@ -34,6 +36,10 @@ export const ROUTES = {
   CREW: {
     path: "/crew-management/:id?",
     element: <CrewManagement />,
+  },
+  CREW_MANAGEMENT: {
+    path: "/all-crews-management",
+    element: <AllCrewsManagement />,
   },
   NOTFOUND: {
     path: "*",
