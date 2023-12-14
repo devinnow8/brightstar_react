@@ -1,12 +1,40 @@
 import React, { useState } from "react";
+import { addCrewUser, addProjectUser } from "../API";
 
-const AddProjectCrewUser = ({ userOptions }) => {
+const AddProjectCrewUser = ({ userOptions, state }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const crewTableHeadings = ["User Id", "Name"];
 
   const onAddNewUser = () => {
-    console.log("selectedUser", selectedUser);
+    addNewCrewMemberPromise(selectedUser);
   };
+
+  const addNewCrewMemberPromise = async (data) => {
+    console.log("daatatatatta", data);
+    const crewUserPayload = {
+      crew_id: state?.crew_id,
+      user_id: data?.value,
+    };
+    const projectUserPayload = {
+      user_id: data?.value,
+      project_id: state?.project_id,
+      project_role_id: 4,
+    };
+
+    await addCrewUser(crewUserPayload).then((res) => {
+      console.log("addCrewUserRes", res);
+      if (res?.status === 200) {
+        console.log("addCrewUserRes success", res);
+        addProjectUser(projectUserPayload).then((res) => {
+          console.log("addProjectUser res", res);
+          if(res?.status === 200){
+            window.location.reload();
+          }
+        })
+      }
+    });
+  };
+
   return (
     <>
       <button
@@ -16,7 +44,7 @@ const AddProjectCrewUser = ({ userOptions }) => {
         data-bs-target="#exampleModal"
         // onClick={() => onAddCrewClick()}
       >
-        + Add Crew
+        + Add Member
       </button>
       <div
         class="modal fade"
@@ -29,57 +57,16 @@ const AddProjectCrewUser = ({ userOptions }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
-                Add New Crew To This Project
+                Add A New Member To This Crew
               </h5>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                // onClick={() => onClickCross()}
               ></button>
             </div>
             <div class="modal-body">
-              {/* <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
-                    Name
-                  </label>
-                  <input
-                    // value={addCrewDetails?.name}
-                    // onChange={(e) => onHandleChange(e)}
-                    name="name"
-                    type="text"
-                    class="form-control"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
-                    Boss_user_id
-                  </label>
-                  <input
-                    // value={addCrewDetails?.boss_user_id}
-                    // onChange={(e) => onHandleChange(e)}
-                    name="boss_user_id"
-                    type="text"
-                    class="form-control"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
-                    Project_id
-                  </label>
-                  <input
-                    disabled={true}
-                    // value={projectId}
-                    // defaultValue={projectId}
-                    name="project_id"
-                    type="text"
-                    class="form-control"
-                  />
-                </div>
-              </form> */}
-
               <>
                 <div className="table-responsive">
                   <table class="table crew-modal-table table-striped">
@@ -97,7 +84,9 @@ const AddProjectCrewUser = ({ userOptions }) => {
                         return (
                           <tr
                             className={
-                              selectedUser.value === item.value ? "activeRow" : ""
+                              selectedUser.value === item.value
+                                ? "activeRow"
+                                : ""
                             }
                             onClick={() => setSelectedUser(item)}
                             key={key}

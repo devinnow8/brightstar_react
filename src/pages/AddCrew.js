@@ -11,13 +11,13 @@ const CrewManagement = () => {
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
 
-  const { state } = useLocation()
+  const { state } = useLocation();
 
   const fetchData = async () => {
     try {
       const request1 = getAllProjectList();
       const request2 = getUserDetails();
-      const request3 = getAllCrewUser();
+      const request3 = getAllCrewUser(state?.crew_id);
       const request4 = getProjectUserDetails();
 
       const [projects, employees, userOptions, empList] = await Promise.all([
@@ -43,6 +43,7 @@ const CrewManagement = () => {
           }
         });
         console.log("roleList", employeeArr);
+
         setProjectOptions(projectLists);
         setEmployeeOptions(employeeArr);
         setUserOptions(userOptions.data);
@@ -82,21 +83,13 @@ const CrewManagement = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
 
-  const options = [
-    { name: "one", value: 1 },
-    { name: "two", value: 2 },
-    { name: "three", value: 3 },
-  ];
-
   function handleSelectChange(event, dropdown) {
-    console.log("lll", dropdown, selectedOptions[dropdown]);
     // { ...selectedOptions, selectedOptions[dropdown] = event.target.value})
     // ...selectedOptions,
     // (selectedOptions[dropdown] = event.target.value)
     const obj = { ...selectedOptions };
     obj[dropdown] = event.target.value;
     setSelectedOptions(obj);
-    console.log("pppp", event.target.value, dropdown);
   }
   console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
@@ -238,7 +231,7 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser userOptions={employeeOptions} />
+      <AddProjectCrewUser state={state} userOptions={employeeOptions} />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"

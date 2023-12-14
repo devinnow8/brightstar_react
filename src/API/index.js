@@ -1,6 +1,6 @@
 import makeApiCall from "../API/baseApi";
 
-const url = "https://lacewing-living-lacewing.ngrok-free.app";
+const url = "http://webtime.eastus.cloudapp.azure.com:3000";
 const headers = {
   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
 };
@@ -43,12 +43,21 @@ export const getUserDetailsInfo = async (id) => {
   return await makeApiCall("get", apiUrl, id, headers);
 };
 
+export const getAllCrewUser = async (id) => {
+  const apiUrl = `${url}/api/crew_user?crew_id=${id}`;
+  return await makeApiCall("get", apiUrl, id, headers);
+};
+
 export const addNewCrew = async (data) => {
   const apiUrl = `${url}/api/crew`;
   return await makeApiCall("post", apiUrl, data, headers);
 };
+export const addCrewUser = async (data) => {
+  const apiUrl = `${url}/api/crew_user`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};
 
-export const getAllCrewUser = async (id) => {
-  const apiUrl = `${url}/api/crew_user?crew_id=${3}`;
-  return await makeApiCall("get", apiUrl, id, headers);
+export const addProjectUser = async (data) => {
+  const apiUrl = `${url}/api/project_user`;
+  return await makeApiCall("post", apiUrl, data, headers);
 };
