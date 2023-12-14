@@ -10,10 +10,10 @@ import {
 
 const CrewManagement = () => {
   const crewDropdownData = [
-    { id: "dropdown1", label: "Label 1", name: "Dropdown 1" },
-    { id: "dropdown2", label: "Label 2", name: "Dropdown 2" },
-    { id: "dropdown3", label: "Label 3", name: "Dropdown 3" },
-    { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
+    { id: "Project", label: "Project", name: "Dropdown 1" },
+    { id: "Forman", label: "Forman", name: "Dropdown 2" },
+    { id: "General Forman", label: "General Forman", name: "Dropdown 3" },
+    { id: "Ops Manager", label: "Ops Manager", name: "Dropdown 4" },
   ];
   const tableHeadings = ["Name", "Boss_Id"];
 

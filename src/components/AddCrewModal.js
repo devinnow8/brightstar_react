@@ -3,24 +3,27 @@ import { addNewCrew } from "../API";
 
 const AddCrewModal = (props) => {
   const { onAddCrewClick, projectId } = props;
-  console.log("projectId ====<><>", projectId);
+
   const [addCrewDetails, setAddCrewDetails] = useState({
     name: "",
     boss_user_id: "",
   });
-  console.log("addCrewDetails ===>", addCrewDetails);
+
   const onHandleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setAddCrewDetails({ ...addCrewDetails, [name]: value });
   };
 
+  const onClickCross = () => {
+    setAddCrewDetails({name: "", boss_user_id: ""})
+  }
+
   const onClickAddCrew = async () => {
     const payload = {
       ...addCrewDetails,
       project_id: projectId,
     };
-    console.log("payload  ====>", payload);
     await addNewCrew(payload)
       .then((res) => {
         if(res?.status === 200){
@@ -29,12 +32,12 @@ const AddCrewModal = (props) => {
       })
       .catch((err) => console.log("Error occured while adding new crew", err));
   };
-
+  console.log("addCrewDetails", addCrewDetails);
   return (
     <>
       <button
         type="button"
-        className="btn btn-info detail-btn primary-btn px-3"
+        className="btn btn-info detail-btn"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         onClick={() => onAddCrewClick()}
@@ -59,6 +62,7 @@ const AddCrewModal = (props) => {
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                onClick={() => onClickCross()}
               ></button>
             </div>
             <div class="modal-body">
@@ -68,6 +72,7 @@ const AddCrewModal = (props) => {
                     Name
                   </label>
                   <input
+                    value={addCrewDetails?.name}
                     onChange={(e) => onHandleChange(e)}
                     name="name"
                     type="text"
@@ -79,6 +84,7 @@ const AddCrewModal = (props) => {
                     Boss_user_id
                   </label>
                   <input
+                    value={addCrewDetails?.boss_user_id}
                     onChange={(e) => onHandleChange(e)}
                     name="boss_user_id"
                     type="text"
@@ -101,13 +107,6 @@ const AddCrewModal = (props) => {
               </form>
             </div>
             <div class="modal-footer">
-              {/* <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button> */}
               <button
                 onClick={() => onClickAddCrew()}
                 type="button"
@@ -119,52 +118,6 @@ const AddCrewModal = (props) => {
           </div>
         </div>
       </div>
-      {/* <button
-        type="button"
-        className="btn btn-info detail-btn"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        onClick={() => onAddCrewClick()}
-      >
-        + Add Crew
-      </button>
-
-      <div
-        className="modal fade centered"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Add New Crew To This Project
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body"></div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

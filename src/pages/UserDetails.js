@@ -35,7 +35,7 @@ const UserDetails = () => {
         >
           Back
         </button>
-        <h1 className="title">User Details...</h1>
+        <h1 className="title">User Details</h1>
         <div className="row">
           {loading ? (
             <Loader />
