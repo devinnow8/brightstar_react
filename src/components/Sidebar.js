@@ -6,6 +6,7 @@ const SideBar = () => {
   const sideBarItems = [
     { name: "Projects", route: "/projects" },
     { name: "Users", route: "/users" },
+    { name: "Crew Management", route: "/all-crews-management" },
     { name: "Equipment", route: "/equipments" },
   ];
 

@@ -1,5 +1,6 @@
 
 $primary-color: #49adff;
+
 .primary-btn {
   background-color: #49adff;
   color: #fff;
@@ -59,7 +60,6 @@ $primary-color: #49adff;
       justify-content: space-between;
     }
   }
-    
   .project-details {
     // padding: 20px;
     .back-btn {
@@ -83,6 +83,14 @@ $primary-color: #49adff;
         height: 100%;
         .card-data {
           display: flex;
+          &:last-child {
+            .heading {
+              margin-bottom: 0;
+            }
+            .data {
+              margin-bottom: 0;
+            }
+          }
           .heading {
             width: 28%;
             font-weight: 600;
@@ -122,6 +130,9 @@ $primary-color: #49adff;
     .crew-table {
       height: 250px;
       overflow-y: auto;
+      &.all-crew-table {
+        height: auto;
+      }
       @media (max-height: 800px) {
         height: 172px;
       }
@@ -147,10 +158,12 @@ $primary-color: #49adff;
       font-size: 17px;
       padding-left: 6px;
     }
+    th, td {
+      border-bottom-width: 0;
+    }
     td {
       vertical-align: middle;
       height: 62px;
-      border-top: 1px solid #e4e4e4;
       .detail-btn {
         @extend .primary-btn;
       }
@@ -188,9 +201,17 @@ $primary-color: #49adff;
         }
       }
       .team-table {
-        height: 300px;
+        height: 100%;
+        min-height: 300px;
+        max-height: 506px;
         overflow-y: auto;
-        margin-bottom: 2rem;
+        margin-bottom: 1.1rem;
+        @media (min-width: 1280px) and (max-height: 720px) {
+          max-height: 330px;
+        }
+        // @media (max-height: 900px) {
+        //   max-height: 484px;
+        // }
       }
     }
     .loader {
