@@ -33,7 +33,7 @@ const AllCrewsTable = (props) => {
           {crewData.map((item, key) => {
             return (
               <tr key={key}>
-                <th scope="row">{item.name}</th>
+                <th scope="row" className="table-heading">{item.name}</th>
                 <td>{item.boss_user_id}</td>
                 <td>{item.project_id}</td>
                 <td className="details-td">

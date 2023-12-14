@@ -264,7 +264,7 @@ const CrewManagement = () => {
                     onClick={() => setSelectedUser(item)}
                     key={key}
                   >
-                    <th scope="row">{item.id}</th>
+                    <th scope="row" className="table-heading">{item.id}</th>
                     <td>{item.user_id}</td>
                     <td>{item.crew_id}</td>
                     <td>{item.description}</td>

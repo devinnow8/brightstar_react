@@ -47,6 +47,7 @@ $primary-color: #49adff;
     .nav-item {
       margin-bottom: 5px;
       padding: 3px 20px 10px 20px;
+      width: 100%;
       &.selectedTab {
         background-color: #494949;
         width: 100%
@@ -187,7 +188,7 @@ $primary-color: #49adff;
         box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
-        margin-bottom: 3rem;
+        margin-bottom: 2.2rem;
         label {
           display: block;
           font-weight: 500;
@@ -221,9 +222,12 @@ $primary-color: #49adff;
         @media (min-width: 1280px) and (max-height: 720px) {
           max-height: 330px;
         }
-        // @media (max-height: 900px) {
-        //   max-height: 484px;
-        // }
+      }
+      .crew-modal-table > tbody > .activeRow > * {
+        background-color: $primary-color;
+      }
+      .modal-title {
+        font-weight: 700;
       }
     }
     .loader {
