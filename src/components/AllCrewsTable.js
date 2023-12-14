@@ -1,5 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
+const tableStyleObj = {
+  '/all-crews-management': 'all-crew-table'
+}
+
 const AllCrewsTable = (props) => {
   const location = useLocation();
   console.log(location.pathname, 'location');
@@ -13,8 +17,10 @@ const AllCrewsTable = (props) => {
     });
   };
   
+  const addTableClass = tableStyleObj[location.pathname] || "";
+
   return (
-    <div className={`table-responsive crew-table ${location.pathname === '/all-crews-management' ? 'all-crew-table' : ""}`}>
+    <div className={`table-responsive crew-table ${addTableClass}`}>
       <table class="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (
