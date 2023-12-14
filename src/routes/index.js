@@ -7,7 +7,7 @@ import SideBar from "../components/Sidebar";
 import Users from "../pages/Users";
 import ProjectDetails from "../pages/ProjectDetails";
 import UserDetails from "../pages/UserDetails";
-import AddCrew from "../pages/AddCrew";
+import CrewManagement from "../pages/AddCrew";
 
 function Routing() {
   const accessToken = localStorage.getItem("accessToken");
@@ -39,7 +39,7 @@ function Routing() {
                     element={<ProjectDetails />}
                   />
                   <Route path="/user-details/:id?" element={<UserDetails />} />
-                  <Route path="/crew-management/:id?" element={<AddCrew />} />
+                  <Route path="/crew-management/:id?" element={<CrewManagement />} />
                   <Route path="*" element={<div>404 Error</div>} />
                 </Routes>
               </div>

@@ -7,7 +7,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-const AddCrew = () => {
+const CrewManagement = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [secondDropdownOpen, setSecondDropdownOpen] = useState(false);
 
@@ -117,4 +117,4 @@ const AddCrew = () => {
   );
 };
 
-export default AddCrew;
+export default CrewManagement;

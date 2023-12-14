@@ -34,7 +34,7 @@ export const getUserDetailsInfo = async (id) => {
   return await makeApiCall("get", apiUrl, id, headers);
 };
 
-// export const getAllCrew = async (data) => {
-//     const apiUrl = `${url}/api/crew_user`;
-//     return await makeApiCall("post", apiUrl, data, headers);
-// };
+export const addNewCrew = async (data) => {
+    const apiUrl = `${url}/api/crew`;
+    return await makeApiCall("post", apiUrl, data, headers);
+};

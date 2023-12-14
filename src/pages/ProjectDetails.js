@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { getProjectDetails, getProjectCrews } from "../API";
 import { useNavigate, useParams } from "react-router-dom";
-import Modal from "../components/Modal";
+import AddCrewTimeModal from "../components/Modal";
 import ProjectCrewTable from "../components/ProjectCrewTable";
+import AddCrewModal from "../components/AddCrewModal";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
+  console.log("projectDetails ====>", projectDetails);
   const [projectCrews, setProjectCrews] = useState([]);
   const [isCrewTimeModal, setIsCrewTimeModal] = useState(false);
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const ProjectDetails = () => {
   };
 
   const onAddCrewClick = () => {
-    navigate(`/crew-management?${param?.id}`);
+    console.log("onAddCrewClick");
   };
 
   //   const onAddCrewTime = () => {
@@ -89,23 +91,8 @@ const ProjectDetails = () => {
       </div>
       <div className="crew-info">
         <h1 className="title">Crew Info</h1>
-        <div>
-          <button
-            onClick={() => onAddCrewClick()}
-            className="btn btn-info primary-btn me-3 px-3"
-          >
-            + Add Crew
-          </button>
-          <button
-            type="button"
-            className="btn btn-info primary-btn px-3"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            + Add Crew Time
-          </button>
-        </div>
-        <Modal />
+        <AddCrewModal projectId = {projectDetails?.id} onAddCrewClick={onAddCrewClick} />
+        <AddCrewTimeModal />
         {/* <button
           onClick={() => onAddCrewTime()}
           type="button"

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = () => {
+const AddCrewTimeModal = () => {
   return (
     <>
       {/* <button
@@ -54,4 +54,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default AddCrewTimeModal;

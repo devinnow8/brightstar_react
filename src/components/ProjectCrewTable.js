@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 const ProjectCrewTable = (props) => {
   const { projectCrews } = props;
   const tableHeadings = ['Name', 'Boss_Id', 'Project_Id'];
+  const navigate = useNavigate();
+
+  const onClickCrewManagement = (item) => {
+    navigate(`/crew-management?${item?.id}`)
+  }
   return (
     <div className="table-responsive">
       <table class="table table-striped">
@@ -22,9 +29,9 @@ const ProjectCrewTable = (props) => {
                   <td className="details-td">
                     <button
                       className="btn btn-info detail-btn"
-                    //   onClick={() => detailHandler(item.id)}
+                      onClick={() => onClickCrewManagement(item)}
                     >
-                      Details
+                      Crew Management
                     </button>
                   </td>
                 </tr>
