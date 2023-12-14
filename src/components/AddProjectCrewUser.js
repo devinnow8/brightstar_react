@@ -3,7 +3,10 @@ import React, { useState } from "react";
 const AddProjectCrewUser = ({ userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const crewTableHeadings = ["Id", "User_Id", "Crew_Id"];
-  console.log("userOptions55", userOptions);
+
+  const onAddNewUser = () => {
+    console.log("selectedUser", selectedUser);
+  };
   return (
     <>
       <button
@@ -94,9 +97,9 @@ const AddProjectCrewUser = ({ userOptions }) => {
                         return (
                           <tr
                             className={
-                              selectedUser === item.id ? "activeRow" : ""
+                              selectedUser.id === item.id ? "activeRow" : ""
                             }
-                            onClick={() => setSelectedUser(item.id)}
+                            onClick={() => setSelectedUser(item)}
                             key={key}
                           >
                             <td>{item.id}</td>
@@ -114,11 +117,13 @@ const AddProjectCrewUser = ({ userOptions }) => {
             </div>
             <div class="modal-footer">
               <button
-                // onClick={() => onClickAddCrew()}
+                data-bs-dismiss="modal"
                 type="button"
                 class="primary-btn"
+                aria-label="Close"
+                onClick={() => onAddNewUser()}
               >
-                + Add
+                Submit
               </button>
             </div>
           </div>
