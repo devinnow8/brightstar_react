@@ -33,6 +33,10 @@ export const getUserDetails = async (data) => {
   const apiUrl = `${url}/api/user`;
   return await makeApiCall("get", apiUrl, data, headers);
 };
+export const getProjectUserDetails = async (data) => {
+  const apiUrl = `${url}/api/user?expand=role`;
+  return await makeApiCall("get", apiUrl, data, headers);
+};
 
 export const getUserDetailsInfo = async (id) => {
   const apiUrl = `${url}/api/user/${id}`;
@@ -48,4 +52,3 @@ export const getAllCrewUser = async (id) => {
   const apiUrl = `${url}/api/crew_user?crew_id=${3}`;
   return await makeApiCall("get", apiUrl, id, headers);
 };
-

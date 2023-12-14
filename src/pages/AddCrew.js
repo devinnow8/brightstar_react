@@ -6,7 +6,12 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { getAllProjectList, getUserDetails, getAllCrewUser } from "../API";
+import {
+  getAllProjectList,
+  getUserDetails,
+  getProjectUserDetails,
+  getAllCrewUser,
+} from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 // import axios from "axios";
@@ -24,11 +29,13 @@ const CrewManagement = () => {
       const request1 = getAllProjectList();
       const request2 = getUserDetails();
       const request3 = getAllCrewUser();
+      const request4 = getProjectUserDetails();
 
-      const [projects, employees, userOptions] = await Promise.all([
+      const [projects, employees, userOptions, empList] = await Promise.all([
         request1,
         request2,
         request3,
+        request4,
       ]);
 
       if (projects && employees && userOptions) {
@@ -36,12 +43,21 @@ const CrewManagement = () => {
         const projectLists = projects.data.map((project) => {
           return { value: project.id, name: project.id };
         });
-        const employeesLists = employees.data.map((project) => {
-          return { value: project.name, name: project.name };
+        // const employeesLists = employees.data.map((project) => {
+        //   return { value: project.name, name: project.name };
+        // });
+
+        let employeeArr = [];
+        await empList.data.forEach((user) => {
+          if (user.role.name === "member") {
+            employeeArr.push({ value: user.id, name: user.name });
+          }
         });
+        console.log("roleList", employeeArr);
         setProjectOptions(projectLists);
-        setEmployeeOptions(employeesLists);
+        setEmployeeOptions(employeeArr);
         setUserOptions(userOptions.data);
+
         // setData3(response3.data);
       }
     } catch (error) {
@@ -134,7 +150,7 @@ const CrewManagement = () => {
               </div>
               <div className="col-md-6 col-lg-3">
                 <div>
-                  <label htmlFor="">Label 2</label>
+                  <label htmlFor="">Foreman</label>
                   <select
                     onChange={(e) => handleSelectChange(e, "employee")}
                     class="form-select"
@@ -145,7 +161,7 @@ const CrewManagement = () => {
                         return (
                           <option
                             selected={
-                              selectedOptions["employee"] === option.value
+                              selectedOptions["foreman"] === option.value
                             }
                             value={option.value}
                           >
@@ -158,18 +174,18 @@ const CrewManagement = () => {
               </div>
               <div className="col-md-6 col-lg-3">
                 <div>
-                  <label htmlFor="">Label 3</label>
+                  <label htmlFor="">General Foreman</label>
                   <select
                     onChange={(e) => handleSelectChange(e, "project")}
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    {projectOptions &&
-                      projectOptions?.map((option) => {
+                    {employeeOptions &&
+                      employeeOptions?.map((option) => {
                         return (
                           <option
                             selected={
-                              selectedOptions["project1"] === option.value
+                              selectedOptions["gForeMan"] === option.value
                             }
                             value={option.value}
                           >
@@ -182,18 +198,18 @@ const CrewManagement = () => {
               </div>
               <div className="col-md-6 col-lg-3">
                 <div>
-                  <label htmlFor="">Label 4</label>
+                  <label htmlFor="">Ops Manager</label>
                   <select
                     onChange={(e) => handleSelectChange(e, "project")}
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    {projectOptions &&
-                      projectOptions?.map((option) => {
+                    {employeeOptions &&
+                      employeeOptions?.map((option) => {
                         return (
                           <option
                             selected={
-                              selectedOptions["project2"] === option.value
+                              selectedOptions["manager"] === option.value
                             }
                             value={option.value}
                           >
