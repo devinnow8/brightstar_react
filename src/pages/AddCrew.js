@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import {
-  getAllProjectList,
-  getUserDetails,
-  getProjectUserDetails,
-  getAllCrewUser,
-} from "../API";
+import { useNavigate, useParams } from "react-router-dom";
+import { getAllProjectList, getUserDetails, getAllCrewUser, getProjectUserDetails, } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 // import axios from "axios";
 
 const CrewManagement = () => {
   const [employeeOptions, setEmployeeOptions] = useState([]);
-  // const [data2, setData2] = useState([]);
-  // const [data3, setData3] = useState([]);
   const [loading, setLoading] = useState(true);
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
+
+  const param = useParams();
+  console.log("params ===>", param);
 
   const fetchData = async () => {
     try {
