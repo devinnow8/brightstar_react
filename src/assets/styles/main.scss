@@ -179,23 +179,27 @@ $primary-color: #49adff;
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
         margin-bottom: 3rem;
-        .crew-flex {
-          display: flex;
-          label {
-            display: block;
-            font-weight: 500;
-            font-size: 17px;
-            margin-bottom: 5px;
+        label {
+          display: block;
+          font-weight: 500;
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+        .dropdown {
+          @media (max-width: 820px) {
+            margin-bottom: 20px;
           }
-          .dropdown {
-            @media (max-width: 820px) {
-              margin-bottom: 20px;
-            }
-            .dropdown-toggle {
-              @extend .primary-btn;
-              padding: 10px 18px;
-              background-color: #2583d0;
-            }
+          .dropdown-toggle {
+            @extend .primary-btn;
+            padding: 10px 18px;
+            background-color: #2583d0;
+          }
+        }
+        .form-select {
+          padding: 9px;
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: unset;
           }
         }
       }
