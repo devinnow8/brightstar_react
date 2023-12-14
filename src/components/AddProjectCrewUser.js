@@ -4,7 +4,9 @@ const AddProjectCrewUser = ({ userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const crewTableHeadings = ["Id", "User_Id", "Crew_Id"];
 
-  const onAddNewUser = () => {};
+  const onAddNewUser = () => {
+    console.log("selectedUser", selectedUser);
+  };
   return (
     <>
       <button
