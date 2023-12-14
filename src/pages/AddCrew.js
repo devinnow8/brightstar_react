@@ -72,7 +72,7 @@ const CrewManagement = () => {
           ))}
         </div>
       </div>
-      <div className="table-responsive">
+      <div className="table-responsive team-table">
         <table class="table table-striped">
           <thead>
             {tableHeadings.map((item, key) => (
@@ -101,12 +101,14 @@ const CrewManagement = () => {
             })}
           </tbody>
         </table>
-        <button
+      </div>
+      <div className="text-end">
+      <button
           className="primary-btn mb-4"
           // onClick={() => navigate("/projects")}
         >
           Add Team Projects
-        </button>
+      </button>
       </div>
     </div>
   );

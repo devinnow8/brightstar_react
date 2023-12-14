@@ -118,6 +118,7 @@ $primary-color: #49adff;
     }
     .table-heading {
       font-size: 17px;
+      padding-left: 6px;
     }
     td {
       vertical-align: middle;
@@ -137,6 +138,7 @@ $primary-color: #49adff;
         box-shadow: 0px 0px 12px rgba(0,0,0,0.18);
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
+        margin-bottom: 3rem;
         .crew-flex {
           display: flex;
           label {
@@ -157,6 +159,11 @@ $primary-color: #49adff;
           }
           
         }
+      }
+      .team-table {
+        height: 400px;
+        overflow-y: auto;
+        margin-bottom: 2rem;
       }
     }
   }
