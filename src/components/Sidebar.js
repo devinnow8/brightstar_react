@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ const SideBar = () => {
     { name: "Crew Management", route: "/all-crews-management" },
     { name: "Equipment", route: "/equipments" },
   ];
+  const [selectedTab, setSelectedTab] = useState(sideBarItems[0].name);
 
   const signOutHandler = (event) => {
     // event.preventDefault();
@@ -17,7 +18,14 @@ const SideBar = () => {
     navigate("/");
   };
 
-  console.log(sideBarItems);
+  console.log(window.location.pathname);
+
+  const onTabClick = (item) => {
+    console.log("item11", item);
+    setSelectedTab(item.name);
+  };
+  console.log("selectedTab", selectedTab);
+
   return (
     <>
       <div className="sidebar text-white">
@@ -29,12 +37,24 @@ const SideBar = () => {
           >
             {sideBarItems.map((item, key) => {
               return (
-                <li className="nav-item" key={key}>
-                  {/* <Link to=></Link> */}
-                  <a href={item.route} className="nav-link align-middle px-0">
-                    <i className="fs-4 bi-house"></i>{" "}
-                    <span className="ms-1 d-none d-sm-inline">{item.name}</span>
-                  </a>
+                <li
+                  onClick={() => onTabClick(item)}
+                  className={
+                    selectedTab === item.name
+                      ? "nav-item selectedTab"
+                      : "nav-item"
+                  }
+                  key={key}
+                >
+                  <span className="nav-link align-middle px-0">
+                    <Link
+                      className="nav-link align-middle px-0"
+                      to={item.route}
+                    >
+                      {item.name}
+                      <i className="fs-4 bi-house"></i>{" "}
+                    </Link>
+                  </span>
                 </li>
               );
             })}
