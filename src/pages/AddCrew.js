@@ -242,8 +242,7 @@ const CrewManagement = () => {
         </button>
       </div> */}
       {console.log("hhhhhh", userOptions)}
-      {userOptions?.map((item, key) => {
-        return (
+     
           <>
             <div className="table-responsive">
               <table class="table table-striped">
@@ -257,6 +256,8 @@ const CrewManagement = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {userOptions?.map((item, key) => {
+        return (
                   <tr
                     className={selectedUser.id === item.id ? "activeRow" : ""}
                     onClick={() => setSelectedUser(item)}
@@ -268,12 +269,13 @@ const CrewManagement = () => {
                     <td>{item.description}</td>
                     <td className="details-td"></td>
                   </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </>
-        );
-      })}
+      
     </div>
   );
 };
