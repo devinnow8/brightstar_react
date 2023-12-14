@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import { getAllProjectList, getUserDetails, getAllCrewUser } from "../API";
 import Loader from "./Loader";
+import AddProjectCrewUser from "../components/AddProjectCrewUser";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -103,7 +104,6 @@ const CrewManagement = () => {
       >
         Back
       </button>
-
       <div className="crew-mgmt-card">
         <div className="crew-flex row">
           {projectOptions.length > 0 ? (
@@ -233,15 +233,16 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-
-      <div className="text-end">
+      <AddProjectCrewUser userOptions={userOptions} />
+      {/* <div className="text-end">
         <button
           className="primary-btn mb-4"
+          onClick={() => AddProjectCrewUser()}
           // onClick={() => navigate("/projects")}
         >
-          Add Team Projects
+          Add Crew Users
         </button>
-      </div>
+      </div> */}
       {console.log("hhhhhh", userOptions)}
       {userOptions?.map((item, key) => {
         return (
@@ -250,7 +251,7 @@ const CrewManagement = () => {
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    {tableHeadings?.map((item, key) => (
+                    {crewTableHeadings?.map((item, key) => (
                       <th scope="col" className="table-heading" key={key}>
                         {item}
                       </th>
@@ -264,8 +265,8 @@ const CrewManagement = () => {
                     key={key}
                   >
                     <th scope="row">{item.id}</th>
-                    <td>{item.name}</td>
-                    <td>{item.status}</td>
+                    <td>{item.user_id}</td>
+                    <td>{item.crew_id}</td>
                     <td>{item.description}</td>
                     <td className="details-td"></td>
                   </tr>

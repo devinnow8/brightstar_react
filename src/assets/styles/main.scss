@@ -234,5 +234,8 @@ input {
     outline: none;
   }
 }
+.activeRow{
+  background-color: yellow
+}
 
 @import "./auth.scss";

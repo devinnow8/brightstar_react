@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AddProjectCrewUser = () => {
+const AddProjectCrewUser = ({ userOptions }) => {
+  const [selectedUser, setSelectedUser] = useState({});
+  const crewTableHeadings = ["Id", "User_Id", "Crew_Id"];
+  console.log("userOptions55", userOptions);
   return (
     <>
       <button
@@ -34,7 +37,7 @@ const AddProjectCrewUser = () => {
               ></button>
             </div>
             <div class="modal-body">
-              <form>
+              {/* <form>
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">
                     Name
@@ -72,7 +75,42 @@ const AddProjectCrewUser = () => {
                     class="form-control"
                   />
                 </div>
-              </form>
+              </form> */}
+
+              <>
+                <div className="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        {crewTableHeadings?.map((item, key) => (
+                          <th scope="col" className="table-heading" key={key}>
+                            {item}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {userOptions?.map((item, key) => {
+                        return (
+                          <tr
+                            className={
+                              selectedUser === item.id ? "activeRow" : ""
+                            }
+                            onClick={() => setSelectedUser(item.id)}
+                            key={key}
+                          >
+                            <td>{item.id}</td>
+                            <td>{item.user_id}</td>
+                            <td>{item.crew_id}</td>
+                            <td>{item.description}</td>
+                            <td className="details-td"></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             </div>
             <div class="modal-footer">
               <button
