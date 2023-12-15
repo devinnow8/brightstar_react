@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { addCrewTimeEntry, getAllCrewUser, getUserDetails } from "../API";
 
 const AddCrewTimeDateModal = (props) => {
   const { crew_id } = props;
   const [allUsers, setAllUsers] = useState([]);
   const [crewUsers, setCrewUsers] = useState([]);
-
   const [allSelectedUsers, setAllSelectedUsers] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState();
@@ -14,6 +15,8 @@ const AddCrewTimeDateModal = (props) => {
     time_entry_in: "08:30",
     time_entry_out: "17:00",
   });
+
+  const navigate = useNavigate();
 
   const onDateChange = (e) => {
     const selectedDate = new Date(e.target.value);
@@ -29,9 +32,12 @@ const AddCrewTimeDateModal = (props) => {
 
   const getCurrentDateTime = () => {
     const currentDate = new Date();
-    const formattedDateTime = currentDate.toISOString().replace('T', ' ').slice(0, -1);
+    const formattedDateTime = currentDate
+      .toISOString()
+      .replace("T", " ")
+      .slice(0, -1);
     return formattedDateTime;
-  }
+  };
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
@@ -76,11 +82,10 @@ const AddCrewTimeDateModal = (props) => {
 
   const onChangeUserSelect = (item) => {
     setAllSelectedUsers(item);
-  }
+  };
 
-
-  const onClickSave = async() => {
-    allSelectedUsers?.forEach(async(ele) => {
+  const onClickSave = async () => {
+    allSelectedUsers?.forEach(async (ele) => {
       const payload = {
         ...punchInOutTime,
         entry_time: getCurrentDateTime(),
@@ -91,8 +96,11 @@ const AddCrewTimeDateModal = (props) => {
         is_crew_entry: true,
         time_entry_status_id: 1,
       };
-      await addCrewTimeEntry(payload).then((res) => console.log("API called successfully", res))
-    })
+      await addCrewTimeEntry(payload).then(() => {
+        toast.success("Time entry successfully added.");
+        navigate("/time-sheet");
+      });
+    });
   };
   return (
     <>
