@@ -81,6 +81,7 @@ const CrewManagement = () => {
   const onAddNewMember = async () => {
     const userOptions = await getAllCrewUser(crewId);
     setUserOptions(userOptions.data);
+    toast.success("New member added successfully");
   };
 
   console.log("thirdApi==>>", userOptions);
