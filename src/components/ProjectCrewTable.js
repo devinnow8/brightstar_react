@@ -3,7 +3,7 @@ import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
 
 const ProjectCrewTable = (props) => {
   const { projectCrews } = props;
-  const tableHeadings = ["Name", "Boss_Id", "Project_Id"];
+  const tableHeadings = ["Name", "Boss Id", "Project Id"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {

@@ -27,12 +27,6 @@ const AllCrewsManagement = () => {
   const navigate = useNavigate();
   return (
     <div className="project-details">
-      {/* <button
-        className="btn btn-primary back-btn"
-        onClick={() => navigate("/projects")}
-      >
-        Back
-      </button> */}
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
         <AddNewCrewModal addNewCrewUser={addNewCrewUser} />

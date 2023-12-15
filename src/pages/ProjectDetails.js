@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
+import AddCrewTimeModal from "../components/Modal";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
@@ -64,7 +65,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.name}</p>
             </div>
             <div className="card-data">
-              <p className="heading">Acumatica_project_id:</p>
+              <p className="heading">Acumatica Project id:</p>
               <p className="data">{projectDetails?.acumatica_project_id}</p>
             </div>
             <div className="card-data">
@@ -72,7 +73,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.description}</p>
             </div>
             <div className="card-data">
-              <p className="heading">External_id_source:</p>
+              <p className="heading">External Id Source:</p>
               <p className="data">{projectDetails?.external_id_source}</p>
             </div>
             <div className="card-data">
@@ -80,7 +81,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.status}</p>
             </div>
             <div className="card-data">
-              <p className="heading">CreatedAt:</p>
+              <p className="heading">Created At:</p>
               <p className="data">{projectDetails?.created_at}</p>
             </div>
           </div>
@@ -93,7 +94,7 @@ const ProjectDetails = () => {
           onAddCrewClick={onAddCrewClick}
           addNewCrewToList={addNewCrewToList}
         />
-        {/* <AddCrewTimeDateModal /> */}
+        {/* <AddCrewTimeModal /> */}
         {/* <button
           onClick={() => onAddCrewTime()}
           type="button"

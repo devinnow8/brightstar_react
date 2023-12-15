@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { brightStarLogin } from "../API/index";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
@@ -20,7 +21,7 @@ const Login = () => {
           navigate("/projects");
         }
       })
-      .catch((err) => console.log("error while logging in", err));
+      .catch((err) => console.log("error", err));
   };
 
   return (
