@@ -21,6 +21,9 @@ const AllCrewsManagement = () => {
   useEffect(() => {
     fetchAllCrews();
   }, []);
+  const addNewCrewUser = () => {
+    fetchAllCrews();
+  };
   const navigate = useNavigate();
   return (
     <div className="project-details">
@@ -32,7 +35,7 @@ const AllCrewsManagement = () => {
       </button> */}
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
-        <AddNewCrewModal />
+        <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
         <AddCrewTimeDateModal />
       </div>
       {crewData.length > 0 && <AllCrewsTable crewData={crewData} />}

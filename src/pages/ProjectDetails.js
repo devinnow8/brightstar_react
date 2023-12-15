@@ -23,7 +23,9 @@ const ProjectDetails = () => {
   };
 
   const onAddCrewClick = () => {};
-
+  const addNewCrewToList = async () => {
+    await fetchProjectCrews();
+  };
   //   const onAddCrewTime = () => {
   //     setIsCrewTimeModal(true);
   //   };
@@ -89,6 +91,7 @@ const ProjectDetails = () => {
         <AddCrewModal
           projectId={projectDetails?.id}
           onAddCrewClick={onAddCrewClick}
+          addNewCrewToList={addNewCrewToList}
         />
         <AddCrewTimeDateModal />
         {/* <button

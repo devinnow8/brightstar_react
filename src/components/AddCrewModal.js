@@ -2,7 +2,7 @@ import { useState } from "react";
 import { addNewCrew } from "../API";
 
 const AddCrewModal = (props) => {
-  const { onAddCrewClick, projectId } = props;
+  const { onAddCrewClick, addNewCrewToList, projectId } = props;
 
   const [addCrewDetails, setAddCrewDetails] = useState({
     name: "",
@@ -27,11 +27,13 @@ const AddCrewModal = (props) => {
     await addNewCrew(payload)
       .then((res) => {
         if (res?.status === 200) {
-          window.location.reload();
+          addNewCrewToList();
+          // window.location.reload();
         }
       })
       .catch((err) => console.log("Error occured while adding new crew", err));
   };
+
   return (
     <>
       <button
@@ -39,7 +41,7 @@ const AddCrewModal = (props) => {
         className="btn btn-info primary-btn px-3"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        onClick={() => onAddCrewClick()}
+        // onClick={() => onAddCrewClick()}
       >
         + Add Crew
       </button>
@@ -113,6 +115,7 @@ const AddCrewModal = (props) => {
                 onClick={() => onClickAddCrew()}
                 type="button"
                 className="primary-btn"
+                data-bs-dismiss="modal"
               >
                 + Add
               </button>
