@@ -87,7 +87,7 @@ const AddCrewTimeDateModal = (props) => {
                     <label for="recipient-name" class="col-form-label">
                       Date:
                     </label>
-                    <input aria-label="Date" type="Date" />
+                    <input aria-label="Date" className="input-field" type="Date" />
                   </div>
                 </div>
                 <div className="col-md-6 col-lg-4">
@@ -97,7 +97,7 @@ const AddCrewTimeDateModal = (props) => {
                     </label>
                     <select
                       // onChange={(e) => handleSelectChange(e, "project")}
-                      class="form-select"
+                      class="form-select input-field"
                       aria-label="Default select example"
                     ></select>
                   </div>
@@ -119,7 +119,7 @@ const AddCrewTimeDateModal = (props) => {
                     <label for="recipient-name" class="col-form-label">
                       Working Time
                     </label>
-                    <input aria-label="Time" type="time" />
+                    <input aria-label="Time" type="time" className="input-field"/>
                     <label for="recipient-name" class="col-form-label">
                       Start
                     </label>
@@ -134,7 +134,7 @@ const AddCrewTimeDateModal = (props) => {
                     >
                       Working Time
                     </label>
-                    <input aria-label="Time" type="time" />
+                    <input aria-label="Time" type="time" className="input-field" />
                     <label for="recipient-name" class="col-form-label">
                       End
                     </label>
@@ -146,11 +146,10 @@ const AddCrewTimeDateModal = (props) => {
               <button
                 type="button"
                 class="primary-btn me-3"
-                data-bs-dismiss="modal"
               >
                 Save
               </button>
-              <button type="button" class="primary-btn-outlined">
+              <button type="button" data-bs-dismiss="modal" class="primary-btn-outlined">
                 Cancel
               </button>
             </div>
