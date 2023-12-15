@@ -21,23 +21,21 @@ const TimeSheetTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {timeSheets?.length ? (
-            timeSheets?.map((item, key) => {
-              //   const punchIn = getDate(item.time_entry_in);
-              //   const punchOut = getDate(item.time_entry_out);
+          {timeSheets?.length
+            ? timeSheets?.map((item, key) => {
+                //   const punchIn = getDate(item.time_entry_in);
+                //   const punchOut = getDate(item.time_entry_out);
 
-              return (
-                <tr key={key}>
-                  <td>{item?.time_entry_in}</td>
-                  <td>{item.time_entry_out}</td>
-                  <td>{item.crew_id}</td>
-                  <td>{item.crew_user_id}</td>
-                </tr>
-              );
-            })
-          ) : (
-            <div>No data found</div>
-          )}
+                return (
+                  <tr key={key}>
+                    <td>{item?.time_entry_in}</td>
+                    <td>{item.time_entry_out}</td>
+                    <td>{item.crew_id}</td>
+                    <td>{item.crew_user_id}</td>
+                  </tr>
+                );
+              })
+            : !isLoading && <div>No data found</div>}
         </tbody>
       </table>
     </div>
