@@ -1,9 +1,15 @@
 
 .time-entry-modal {
-  .modal-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: $primary-color;
+  .modal-header {
+    justify-content: center;
+    .modal-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: $primary-color;
+    }
+  }
+  .modal-footer {
+    padding: 22px 9px;
   }
   .col-form-label {
     display: block;
@@ -18,9 +24,16 @@
     height: 43px;
     padding: 10px;
     font-size: 14px;
-    
+
   }
   .form-select {
     @extend input;
+  }
+  .react-select__control {
+    min-height: 38px !important;
+    .react-select__value-container {
+      .react-select__placeholder {
+      }
+    }
   }
 }

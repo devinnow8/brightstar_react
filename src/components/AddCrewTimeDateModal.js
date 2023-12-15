@@ -65,12 +65,6 @@ const AddCrewTimeDateModal = (props) => {
               <h1 class="modal-title" id="largeModalLabel">
                 New Time Entry
               </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
             </div>
             <div class="modal-body">
               <div className="row">
@@ -80,11 +74,11 @@ const AddCrewTimeDateModal = (props) => {
                       Select Team Members
                     </label>
                     <Select
+                      className="react-select-container"
+                      classNamePrefix="react-select"
                       isMulti
                       name="colors"
                       options={crewUsers}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
                     />
                   </div>
                 </div>
@@ -142,7 +136,7 @@ const AddCrewTimeDateModal = (props) => {
                     </label>
                     <input aria-label="Time" type="time" />
                     <label for="recipient-name" class="col-form-label">
-                      Start
+                      End
                     </label>
                   </div>
                 </div>
@@ -151,13 +145,13 @@ const AddCrewTimeDateModal = (props) => {
             <div class="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                class="primary-btn me-3"
                 data-bs-dismiss="modal"
               >
-                Close
+                Save
               </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
+              <button type="button" class="primary-btn-outlined">
+                Cancel
               </button>
             </div>
           </div>
