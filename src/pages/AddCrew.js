@@ -11,6 +11,7 @@ import {
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
+import { toast } from "react-toastify";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -21,7 +22,9 @@ const CrewManagement = () => {
   const [roles, setRoles] = useState([]);
 
   const { crewId, projectId } = useParams();
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   const fetchData = async () => {
     try {
       // const request1 = getAllProjectList;
@@ -40,7 +43,7 @@ const CrewManagement = () => {
 
       if (projects && employees && userOptions) {
         setLoading(false);
-        const projectLists = projects.data.map((project) => {
+        const projectLists = projects.data?.map((project) => {
           return { value: project.id, name: project.id };
         });
         // const employeesLists = employees.data.map((project) => {
@@ -75,9 +78,11 @@ const CrewManagement = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const onAddNewMember = async () => {
+    const userOptions = await getAllCrewUser(crewId);
+    setUserOptions(userOptions.data);
+    toast.success("New member added successfully");
+  };
 
   console.log("thirdApi==>>", userOptions);
   // const crewDropdownData = [
@@ -87,7 +92,7 @@ const CrewManagement = () => {
   //   { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
   // ];
   // const tableHeadings = ["Name", "Boss_Id"];
-  const crewTableHeadings = ["Id", "User Id", "Crew Id"];
+  const crewTableHeadings = ["Id", "Name", "Crew Id"];
 
   // const [manageCrewDropdownData, setManageCrewDropdownData] = useState(
   //   crewDropdownData.reduce((acc, curr) => ({ ...acc, [curr.id]: false }), {})
@@ -139,6 +144,7 @@ const CrewManagement = () => {
         addProjectUser(projectUserPayload).then((res) => {
           console.log("addProjectUser res", res);
           if (res?.status === 200) {
+            toast.success("Changed Successfully");
             // window.location.reload();
           }
         });
@@ -159,7 +165,7 @@ const CrewManagement = () => {
       </button>
       <div className="crew-mgmt-card">
         <div className="crew-flex row">
-          {projectOptions.length > 0 ? (
+          {projectOptions?.length > 0 ? (
             <>
               <div className="col-md-6 col-lg-3">
                 <div className="mb-3 mb-lg-0">
@@ -289,7 +295,11 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser state={crewId} userOptions={employeeOptions} />
+      <AddProjectCrewUser
+        state={crewId}
+        userOptions={employeeOptions}
+        onAddNewMember={onAddNewMember}
+      />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"
@@ -334,25 +344,29 @@ const CrewManagement = () => {
                   );
                   
                 })} */}
-
                 {userOptions && userOptions.length > 0
-                  ? userOptions.map((item, key) => (
-                      <tr
-                        className={
-                          selectedUser.id === item.id ? "activeRow" : ""
-                        }
-                        onClick={() => setSelectedUser(item)}
-                        key={key}
-                      >
-                        <th scope="row" className="table-heading">
-                          {item.id}
-                        </th>
-                        <td>{item.user_id}</td>
-                        <td>{item.crew_id}</td>
-                        <td>{item.description}</td>
-                        <td className="details-td"></td>
-                      </tr>
-                    ))
+                  ? userOptions.map((item, key) => {
+                      const user = employeeOptions.find(
+                        (user) => user.value === item.user_id
+                      );
+                      return (
+                        <tr
+                          className={
+                            selectedUser.id === item.id ? "activeRow" : ""
+                          }
+                          onClick={() => setSelectedUser(item)}
+                          key={key}
+                        >
+                          <th scope="row" className="table-heading">
+                            {item?.id}
+                          </th>
+                          <td>{user?.name}</td>
+                          <td>{item?.crew_id}</td>
+                          <td>{item?.description}</td>
+                          <td className="details-td"></td>
+                        </tr>
+                      );
+                    })
                   : !loading && <tr>No data found</tr>}
               </tbody>
             </table>

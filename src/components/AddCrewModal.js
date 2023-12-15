@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addNewCrew } from "../API";
+import { toast } from "react-toastify";
 
 const AddCrewModal = (props) => {
   const { onAddCrewClick, addNewCrewToList, projectId } = props;
@@ -28,6 +29,7 @@ const AddCrewModal = (props) => {
       .then((res) => {
         if (res?.status === 200) {
           addNewCrewToList();
+          toast.success("Added crew successfully");
           // window.location.reload();
         }
       })

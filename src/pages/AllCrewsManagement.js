@@ -32,7 +32,7 @@ const AllCrewsManagement = () => {
         <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
         <AddCrewTimeDateModal />
       </div>
-      {crewData.length > 0 && <AllCrewsTable crewData={crewData} />}
+      {crewData?.length > 0 && <AllCrewsTable crewData={crewData} />}
     </div>
   );
 };

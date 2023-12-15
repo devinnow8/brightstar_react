@@ -1,14 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
+import React from "react";
+import Loader from "../pages/Loader";
 
 const TimeSheetTable = (props) => {
-  const { timeSheets } = props;
+  const { timeSheets, isLoading } = props;
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
-  const getDate = (date) => {
-    return new Date(date).toUTCString();
-  };
+  //   const getDate = (date) => {
+  //     return new Date(date).getDate();
+  //   };
   return (
     <div className="table-responsive crew-table">
+      {isLoading && (
+        <Loader /> // Render your loader component here
+      )}{" "}
       <table className="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (
@@ -18,15 +21,15 @@ const TimeSheetTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {timeSheets.length ? (
+          {timeSheets?.length ? (
             timeSheets?.map((item, key) => {
-              const punchIn = getDate(item.punch_in_date_time);
-              const punchOut = getDate(item.punch_out_date_time);
+              //   const punchIn = getDate(item.time_entry_in);
+              //   const punchOut = getDate(item.time_entry_out);
 
               return (
                 <tr key={key}>
-                  <td>{punchIn}</td>
-                  <td>{punchOut}</td>
+                  <td>{item?.time_entry_in}</td>
+                  <td>{item.time_entry_out}</td>
                   <td>{item.crew_id}</td>
                   <td>{item.crew_user_id}</td>
                 </tr>
