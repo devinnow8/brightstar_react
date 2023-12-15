@@ -16,9 +16,7 @@ const ProjectsList = () => {
         setList(data);
         setLoading(false);
       }
-      console.log(data);
     } catch (error) {
-      console.log("Error===>>>", error, error.message);
       setLoading(false);
     }
   };
@@ -36,7 +34,11 @@ const ProjectsList = () => {
   return (
     <>
       {loading && <Loader />}
-      <Table list={list?.data} tableHeadings={tableHeadings} detailHandler={detailHandler} />
+      <Table
+        list={list?.data}
+        tableHeadings={tableHeadings}
+        detailHandler={detailHandler}
+      />
     </>
   );
 };

@@ -21,11 +21,14 @@ function AuthRoute({ children }) {
 
 function Routing() {
   const location = useLocation();
-  console.log("dddd", location.pathname);
   return (
     <>
       <main className="main">
-        <div className={`right-content ${location.pathname === '/' ? 'login-content' : ''}`}>
+        <div
+          className={`right-content ${
+            location.pathname === "/" ? "login-content" : ""
+          }`}
+        >
           <Routes>
             {}
             <Route path="/" element={<Login />} />

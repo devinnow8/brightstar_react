@@ -8,8 +8,6 @@ const AddNewCrewModal = () => {
     project_id: "",
   });
 
-  console.log("AddNewCrewModal ==>", addCrewDetails);
-
   const onHandleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;

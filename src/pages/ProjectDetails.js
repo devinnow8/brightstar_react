@@ -7,7 +7,6 @@ import AddCrewModal from "../components/AddCrewModal";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
-  console.log("projectDetails ====>", projectDetails);
   const [projectCrews, setProjectCrews] = useState([]);
   // const [isCrewTimeModal, setIsCrewTimeModal] = useState(false);
   const navigate = useNavigate();
@@ -23,15 +22,11 @@ const ProjectDetails = () => {
       .catch((err) => console.log("error occured in getProjectDetails", err));
   };
 
-  const onAddCrewClick = () => {
-    console.log("onAddCrewClick");
-  };
+  const onAddCrewClick = () => {};
 
   //   const onAddCrewTime = () => {
   //     setIsCrewTimeModal(true);
   //   };
-
-  console.log("projectCrew ======>", projectCrews);
 
   const fetchProjectCrews = async () => {
     await getProjectCrews(param?.id)
@@ -91,7 +86,10 @@ const ProjectDetails = () => {
       </div>
       <div className="crew-info">
         <h1 className="title">Crew Info</h1>
-        <AddCrewModal projectId = {projectDetails?.id} onAddCrewClick={onAddCrewClick} />
+        <AddCrewModal
+          projectId={projectDetails?.id}
+          onAddCrewClick={onAddCrewClick}
+        />
         <AddCrewTimeDateModal />
         {/* <button
           onClick={() => onAddCrewTime()}

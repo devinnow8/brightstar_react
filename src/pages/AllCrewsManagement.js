@@ -10,7 +10,6 @@ const AllCrewsManagement = () => {
   const fetchAllCrews = async () => {
     await getAllCrews()
       .then((res) => {
-        console.log("response =>", res);
         if (res?.status === 200) {
           setCrewData(res?.data);
         }
@@ -23,7 +22,6 @@ const AllCrewsManagement = () => {
     fetchAllCrews();
   }, []);
   const navigate = useNavigate();
-  console.log("crewData ===>", crewData);
   return (
     <div className="project-details">
       {/* <button
