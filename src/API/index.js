@@ -22,6 +22,11 @@ export const getProjectDetails = async (id) => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
+export const getRoleIds = async (id) => {
+  const apiUrl = `${url}/api/project_role`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};
+
 export const getProjectCrews = async (id) => {
   const apiUrl = `${url}/api/crew?project_id=${id}`;
   return await makeApiCall("get", apiUrl, {}, headers);

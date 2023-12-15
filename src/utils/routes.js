@@ -17,10 +17,10 @@ export const ROUTES = {
     path: "/",
     element: <Login />,
   },
-  EQUIPMENTS: {
-    path: "/equipments",
-    element: <Equipments />,
-  },
+  // EQUIPMENTS: {
+  //   path: "/equipments",
+  //   element: <Equipments />,
+  // },
   USERS: {
     path: "/users",
     element: <Users />,
@@ -34,7 +34,7 @@ export const ROUTES = {
     element: <UserDetails />,
   },
   CREW: {
-    path: "/crew-management/:id?",
+    path: "/crew-management/:projectId/:crewId?",
     element: <CrewManagement />,
   },
   CREW_MANAGEMENT: {

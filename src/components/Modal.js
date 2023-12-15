@@ -31,8 +31,8 @@ const AddCrewTimeModal = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
+            <div className="modal-body"></div>
+            <div className="modal-footer">
               <button
                 type="button"
                 class="btn btn-secondary"

@@ -16,8 +16,8 @@ const AddCrewModal = (props) => {
   };
 
   const onClickCross = () => {
-    setAddCrewDetails({name: "", boss_user_id: ""})
-  }
+    setAddCrewDetails({ name: "", boss_user_id: "" });
+  };
 
   const onClickAddCrew = async () => {
     const payload = {
@@ -26,8 +26,8 @@ const AddCrewModal = (props) => {
     };
     await addNewCrew(payload)
       .then((res) => {
-        if(res?.status === 200){
-            window.location.reload();
+        if (res?.status === 200) {
+          window.location.reload();
         }
       })
       .catch((err) => console.log("Error occured while adding new crew", err));
@@ -45,30 +45,33 @@ const AddCrewModal = (props) => {
         + Add Crew
       </button>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5
+                className="modal-title font-weight-bold"
+                id="exampleModalLabel"
+              >
                 Add New Crew To This Project
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => onClickCross()}
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Name
                   </label>
                   <input
@@ -76,11 +79,11 @@ const AddCrewModal = (props) => {
                     onChange={(e) => onHandleChange(e)}
                     name="name"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Boss_user_id
                   </label>
                   <input
@@ -88,11 +91,11 @@ const AddCrewModal = (props) => {
                     onChange={(e) => onHandleChange(e)}
                     name="boss_user_id"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Project_id
                   </label>
                   <input
@@ -101,16 +104,16 @@ const AddCrewModal = (props) => {
                     defaultValue={projectId}
                     name="project_id"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
               </form>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 onClick={() => onClickAddCrew()}
                 type="button"
-                class="primary-btn"
+                className="primary-btn"
               >
                 + Add
               </button>
