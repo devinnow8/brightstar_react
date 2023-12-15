@@ -8,7 +8,7 @@ const AllCrewsTable = (props) => {
   const location = useLocation();
   console.log(location.pathname, 'location');
   const { crewData } = props;
-  const tableHeadings = ["Name", "Boss_Id", "Project_Id"];
+  const tableHeadings = ["Name", "Boss Id", "Project Id"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
