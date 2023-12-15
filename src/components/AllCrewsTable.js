@@ -31,9 +31,7 @@ const AllCrewsTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {isloading ? (
-            <Loader />
-          ) : crewData && crewData.length > 0 ? (
+          {crewData && crewData.length > 0 ? (
             crewData.map((item, key) => (
               <tr key={key}>
                 <th scope="row" className="table-heading">

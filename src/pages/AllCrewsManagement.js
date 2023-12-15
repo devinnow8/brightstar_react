@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllCrews } from "../API";
 import AllCrewsTable from "../components/AllCrewsTable";
 import AddNewCrewModal from "../components/AddNewCrewModal";
+import Loader from "./Loader";
 
 const AllCrewsManagement = () => {
   const [crewData, setCrewData] = useState([]);
@@ -34,8 +35,12 @@ const AllCrewsManagement = () => {
         <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
         <AddCrewTimeDateModal />
       </div>
-      {crewData?.length > 0 && (
+      {isLoading ? (
+        <Loader />
+      ) : crewData && crewData.length > 0 ? (
         <AllCrewsTable crewData={crewData} isLoading={isLoading} />
+      ) : (
+        <div>No data</div>
       )}
     </div>
   );
