@@ -226,6 +226,15 @@ $primary-color: #49adff;
       .crew-modal-table > tbody > .activeRow > * {
         background-color: #cee9ff;
       }
+      .modal {
+        .modal-dialog {
+          height: calc(100% - 150px);
+          .modal-body {
+            height: 520px;
+            overflow-y: auto;
+          }
+        }
+      }
       .modal-title {
         font-weight: 700;
       }
