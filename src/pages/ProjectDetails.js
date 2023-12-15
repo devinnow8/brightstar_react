@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProjectDetails, getProjectCrews } from "../API";
 import { useNavigate, useParams } from "react-router-dom";
-import AddCrewTimeModal from "../components/Modal";
+import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
 
@@ -92,7 +92,7 @@ const ProjectDetails = () => {
       <div className="crew-info">
         <h1 className="title">Crew Info</h1>
         <AddCrewModal projectId = {projectDetails?.id} onAddCrewClick={onAddCrewClick} />
-        <AddCrewTimeModal />
+        <AddCrewTimeDateModal />
         {/* <button
           onClick={() => onAddCrewTime()}
           type="button"

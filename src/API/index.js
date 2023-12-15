@@ -64,3 +64,13 @@ export const addProjectUser = async (data) => {
   const apiUrl = `${url}/api/project_user`;
   return await makeApiCall("post", apiUrl, data, headers);
 };
+
+export const crewTimeEntryType = async (data) => {
+  const apiUrl = `${url}/api/time_entry_type`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};
+
+export const addCrewTimeEntry = async (data) => {
+  const apiUrl = `${url}/api/time_entry`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};

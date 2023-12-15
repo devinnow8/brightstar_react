@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AddCrewTimeModal from "../components/Modal";
+import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import { useNavigate } from "react-router-dom";
 import { getAllCrews } from "../API";
 import AllCrewsTable from "../components/AllCrewsTable";
@@ -35,7 +35,7 @@ const AllCrewsManagement = () => {
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
         <AddNewCrewModal />
-        <AddCrewTimeModal />
+        <AddCrewTimeDateModal />
       </div>
       {crewData.length > 0 && <AllCrewsTable crewData={crewData} />}
     </div>
