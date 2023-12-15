@@ -151,10 +151,7 @@ const CrewManagement = () => {
 
   return (
     <div className="crew-mgmt">
-      <button
-        className="primary-btn mb-4"
-        onClick={() => navigate("/projects")}
-      >
+      <button className="primary-btn mb-4" onClick={() => navigate(-1)}>
         Back
       </button>
       <div className="crew-mgmt-card">
