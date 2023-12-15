@@ -2,6 +2,7 @@ import React from "react";
 
 const Table = ({ list, tableHeadings, detailHandler }) => {
   return (
+    <>
     <div className="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -36,10 +37,14 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
                 </tr>
               );
             })}
-          {!list && <div>No data found</div>}
+          
         </tbody>
       </table>
     </div>
+    {!list && <div className="no-data">
+      <p>No data found</p>
+    </div>}
+    </>
   );
 };
 
