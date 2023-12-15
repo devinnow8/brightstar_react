@@ -1,62 +1,101 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import { getAllCrewUser, getUserDetails } from "../API";
+import { addCrewTimeEntry, getAllCrewUser, getUserDetails } from "../API";
 
 const AddCrewTimeDateModal = (props) => {
   const { crew_id } = props;
   const [allUsers, setAllUsers] = useState([]);
   const [crewUsers, setCrewUsers] = useState([]);
 
-  console.log("crewUsers ===><<><>", crewUsers);
-  console.log("crew_id ===><<><>", crew_id);
+  const [allSelectedUsers, setAllSelectedUsers] = useState([]);
 
+  const [selectedDate, setSelectedDate] = useState();
+  const [punchInOutTime, setPunchInOutTime] = useState({
+    time_entry_in: "08:30",
+    time_entry_out: "17:00",
+  });
+
+  const onDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    const formattedDate = selectedDate.toISOString().split("T")[0];
+    setSelectedDate(formattedDate);
+  };
+
+  const onTimeChange = (e) => {
+    const name = e.target.name;
+    const selectedTime = e.target.value;
+    setPunchInOutTime({ ...punchInOutTime, [name]: selectedTime });
+  };
+
+  const getCurrentDateTime = () => {
+    const currentDate = new Date();
+    const formattedDateTime = currentDate.toISOString().replace('T', ' ').slice(0, -1);
+    return formattedDateTime;
+  }
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
-    .then(async (res) => {
-      setAllUsers(res?.data)
-      const userData = res?.data.slice()
-      console.log("userData", userData)
-      await getAllCrewUser(crew_id)
-    .then((res) => {
-      if (res?.status === 200) {
-        const filteredCrewUsers = res?.data?.map((ele) => {
-            const matchingUser = userData?.find((crewEle) => ele?.user_id == crewEle?.id)
-            console.log("matchingUser", matchingUser)
-            return {
-              value: matchingUser,
-              label: matchingUser?.name
+      .then(async (res) => {
+        setAllUsers(res?.data);
+        const userData = res?.data.slice();
+        console.log("userData", userData);
+        await getAllCrewUser(crew_id)
+          .then((res) => {
+            if (res?.status === 200) {
+              const filteredCrewUsers = res?.data?.map((ele) => {
+                const matchingUser = userData?.find(
+                  (crewEle) => ele?.user_id == crewEle?.id
+                );
+                console.log("matchingUser", matchingUser);
+                return {
+                  value: matchingUser,
+                  label: matchingUser?.name,
+                };
+              });
+              console.log(
+                "filteredCrewUsersfilteredCrewUsers",
+                filteredCrewUsers
+              );
+              setCrewUsers(filteredCrewUsers);
             }
-          });
-
-          console.log("filteredCrewUsers", filteredCrewUsers)
-          setCrewUsers(filteredCrewUsers);
-        }
+          })
+          .catch((err) =>
+            console.log("Error Occured in AddCrewTimeDateModal", err)
+          );
       })
       .catch((err) =>
-        console.log("Error Occured in AddCrewTimeDateModal", err)
+        console.log("error occured in AddCrewTimeDateModal", err)
       );
-    })
-    .catch((err) =>
-    console.log("error occured in AddCrewTimeDateModal", err)
-    );
-    
   };
 
-  useEffect(()=> {
-    if(crew_id){
-      onClickAddCrewTimeDate()
+  useEffect(() => {
+    if (crew_id) {
+      onClickAddCrewTimeDate();
     }
-  }, [crew_id])
+  }, [crew_id]);
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+  const onChangeUserSelect = (item) => {
+    setAllSelectedUsers(item);
+  }
+
+
+  const onClickSave = async() => {
+    allSelectedUsers?.forEach(async(ele) => {
+      const payload = {
+        ...punchInOutTime,
+        entry_time: getCurrentDateTime(),
+        time_entry_type_id: 1,
+        crew_user_id: ele?.value?.id,
+        crew_id,
+        time_entry_date: selectedDate || "",
+        is_crew_entry: true,
+        time_entry_status_id: 1,
+      };
+      await addCrewTimeEntry(payload).then((res) => console.log("API called successfully", res))
+    })
+  };
   return (
     <>
-      
       <div
         class="modal fade time-entry-modal"
         id="largeModal"
@@ -84,6 +123,7 @@ const AddCrewTimeDateModal = (props) => {
                       isMulti
                       name="colors"
                       options={crewUsers}
+                      onChange={(item) => onChangeUserSelect(item)}
                     />
                   </div>
                 </div>
@@ -92,7 +132,12 @@ const AddCrewTimeDateModal = (props) => {
                     <label for="recipient-name" class="col-form-label">
                       Date:
                     </label>
-                    <input aria-label="Date" className="input-field" type="Date" />
+                    <input
+                      onChange={(e) => onDateChange(e)}
+                      aria-label="Date"
+                      className="input-field"
+                      type="Date"
+                    />
                   </div>
                 </div>
                 <div className="col-md-6 col-lg-4">
@@ -124,7 +169,14 @@ const AddCrewTimeDateModal = (props) => {
                     <label for="recipient-name" class="col-form-label">
                       Working Time
                     </label>
-                    <input aria-label="Time" type="time" className="input-field"/>
+                    <input
+                      name="time_entry_in"
+                      aria-label="Time"
+                      type="time"
+                      className="input-field"
+                      onChange={(e) => onTimeChange(e)}
+                      value={punchInOutTime?.time_entry_in}
+                    />
                     <label for="recipient-name" class="col-form-label">
                       Start
                     </label>
@@ -139,7 +191,14 @@ const AddCrewTimeDateModal = (props) => {
                     >
                       Working Time
                     </label>
-                    <input aria-label="Time" type="time" className="input-field" />
+                    <input
+                      name="time_entry_out"
+                      aria-label="Time"
+                      type="time"
+                      className="input-field"
+                      onChange={(e) => onTimeChange(e)}
+                      value={punchInOutTime?.time_entry_out}
+                    />
                     <label for="recipient-name" class="col-form-label">
                       End
                     </label>
@@ -149,12 +208,18 @@ const AddCrewTimeDateModal = (props) => {
             </div>
             <div class="modal-footer">
               <button
+                onClick={() => onClickSave()}
                 type="button"
                 class="primary-btn me-3"
+                data-bs-dismiss="modal"
               >
                 Save
               </button>
-              <button type="button" data-bs-dismiss="modal" class="primary-btn-outlined">
+              <button
+                type="button"
+                class="primary-btn-outlined"
+                data-bs-dismiss="modal"
+              >
                 Cancel
               </button>
             </div>
