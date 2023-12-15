@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { getAllCrews } from "../API";
 import AllCrewsTable from "../components/AllCrewsTable";
 import AddNewCrewModal from "../components/AddNewCrewModal";
+import Loader from "./Loader";
 
 const AllCrewsManagement = () => {
   const [crewData, setCrewData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const fetchAllCrews = async () => {
     await getAllCrews()
       .then((res) => {
         if (res?.status === 200) {
           setCrewData(res?.data);
+          setIsLoading(false);
         }
       })
       .catch((err) =>
@@ -32,7 +35,13 @@ const AllCrewsManagement = () => {
         <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
         <AddCrewTimeDateModal />
       </div>
-      {crewData?.length > 0 && <AllCrewsTable crewData={crewData} />}
+      {isLoading ? (
+        <Loader />
+      ) : crewData && crewData.length > 0 ? (
+        <AllCrewsTable crewData={crewData} isLoading={isLoading} />
+      ) : (
+        <div>No data</div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "../pages/Loader";
+import { useState } from "react";
 
 const tableStyleObj = {
   "/all-crews-management": "all-crew-table",
@@ -6,9 +8,8 @@ const tableStyleObj = {
 
 const AllCrewsTable = (props) => {
   const location = useLocation();
-  console.log(location.pathname, "location");
-  const { crewData } = props;
-  const tableHeadings = ["Name", "Boss Id", "Project Id"];
+  const { crewData, isloading } = props;
+  const tableHeadings = ["Name", "Boss Id", "Project Id", "Actions"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
@@ -30,8 +31,8 @@ const AllCrewsTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {crewData?.map((item, key) => {
-            return (
+          {crewData && crewData.length > 0 ? (
+            crewData.map((item, key) => (
               <tr key={key}>
                 <th scope="row" className="table-heading">
                   {item.name}
@@ -47,8 +48,12 @@ const AllCrewsTable = (props) => {
                   </button>
                 </td>
               </tr>
-            );
-          })}
+            ))
+          ) : (
+            <tr>
+              <td colSpan={tableHeadings.length}>No data</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
