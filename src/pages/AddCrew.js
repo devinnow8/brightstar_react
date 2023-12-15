@@ -40,7 +40,7 @@ const CrewManagement = () => {
 
       if (projects && employees && userOptions) {
         setLoading(false);
-        const projectLists = projects.data.map((project) => {
+        const projectLists = projects.data?.map((project) => {
           return { value: project.id, name: project.id };
         });
         // const employeesLists = employees.data.map((project) => {
@@ -159,7 +159,7 @@ const CrewManagement = () => {
       </button>
       <div className="crew-mgmt-card">
         <div className="crew-flex row">
-          {projectOptions.length > 0 ? (
+          {projectOptions?.length > 0 ? (
             <>
               <div className="col-md-6 col-lg-3">
                 <div className="mb-3 mb-lg-0">

@@ -30,7 +30,7 @@ const AllCrewsTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {crewData.map((item, key) => {
+          {crewData?.map((item, key) => {
             return (
               <tr key={key}>
                 <th scope="row" className="table-heading">

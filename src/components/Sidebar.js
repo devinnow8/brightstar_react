@@ -19,7 +19,9 @@ const SideBar = () => {
     location.pathname.split("/")[1].includes(item.label)
   );
   const [selectedTab, setSelectedTab] = useState(
-    sideBarItems[currentSelectedTab]?.name
+    currentSelectedTab !== -1
+      ? sideBarItems[currentSelectedTab]?.name
+      : sideBarItems[0].name
   );
 
   const signOutHandler = (event) => {

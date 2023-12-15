@@ -18,7 +18,7 @@ const TimeSheetTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {timeSheets.length ? (
+          {timeSheets?.length ? (
             timeSheets?.map((item, key) => {
               const punchIn = getDate(item.punch_in_date_time);
               const punchOut = getDate(item.punch_out_date_time);
