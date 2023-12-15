@@ -67,7 +67,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.name}</p>
             </div>
             <div className="card-data">
-              <p className="heading">Acumatica_project_id:</p>
+              <p className="heading">Acumatica Project id:</p>
               <p className="data">{projectDetails?.acumatica_project_id}</p>
             </div>
             <div className="card-data">
@@ -75,7 +75,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.description}</p>
             </div>
             <div className="card-data">
-              <p className="heading">External_id_source:</p>
+              <p className="heading">External Id Source:</p>
               <p className="data">{projectDetails?.external_id_source}</p>
             </div>
             <div className="card-data">
@@ -83,7 +83,7 @@ const ProjectDetails = () => {
               <p className="data">{projectDetails?.status}</p>
             </div>
             <div className="card-data">
-              <p className="heading">CreatedAt:</p>
+              <p className="heading">Created At:</p>
               <p className="data">{projectDetails?.created_at}</p>
             </div>
           </div>
@@ -91,7 +91,10 @@ const ProjectDetails = () => {
       </div>
       <div className="crew-info">
         <h1 className="title">Crew Info</h1>
-        <AddCrewModal projectId = {projectDetails?.id} onAddCrewClick={onAddCrewClick} />
+        <AddCrewModal
+          projectId={projectDetails?.id}
+          onAddCrewClick={onAddCrewClick}
+        />
         <AddCrewTimeModal />
         {/* <button
           onClick={() => onAddCrewTime()}

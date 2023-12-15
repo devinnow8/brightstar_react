@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const UserList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const getAllUsersData = async () => {
@@ -19,6 +20,7 @@ const UserList = () => {
       console.log(data);
     } catch (error) {
       console.log("Error===>>>", error, error.message);
+      setError(true);
       setLoading(false);
     }
   };
@@ -39,11 +41,14 @@ const UserList = () => {
     <div>
       <div>
         {loading && <Loader />}
-        <Table
-          tableHeadings={tableHeadings}
-          list={list?.data}
-          detailHandler={detailHandler}
-        />
+        {error && <div>Something went wrong</div>}
+        {!loading && !error && (
+          <Table
+            tableHeadings={tableHeadings}
+            list={list?.data}
+            detailHandler={detailHandler}
+          />
+        )}
       </div>
     </div>
   );
