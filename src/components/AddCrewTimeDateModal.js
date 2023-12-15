@@ -1,5 +1,41 @@
+import { useEffect, useState } from "react";
 import Select from "react-select";
-const AddCrewTimeDateModal = () => {
+import { getAllCrewUser, getUserDetails } from "../API";
+
+const AddCrewTimeDateModal = (props) => {
+  const { crew_id } = props;
+  const [allUsers, setAllUsers] = useState([]);
+  const [crewUsers, setCrewUsers] = useState([]);
+
+  console.log("crewUsers ===><<><>", crewUsers);
+
+  console.log("allUsersallUsersallUsers", allUsers);
+
+  const onClickAddCrewTimeDate = async () => {
+    await getUserDetails()
+      .then((res) => setAllUsers(res?.data))
+      .catch((err) =>
+        console.log("error occured in AddCrewTimeDateModal", err)
+      );
+    await getAllCrewUser(crew_id)
+      .then((res) => {
+        if (res?.status === 200) {
+          console.log("getAllCrewUser list", res?.data);
+          const filteredCrewUsers = res?.data?.map((ele) => {
+            return {
+              label: allUsers?.find((crewEle) => ele?.user_id === crewEle?.id)
+                ?.name,
+              value: allUsers?.find((crewEle) => ele?.user_id === crewEle?.id),
+            };
+          });
+          setCrewUsers(filteredCrewUsers);
+        }
+      })
+      .catch((err) =>
+        console.log("Error Occured in AddCrewTimeDateModal", err)
+      );
+  };
+
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
@@ -12,6 +48,7 @@ const AddCrewTimeDateModal = () => {
         class="btn btn-primary primary-btn px-3"
         data-bs-toggle="modal"
         data-bs-target="#largeModal"
+        onClick={() => onClickAddCrewTimeDate()}
       >
         + Add Crew Time/Date
       </button>
@@ -45,7 +82,7 @@ const AddCrewTimeDateModal = () => {
                     <Select
                       isMulti
                       name="colors"
-                      options={options}
+                      options={crewUsers}
                       className="basic-multi-select"
                       classNamePrefix="select"
                     />

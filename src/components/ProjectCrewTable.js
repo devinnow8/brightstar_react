@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
 
 const ProjectCrewTable = (props) => {
   const { projectCrews } = props;
@@ -36,6 +37,7 @@ const ProjectCrewTable = (props) => {
                   >
                     Crew Management
                   </button>
+                  <AddCrewTimeDateModal crew_id={item?.id} />
                 </td>
               </tr>
             );
