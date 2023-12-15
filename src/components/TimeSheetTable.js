@@ -5,7 +5,7 @@ const TimeSheetTable = (props) => {
   const { timeSheets } = props;
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
   const getDate = (date) => {
-    return new Date(date).toString();
+    return new Date(date).toUTCString();
   };
   return (
     <div className="table-responsive crew-table">
