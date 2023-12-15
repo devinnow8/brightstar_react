@@ -309,8 +309,6 @@ const CrewManagement = () => {
           Add Crew Users
         </button>
       </div> */}
-      {console.log("hhhhhh", userOptions.length)}
-
       <>
         {
           <div className="table-responsive">

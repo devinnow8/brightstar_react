@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { getTimeSheet } from "../API";
+import { getTimeSheet, getUserDetails,  } from "../API";
 import TimeSheetTable from "../components/TimeSheetTable";
 
 export const TimeSheet = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [timeSheets, setTimeSheets] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   useEffect(() => {
     getTimeSheetData();
+    getAllUsers();
   }, []);
+
+  const getAllUsers = async () => {
+    const result = await getUserDetails();
+    setAllUsers(result.data);
+    if (result.data) {
+      setIsLoading(false);
+    }
+  };
 
   const getTimeSheetData = async () => {
     const result = await getTimeSheet();
@@ -15,12 +25,15 @@ export const TimeSheet = () => {
     if (result.data) {
       setIsLoading(false);
     }
-    // console.log("data", data);
   };
   return (
     <div>
       <h3>TimeSheets</h3>{" "}
-      <TimeSheetTable timeSheets={timeSheets} isLoading={isLoading} />{" "}
+      <TimeSheetTable
+        employeeOptions={allUsers}
+        timeSheets={timeSheets}
+        isLoading={isLoading}
+      />{" "}
     </div>
   );
 };

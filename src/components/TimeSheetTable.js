@@ -2,8 +2,8 @@ import React from "react";
 import Loader from "../pages/Loader";
 
 const TimeSheetTable = (props) => {
-  const { timeSheets, isLoading } = props;
-  const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
+  const { timeSheets, isLoading, employeeOptions } = props;
+  const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "User Name"];
   //   const getDate = (date) => {
   //     return new Date(date).getDate();
   //   };
@@ -23,15 +23,19 @@ const TimeSheetTable = (props) => {
         <tbody>
           {timeSheets?.length ? (
             timeSheets?.map((item, key) => {
+              const user = employeeOptions.find(
+                (user) => user.id === item.crew_user_id
+              );
+              
               //   const punchIn = getDate(item.time_entry_in);
               //   const punchOut = getDate(item.time_entry_out);
 
               return (
                 <tr key={key}>
                   <td>{item?.time_entry_in}</td>
-                  <td>{item.time_entry_out}</td>
-                  <td>{item.crew_id}</td>
-                  <td>{item.crew_user_id}</td>
+                  <td>{item?.time_entry_out}</td>
+                  <td>{item?.crew_id}</td>
+                  <td>{user?.name}</td>
                 </tr>
               );
             })
