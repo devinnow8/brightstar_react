@@ -21,7 +21,9 @@ const CrewManagement = () => {
   const [roles, setRoles] = useState([]);
 
   const { crewId, projectId } = useParams();
-
+  useEffect(() => {
+    fetchData();
+  }, []);
   const fetchData = async () => {
     try {
       // const request1 = getAllProjectList;
@@ -75,9 +77,10 @@ const CrewManagement = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const onAddNewMember = async () => {
+    const userOptions = await getAllCrewUser(crewId);
+    setUserOptions(userOptions.data);
+  };
 
   console.log("thirdApi==>>", userOptions);
   // const crewDropdownData = [
@@ -289,7 +292,11 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser state={crewId} userOptions={employeeOptions} />
+      <AddProjectCrewUser
+        state={crewId}
+        userOptions={employeeOptions}
+        onAddNewMember={onAddNewMember}
+      />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"
