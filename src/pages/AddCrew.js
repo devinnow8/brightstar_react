@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getAllProjectList, getUserDetails, getAllCrewUser, getProjectUserDetails, } from "../API";
+import {
+  getAllProjectList,
+  getUserDetails,
+  getAllCrewUser,
+  getProjectUserDetails,
+} from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 // import axios from "axios";
@@ -242,40 +247,41 @@ const CrewManagement = () => {
         </button>
       </div> */}
       {console.log("hhhhhh", userOptions)}
-     
-          <>
-            <div className="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    {crewTableHeadings?.map((item, key) => (
-                      <th scope="col" className="table-heading" key={key}>
-                        {item}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                {userOptions?.map((item, key) => {
-        return (
+
+      <>
+        <div className="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                {crewTableHeadings?.map((item, key) => (
+                  <th scope="col" className="table-heading" key={key}>
+                    {item}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {userOptions?.map((item, key) => {
+                return (
                   <tr
                     className={selectedUser.id === item.id ? "activeRow" : ""}
                     onClick={() => setSelectedUser(item)}
                     key={key}
                   >
-                    <th scope="row" className="table-heading">{item.id}</th>
+                    <th scope="row" className="table-heading">
+                      {item.id}
+                    </th>
                     <td>{item.user_id}</td>
                     <td>{item.crew_id}</td>
                     <td>{item.description}</td>
                     <td className="details-td"></td>
                   </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </>
-      
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </>
     </div>
   );
 };

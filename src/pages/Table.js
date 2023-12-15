@@ -21,7 +21,7 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
             ?.map((item, key) => {
               return (
                 <tr key={key}>
-                  <th scope="row">{item.id}</th>
+                  <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.status}</td>
                   <td>{item.description}</td>
@@ -36,6 +36,7 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
                 </tr>
               );
             })}
+          {!list && <div>No data found</div>}
         </tbody>
       </table>
     </div>

@@ -8,7 +8,7 @@ const UserList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  let abc = ["S.No", "Name", "Status", "Description", "Action"];
+
   const getAllUsersData = async () => {
     try {
       const data = await getUserDetails();
@@ -33,12 +33,17 @@ const UserList = () => {
     getAllUsersData();
   }, []);
   console.log(list);
+  let tableHeadings = ["S.No", "Name", "Status"];
 
   return (
     <div>
       <div>
         {loading && <Loader />}
-        <Table list={list?.data} abc={abc} detailHandler={detailHandler} />
+        <Table
+          tableHeadings={tableHeadings}
+          list={list?.data}
+          detailHandler={detailHandler}
+        />
       </div>
     </div>
   );
