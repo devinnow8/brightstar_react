@@ -8,6 +8,7 @@ import UserDetails from "../pages/UserDetails";
 import CrewManagement from "../pages/AddCrew";
 import AllCrewsManagement from "../pages/AllCrewsManagement";
 import NotFound from "../components/NotFound";
+import TimeSheet from "../pages/TimeSheet";
 
 export const ROUTES = {
   HOME: {
@@ -18,10 +19,10 @@ export const ROUTES = {
     path: "/",
     element: <Login />,
   },
-  // EQUIPMENTS: {
-  //   path: "/equipments",
-  //   element: <Equipments />,
-  // },
+  TIME_SHEET: {
+    path: "/time-sheet",
+    element: <TimeSheet />,
+  },
   USERS: {
     path: "/users",
     element: <Users />,
@@ -44,6 +45,6 @@ export const ROUTES = {
   },
   NOTFOUND: {
     path: "*",
-    element: <NotFound />
+    element: <NotFound />,
   },
 };
