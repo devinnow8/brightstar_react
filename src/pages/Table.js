@@ -4,7 +4,7 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
   return (
     <>
     <div className="table-responsive">
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             {tableHeadings?.map((item, key) => (

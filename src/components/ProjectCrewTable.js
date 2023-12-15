@@ -6,13 +6,13 @@ const ProjectCrewTable = (props) => {
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
-    navigate(`/crew-management/${item?.id}`, {
+    navigate(`/crew-management/${item?.project_id}/${item?.id}`, {
       state: { project_id: item?.project_id, crew_id: item?.id },
     });
   };
   return (
     <div className="table-responsive crew-table">
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           {tableHeadings.map((item, key) => (
             <th scope="col" className="table-heading" key={key}>
@@ -24,7 +24,9 @@ const ProjectCrewTable = (props) => {
           {projectCrews.map((item, key) => {
             return (
               <tr key={key}>
-                <th scope="row" className="table-heading">{item.name}</th>
+                <th scope="row" className="table-heading">
+                  {item.name}
+                </th>
                 <td>{item.boss_user_id}</td>
                 <td>{item.project_id}</td>
                 <td className="details-td">

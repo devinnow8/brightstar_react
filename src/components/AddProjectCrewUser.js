@@ -27,10 +27,10 @@ const AddProjectCrewUser = ({ userOptions, state }) => {
         console.log("addCrewUserRes success", res);
         addProjectUser(projectUserPayload).then((res) => {
           console.log("addProjectUser res", res);
-          if(res?.status === 200){
-            window.location.reload();
+          if (res?.status === 200) {
+            // window.location.reload();
           }
-        })
+        });
       }
     });
   };
@@ -47,29 +47,32 @@ const AddProjectCrewUser = ({ userOptions, state }) => {
         + Add Member
       </button>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5
+                className="modal-title font-weight-bold"
+                id="exampleModalLabel"
+              >
                 Add A New Member To This Crew
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <>
                 <div className="table-responsive">
-                  <table class="table crew-modal-table table-striped">
+                  <table className="table crew-modal-table table-striped">
                     <thead>
                       <tr>
                         {crewTableHeadings?.map((item, key) => (
@@ -104,11 +107,11 @@ const AddProjectCrewUser = ({ userOptions, state }) => {
                 </div>
               </>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 data-bs-dismiss="modal"
                 type="button"
-                class="primary-btn"
+                className="primary-btn"
                 aria-label="Close"
                 onClick={() => onAddNewUser()}
               >

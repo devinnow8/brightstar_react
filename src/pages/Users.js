@@ -33,7 +33,7 @@ const UserList = () => {
     getAllUsersData();
   }, []);
   console.log(list);
-  let tableHeadings = ["S.No", "Name", "Status"];
+  let tableHeadings = ["S.No", "Name", "Status", "", "Action"];
 
   return (
     <div>

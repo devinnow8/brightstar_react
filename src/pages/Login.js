@@ -26,8 +26,8 @@ const Login = () => {
   return (
     <div className="auth-form">
       <form>
-        <div class="form-outline mb-3">
-          <label class="form-label" for="form2Example1">
+        <div className="form-outline mb-3">
+          <label className="form-label" for="form2Example1">
             Email address
           </label>
           <input
@@ -35,12 +35,12 @@ const Login = () => {
             type="email"
             name="email"
             id="form2Example1"
-            class="form-control"
+            className="form-control"
           />
         </div>
 
-        <div class="form-outline mb-3">
-          <label class="form-label" for="form2Example2">
+        <div className="form-outline mb-3">
+          <label className="form-label" for="form2Example2">
             Password
           </label>
           <input
@@ -48,7 +48,7 @@ const Login = () => {
             type="password"
             name="password"
             id="form2Example2"
-            class="form-control"
+            className="form-control"
           />
         </div>
         <div className="form-check">

@@ -34,7 +34,7 @@ export const ROUTES = {
     element: <UserDetails />,
   },
   CREW: {
-    path: "/crew-management/:id?",
+    path: "/crew-management/:projectId/:crewId?",
     element: <CrewManagement />,
   },
   CREW_MANAGEMENT: {

@@ -40,30 +40,33 @@ const AddNewCrewModal = () => {
         + Add Crew
       </button>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-weight-bold" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5
+                className="modal-title font-weight-bold"
+                id="exampleModalLabel"
+              >
                 Add A New Crew
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={() => onClickCross()}
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Name
                   </label>
                   <input
@@ -71,11 +74,11 @@ const AddNewCrewModal = () => {
                     onChange={(e) => onHandleChange(e)}
                     name="name"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Boss_user_id
                   </label>
                   <input
@@ -83,11 +86,11 @@ const AddNewCrewModal = () => {
                     onChange={(e) => onHandleChange(e)}
                     name="boss_user_id"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Project_id
                   </label>
                   <input
@@ -95,16 +98,16 @@ const AddNewCrewModal = () => {
                     value={addCrewDetails?.project_id}
                     name="project_id"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                   />
                 </div>
               </form>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 onClick={() => onClickAddCrew()}
                 type="button"
-                class="primary-btn"
+                className="primary-btn"
               >
                 + Add
               </button>

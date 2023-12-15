@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   getAllProjectList,
   getUserDetails,
   getAllCrewUser,
   getProjectUserDetails,
+  getRoleIds,
+  addCrewUser,
+  addProjectUser,
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
@@ -15,21 +18,24 @@ const CrewManagement = () => {
   const [loading, setLoading] = useState(true);
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
+  const [roles, setRoles] = useState([]);
 
-  const { state } = useLocation();
+  const { crewId, projectId } = useParams();
 
   const fetchData = async () => {
     try {
-      const request1 = getAllProjectList();
-      const request2 = getUserDetails();
-      const request3 = getAllCrewUser(state?.crew_id);
-      const request4 = getProjectUserDetails();
-
+      // const request1 = getAllProjectList;
+      // const request2 = getUserDetails();
+      // const request3 = getAllCrewUser(state?.crew_id);
+      // const request4 = getProjectUserDetails();
+      const request5 = await getRoleIds();
+      console.log("request5", request5);
+      setRoles(request5.data);
       const [projects, employees, userOptions, empList] = await Promise.all([
-        request1,
-        request2,
-        request3,
-        request4,
+        getAllProjectList(),
+        getUserDetails(),
+        getAllCrewUser(crewId),
+        getProjectUserDetails(),
       ]);
 
       if (projects && employees && userOptions) {
@@ -48,10 +54,18 @@ const CrewManagement = () => {
           }
         });
         console.log("roleList", employeeArr);
+        console.log("employeeArremployeeArr", empList.data);
 
         setProjectOptions(projectLists);
         setEmployeeOptions(employeeArr);
         setUserOptions(userOptions.data);
+        const selectedByDefaultOptions = {
+          project: projectLists[0].value,
+          Forman: employeeArr[0].value,
+          "General Forman": employeeArr[0].value,
+          "Ops Manager": employeeArr[0].value,
+        };
+        setSelectedOptions(selectedByDefaultOptions);
 
         // setData3(response3.data);
       }
@@ -66,25 +80,25 @@ const CrewManagement = () => {
   }, []);
 
   console.log("thirdApi==>>", userOptions);
-  const crewDropdownData = [
-    { id: "dropdown1", label: "Label 1", name: "Dropdown 1" },
-    { id: "dropdown2", label: "Label 2", name: "Dropdown 2" },
-    { id: "dropdown3", label: "Label 3", name: "Dropdown 3" },
-    { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
-  ];
+  // const crewDropdownData = [
+  //   { id: "dropdown1", label: "Label 1", name: "Dropdown 1" },
+  //   { id: "dropdown2", label: "Label 2", name: "Dropdown 2" },
+  //   { id: "dropdown3", label: "Label 3", name: "Dropdown 3" },
+  //   { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
+  // ];
   const tableHeadings = ["Name", "Boss_Id"];
   const crewTableHeadings = ["Id", "User Id", "Crew Id"];
 
-  const [manageCrewDropdownData, setManageCrewDropdownData] = useState(
-    crewDropdownData.reduce((acc, curr) => ({ ...acc, [curr.id]: false }), {})
-  );
+  // const [manageCrewDropdownData, setManageCrewDropdownData] = useState(
+  //   crewDropdownData.reduce((acc, curr) => ({ ...acc, [curr.id]: false }), {})
+  // );
 
-  const toggleCrewDropdown = (dropdownId) => {
-    setManageCrewDropdownData((prevState) => ({
-      ...prevState,
-      [dropdownId]: !prevState[dropdownId],
-    }));
-  };
+  // const toggleCrewDropdown = (dropdownId) => {
+  //   setManageCrewDropdownData((prevState) => ({
+  //     ...prevState,
+  //     [dropdownId]: !prevState[dropdownId],
+  //   }));
+  // };
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
 
@@ -92,10 +106,46 @@ const CrewManagement = () => {
     // { ...selectedOptions, selectedOptions[dropdown] = event.target.value})
     // ...selectedOptions,
     // (selectedOptions[dropdown] = event.target.value)
+    console.log("handleSelectChange", roles, dropdown);
     const obj = { ...selectedOptions };
-    obj[dropdown] = event.target.value;
+    obj[dropdown] = Number(event.target.value);
+    console.log("pppp", obj);
+
     setSelectedOptions(obj);
+    const selectedRoleUser = roles.find((role) => role.name === dropdown);
+    console.log("selectedRoleUser", selectedRoleUser.id);
+    const data = {
+      user_id: Number(event.target.value),
+      project_role_id: selectedRoleUser.id,
+    };
+    addNewCrewMember(data);
   }
+
+  const addNewCrewMember = async (data) => {
+    const crewUserPayload = {
+      crew_id: Number(crewId),
+      user_id: data?.user_id,
+    };
+    const projectUserPayload = {
+      user_id: data?.user_id,
+      project_id: Number(projectId),
+      project_role_id: data.project_role_id,
+    };
+
+    await addCrewUser(crewUserPayload).then((res) => {
+      console.log("addCrewUserRes", res);
+      if (res?.status === 200) {
+        console.log("addCrewUserRes success", res);
+        addProjectUser(projectUserPayload).then((res) => {
+          console.log("addProjectUser res", res);
+          if (res?.status === 200) {
+            // window.location.reload();
+          }
+        });
+      }
+    });
+  };
+
   console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
 
@@ -113,16 +163,19 @@ const CrewManagement = () => {
             <>
               <div className="col-md-6 col-lg-3">
                 <div className="mb-3 mb-lg-0">
-                  <label htmlFor="">Label 1</label>
+                  <label htmlFor="">Project Id</label>
                   <select
+                    disabled={true}
+                    defaultValue={Number(projectId)}
                     onChange={(e) => handleSelectChange(e, "project")}
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     {projectOptions &&
                       projectOptions?.map((option) => {
                         return (
                           <option
+                            disabled="disabled"
                             selected={
                               selectedOptions["project"] === option.value
                             }
@@ -139,8 +192,8 @@ const CrewManagement = () => {
                 <div>
                   <label htmlFor="">Foreman</label>
                   <select
-                    onChange={(e) => handleSelectChange(e, "employee")}
-                    class="form-select"
+                    onChange={(e) => handleSelectChange(e, "Forman")}
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     {employeeOptions &&
@@ -148,7 +201,7 @@ const CrewManagement = () => {
                         return (
                           <option
                             selected={
-                              selectedOptions["foreman"] === option.value
+                              selectedOptions["Forman"] === option.value
                             }
                             value={option.value}
                           >
@@ -163,8 +216,8 @@ const CrewManagement = () => {
                 <div>
                   <label htmlFor="">General Foreman</label>
                   <select
-                    onChange={(e) => handleSelectChange(e, "project")}
-                    class="form-select"
+                    onChange={(e) => handleSelectChange(e, "General Forman")}
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     {employeeOptions &&
@@ -172,7 +225,7 @@ const CrewManagement = () => {
                         return (
                           <option
                             selected={
-                              selectedOptions["gForeMan"] === option.value
+                              selectedOptions["General Forman"] === option.value
                             }
                             value={option.value}
                           >
@@ -187,8 +240,8 @@ const CrewManagement = () => {
                 <div>
                   <label htmlFor="">Ops Manager</label>
                   <select
-                    onChange={(e) => handleSelectChange(e, "project")}
-                    class="form-select"
+                    onChange={(e) => handleSelectChange(e, "Ops Manager")}
+                    className="form-select"
                     aria-label="Default select example"
                   >
                     {employeeOptions &&
@@ -196,7 +249,7 @@ const CrewManagement = () => {
                         return (
                           <option
                             selected={
-                              selectedOptions["manager"] === option.value
+                              selectedOptions["Ops Manager"] === option.value
                             }
                             value={option.value}
                           >
@@ -236,7 +289,7 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser state={state} userOptions={employeeOptions} />
+      <AddProjectCrewUser state={crewId} userOptions={employeeOptions} />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"
@@ -250,7 +303,7 @@ const CrewManagement = () => {
 
       <>
         <div className="table-responsive">
-          <table class="table table-striped">
+          <table className="table table-striped">
             <thead>
               <tr>
                 {crewTableHeadings?.map((item, key) => (
