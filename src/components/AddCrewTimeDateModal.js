@@ -96,10 +96,14 @@ const AddCrewTimeDateModal = (props) => {
         is_crew_entry: true,
         time_entry_status_id: 1,
       };
-      await addCrewTimeEntry(payload).then(() => {
-        toast.success("Time entry successfully added.");
-        navigate("/time-sheet");
-      });
+      await addCrewTimeEntry(payload)
+        .then((res) => {
+          if (res?.data?.crew_id) {
+            toast.success("Time entry successfully added.");
+            navigate("/time-sheet");
+          }
+        })
+        .catch((err) => toast.error("Unable to add time entry"));
     });
   };
   return (
