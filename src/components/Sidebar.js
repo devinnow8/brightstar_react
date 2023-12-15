@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const sideBarItems = [
-    { name: "Projects", route: "/projects" },
-    { name: "Users", route: "/users" },
-    { name: "Crew Management", route: "/all-crews-management" },
-    { name: "Time Sheet", route: "/time-sheet" },
+    { name: "Projects", route: "/projects", label: "projects" },
+    { name: "Users", route: "/users", label: "users" },
+    {
+      name: "Crew Management",
+      route: "/all-crews-management",
+      label: "crew",
+    },
+    { name: "Time Sheet", route: "/time-sheet", label: "time" },
   ];
-  const [selectedTab, setSelectedTab] = useState(sideBarItems[0].name);
+  const currentSelectedTab = sideBarItems.findIndex((item) =>
+    location.pathname.split("/")[1].includes(item.label)
+  );
+  const [selectedTab, setSelectedTab] = useState(
+    sideBarItems[currentSelectedTab].name
+  );
 
   const signOutHandler = (event) => {
     // event.preventDefault();
