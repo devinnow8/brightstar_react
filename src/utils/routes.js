@@ -17,10 +17,10 @@ export const ROUTES = {
     path: "/",
     element: <Login />,
   },
-  EQUIPMENTS: {
-    path: "/equipments",
-    element: <Equipments />,
-  },
+  // EQUIPMENTS: {
+  //   path: "/equipments",
+  //   element: <Equipments />,
+  // },
   USERS: {
     path: "/users",
     element: <Users />,

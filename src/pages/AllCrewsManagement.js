@@ -26,12 +26,12 @@ const AllCrewsManagement = () => {
   console.log("crewData ===>", crewData);
   return (
     <div className="project-details">
-      <button
+      {/* <button
         className="btn btn-primary back-btn"
         onClick={() => navigate("/projects")}
       >
         Back
-      </button>
+      </button> */}
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
         <AddNewCrewModal />

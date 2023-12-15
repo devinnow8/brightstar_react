@@ -7,7 +7,7 @@ const SideBar = () => {
     { name: "Projects", route: "/projects" },
     { name: "Users", route: "/users" },
     { name: "Crew Management", route: "/all-crews-management" },
-    { name: "Equipment", route: "/equipments" },
+    // { name: "Equipment", route: "/equipments" },
   ];
   const [selectedTab, setSelectedTab] = useState(sideBarItems[0].name);
 
