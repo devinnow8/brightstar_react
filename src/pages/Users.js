@@ -17,7 +17,6 @@ const UserList = () => {
         setList(data);
         setLoading(false);
       }
-      console.log(data);
     } catch (error) {
       console.log("Error===>>>", error, error.message);
       setError(true);

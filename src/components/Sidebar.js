@@ -18,13 +18,9 @@ const SideBar = () => {
     navigate("/");
   };
 
-  console.log(window.location.pathname);
-
   const onTabClick = (item) => {
-    console.log("item11", item);
     setSelectedTab(item.name);
   };
-  console.log("selectedTab", selectedTab);
 
   return (
     <>

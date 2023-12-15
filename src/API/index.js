@@ -37,9 +37,9 @@ export const getAllCrews = async () => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
-export const getUserDetails = async (data) => {
+export const getUserDetails = async () => {
   const apiUrl = `${url}/api/user`;
-  return await makeApiCall("get", apiUrl, data, headers);
+  return await makeApiCall("get", apiUrl, {}, headers);
 };
 export const getProjectUserDetails = async (data) => {
   const apiUrl = `${url}/api/user?expand=role`;
@@ -67,5 +67,15 @@ export const addCrewUser = async (data) => {
 
 export const addProjectUser = async (data) => {
   const apiUrl = `${url}/api/project_user`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};
+
+export const crewTimeEntryType = async (data) => {
+  const apiUrl = `${url}/api/time_entry_type`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};
+
+export const addCrewTimeEntry = async (data) => {
+  const apiUrl = `${url}/api/time_entry`;
   return await makeApiCall("post", apiUrl, data, headers);
 };

@@ -302,41 +302,40 @@ const CrewManagement = () => {
       {console.log("hhhhhh", userOptions.length)}
 
       <>
-        {true &&
-          true
-          // <div className="table-responsive">
-          //   <table className="table table-striped">
-          //     <thead>
-          //       <tr>
-          //         {crewTableHeadings?.map((item, key) => (
-          //           <th scope="col" className="table-heading" key={key}>
-          //             {item}
-          //           </th>
-          //         ))}
-          //       </tr>
-          //     </thead>
-          //     <tbody>
-          //       {userOptions?.map((item, key) => {
-          //         return (
-          //           <tr
-          //             className={selectedUser.id === item.id ? "activeRow" : ""}
-          //             onClick={() => setSelectedUser(item)}
-          //             key={key}
-          //           >
-          //             <th scope="row" className="table-heading">
-          //               {item.id}
-          //             </th>
-          //             <td>{item.user_id}</td>
-          //             <td>{item.crew_id}</td>
-          //             <td>{item.description}</td>
-          //             <td className="details-td"></td>
-          //           </tr>
-          //         );
-          //       })}
-          //     </tbody>
-          //   </table>
-          // </div>
-        }
+        {userOptions.length > 0 && (
+          <div className="table-responsive">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  {crewTableHeadings?.map((item, key) => (
+                    <th scope="col" className="table-heading" key={key}>
+                      {item}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {userOptions?.map((item, key) => {
+                  return (
+                    <tr
+                      className={selectedUser.id === item.id ? "activeRow" : ""}
+                      onClick={() => setSelectedUser(item)}
+                      key={key}
+                    >
+                      <th scope="row" className="table-heading">
+                        {item.id}
+                      </th>
+                      <td>{item.user_id}</td>
+                      <td>{item.crew_id}</td>
+                      <td>{item.description}</td>
+                      <td className="details-td"></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </>
     </div>
   );

@@ -1,0 +1,26 @@
+
+.time-entry-modal {
+  .modal-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: $primary-color;
+  }
+  .col-form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid  #E0E2E7;
+    background: #F9F9FC;
+    height: 43px;
+    padding: 10px;
+    font-size: 14px;
+    
+  }
+  .form-select {
+    @extend input;
+  }
+}

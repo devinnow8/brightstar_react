@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { addNewCrew } from "../API";
 
-const AddNewCrewModal = () => {
+const AddNewCrewModal = (addNewCrewUser) => {
   const [addCrewDetails, setAddCrewDetails] = useState({
     name: "",
     boss_user_id: "",
     project_id: "",
   });
-
-  console.log("AddNewCrewModal ==>", addCrewDetails);
 
   const onHandleChange = (e) => {
     const name = e.target.name;
@@ -24,7 +22,8 @@ const AddNewCrewModal = () => {
     await addNewCrew(addCrewDetails)
       .then((res) => {
         if (res?.status === 200) {
-          window.location.reload();
+          addNewCrewUser();
+          // window.location.reload();
         }
       })
       .catch((err) => console.log("Error occured while adding new crew", err));

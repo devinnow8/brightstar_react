@@ -3,31 +3,30 @@ import React from "react";
 const AddCrewTimeModal = () => {
   return (
     <>
-      {/* <button
+      <button
         type="button"
-        className="btn btn-info detail-btn"
+        class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#largeModal"
       >
-        + Add Crew Time
-      </button> */}
-
+        + Add Crew Time/Date
+      </button>
       <div
-        className="modal fade "
-        id="exampleModal"
+        class="modal fade"
+        id="largeModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Crew Time Entry
-              </h5>
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="largeModalLabel">
+                Modal title
+              </h1>
               <button
                 type="button"
-                className="btn-close"
+                class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
@@ -36,12 +35,12 @@ const AddCrewTimeModal = () => {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                class="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" class="btn btn-primary">
                 Save changes
               </button>
             </div>

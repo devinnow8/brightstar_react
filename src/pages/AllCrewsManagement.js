@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AddCrewTimeModal from "../components/Modal";
+import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import { useNavigate } from "react-router-dom";
 import { getAllCrews } from "../API";
 import AllCrewsTable from "../components/AllCrewsTable";
@@ -10,7 +10,6 @@ const AllCrewsManagement = () => {
   const fetchAllCrews = async () => {
     await getAllCrews()
       .then((res) => {
-        console.log("response =>", res);
         if (res?.status === 200) {
           setCrewData(res?.data);
         }
@@ -22,14 +21,16 @@ const AllCrewsManagement = () => {
   useEffect(() => {
     fetchAllCrews();
   }, []);
+  const addNewCrewUser = () => {
+    fetchAllCrews();
+  };
   const navigate = useNavigate();
-  console.log("crewData ===>", crewData);
   return (
     <div className="project-details">
       <div className="crew-info">
         <h1 className="title">All Crews</h1>
-        <AddNewCrewModal />
-        <AddCrewTimeModal />
+        <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
+        <AddCrewTimeDateModal />
       </div>
       {crewData.length > 0 && <AllCrewsTable crewData={crewData} />}
     </div>

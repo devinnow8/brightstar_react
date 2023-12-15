@@ -1,33 +1,32 @@
 import React, { useState } from "react";
 import { addCrewUser, addProjectUser } from "../API";
+import { useParams } from "react-router-dom";
 
-const AddProjectCrewUser = ({ userOptions, state }) => {
+const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const crewTableHeadings = ["User Id", "Name"];
+  const { crewId, projectId } = useParams();
 
   const onAddNewUser = () => {
     addNewCrewMemberPromise(selectedUser);
   };
 
   const addNewCrewMemberPromise = async (data) => {
-    console.log("daatatatatta", data);
     const crewUserPayload = {
-      crew_id: state?.crew_id,
+      crew_id: crewId,
       user_id: data?.value,
     };
     const projectUserPayload = {
       user_id: data?.value,
-      project_id: state?.project_id,
+      project_id: projectId,
       project_role_id: 4,
     };
 
     await addCrewUser(crewUserPayload).then((res) => {
-      console.log("addCrewUserRes", res);
       if (res?.status === 200) {
-        console.log("addCrewUserRes success", res);
         addProjectUser(projectUserPayload).then((res) => {
-          console.log("addProjectUser res", res);
           if (res?.status === 200) {
+            onAddNewMember();
             // window.location.reload();
           }
         });

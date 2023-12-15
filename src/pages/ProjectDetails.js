@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { getProjectDetails, getProjectCrews } from "../API";
 import { useNavigate, useParams } from "react-router-dom";
-import AddCrewTimeModal from "../components/Modal";
+import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
+import AddCrewTimeModal from "../components/Modal";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
-  console.log("projectDetails ====>", projectDetails);
   const [projectCrews, setProjectCrews] = useState([]);
   // const [isCrewTimeModal, setIsCrewTimeModal] = useState(false);
   const navigate = useNavigate();
@@ -23,15 +23,13 @@ const ProjectDetails = () => {
       .catch((err) => console.log("error occured in getProjectDetails", err));
   };
 
-  const onAddCrewClick = () => {
-    console.log("onAddCrewClick");
+  const onAddCrewClick = () => {};
+  const addNewCrewToList = async () => {
+    await fetchProjectCrews();
   };
-
   //   const onAddCrewTime = () => {
   //     setIsCrewTimeModal(true);
   //   };
-
-  console.log("projectCrew ======>", projectCrews);
 
   const fetchProjectCrews = async () => {
     await getProjectCrews(param?.id)
@@ -94,8 +92,9 @@ const ProjectDetails = () => {
         <AddCrewModal
           projectId={projectDetails?.id}
           onAddCrewClick={onAddCrewClick}
+          addNewCrewToList={addNewCrewToList}
         />
-        <AddCrewTimeModal />
+        {/* <AddCrewTimeModal /> */}
         {/* <button
           onClick={() => onAddCrewTime()}
           type="button"
