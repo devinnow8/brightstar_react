@@ -16,7 +16,7 @@ const AddCrewTimeDateModal = () => {
         + Add Crew Time/Date
       </button>
       <div
-        class="modal fade"
+        class="modal fade time-entry-modal"
         id="largeModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
@@ -25,7 +25,7 @@ const AddCrewTimeDateModal = () => {
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="largeModalLabel">
+              <h1 class="modal-title" id="largeModalLabel">
                 New Time Entry
               </h1>
               <button
@@ -36,72 +36,78 @@ const AddCrewTimeDateModal = () => {
               ></button>
             </div>
             <div class="modal-body">
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">
-                  Date:
-                </label>
-                <input aria-label="Date" type="Date" />
+              <div className="row">
+                <div className="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">
+                      Date:
+                    </label>
+                    <input aria-label="Date" type="Date" />
+                  </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label htmlFor="" class="col-form-label">
+                      Project Task
+                    </label>
+                    <select
+                      // onChange={(e) => handleSelectChange(e, "project")}
+                      class="form-select"
+                      aria-label="Default select example"
+                    ></select>
+                  </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label htmlFor="" class="col-form-label">
+                      Cost Code
+                    </label>
+                    <select
+                      // onChange={(e) => handleSelectChange(e, "project")}
+                      class="form-select"
+                      aria-label="Default select example"
+                    ></select>
+                  </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">
+                      Working Time
+                    </label>
+                    <input aria-label="Time" type="time" />
+                    <label for="recipient-name" class="col-form-label">
+                      Start
+                    </label>
+                    
+                  </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label" style={{visibility: 'hidden'}}>
+                      Working Time
+                    </label>
+                    <input aria-label="Time" type="time" />
+                    <label for="recipient-name" class="col-form-label">
+                      Start
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="mb-3">
-                <label htmlFor="" class="col-form-label">
-                  Project Task
-                </label>
-                <select
-                  // onChange={(e) => handleSelectChange(e, "project")}
-                  class="form-select"
-                  aria-label="Default select example"
-                ></select>
-              </div>
-              <div class="mb-3">
-                <label htmlFor="" class="col-form-label">
-                  Cost Code
-                </label>
-                <select
-                  // onChange={(e) => handleSelectChange(e, "project")}
-                  class="form-select"
-                  aria-label="Default select example"
-                ></select>
-              </div>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">
-                  Working Time
-                </label>
-                <br />
-                <label for="recipient-name" class="col-form-label">
-                  Start
-                </label>
-                <input aria-label="Time" type="time" />
-                <label for="recipient-name" class="col-form-label">
-                  End
-                </label>
-                <input aria-label="Time" type="time" />
-              </div>
-              <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">
-                  Lunch
-                </label>
-                <br />
-                <label for="recipient-name" class="col-form-label">
-                  Start
-                </label>
-                <input aria-label="Time" type="time" />
-                <label for="recipient-name" class="col-form-label">
-                  End
-                </label>
-                <input aria-label="Time" type="time" />
-              </div>
-              <br />
-              <div>
-                <label for="recipient-name" class="col-form-label">
-                  Select Team Members
-                </label>
-                <Select
-                  isMulti
-                  name="colors"
-                  options={options}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                />
+              <div className="row">
+              <div className="col-md-6 col-lg-8">
+                  <div>
+                    <label for="recipient-name" class="col-form-label">
+                      Select Team Members
+                    </label>
+                    <Select
+                      isMulti
+                      name="colors"
+                      options={options}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
