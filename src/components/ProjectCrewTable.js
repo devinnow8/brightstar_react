@@ -32,7 +32,7 @@ const ProjectCrewTable = (props) => {
                 <td>{item.project_id}</td>
                 <td className="details-td">
                   <button
-                    className="btn btn-info detail-btn"
+                    className="btn btn-info detail-btn me-3"
                     onClick={() => onClickCrewManagement(item)}
                   >
                     Crew Management
