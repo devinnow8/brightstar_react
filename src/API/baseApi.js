@@ -25,7 +25,7 @@ const makeApiCall = async (method, url, data = {}, headers = {}) => {
       switch (status) {
         // authentication (token related issues)
         case 401: {
-          return toast.error("Invalid authentication //");
+          return toast.error("Invalid authentication ");
         }
         // forbidden (permission related issues)
         case 403: {
