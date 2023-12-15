@@ -79,3 +79,7 @@ export const addCrewTimeEntry = async (data) => {
   const apiUrl = `${url}/api/time_entry`;
   return await makeApiCall("post", apiUrl, data, headers);
 };
+export const getTimeSheet = async (data) => {
+  const apiUrl = `${url}/api/time_entry`;
+  return await makeApiCall("get", apiUrl, data, headers);
+};

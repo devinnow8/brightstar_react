@@ -46,7 +46,7 @@ const AddCrewModal = (props) => {
         + Add Crew
       </button>
       <div
-        className="modal fade"
+        className="modal fade add-new-crew-modal"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
