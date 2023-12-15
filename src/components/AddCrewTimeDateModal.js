@@ -37,6 +37,20 @@ const AddCrewTimeDateModal = () => {
             </div>
             <div class="modal-body">
               <div className="row">
+                <div className="col-md-12 col-lg-12">
+                  <div className="mb-3">
+                    <label for="recipient-name" class="col-form-label">
+                      Select Team Members
+                    </label>
+                    <Select
+                      isMulti
+                      name="colors"
+                      options={options}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                    />
+                  </div>
+                </div>
                 <div className="col-md-6 col-lg-4">
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">
@@ -78,34 +92,21 @@ const AddCrewTimeDateModal = () => {
                     <label for="recipient-name" class="col-form-label">
                       Start
                     </label>
-                    
                   </div>
                 </div>
                 <div className="col-md-6 col-lg-4">
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label" style={{visibility: 'hidden'}}>
+                    <label
+                      for="recipient-name"
+                      class="col-form-label"
+                      style={{ visibility: "hidden" }}
+                    >
                       Working Time
                     </label>
                     <input aria-label="Time" type="time" />
                     <label for="recipient-name" class="col-form-label">
                       Start
                     </label>
-                  </div>
-                </div>
-              </div>
-              <div className="row">
-              <div className="col-md-6 col-lg-8">
-                  <div>
-                    <label for="recipient-name" class="col-form-label">
-                      Select Team Members
-                    </label>
-                    <Select
-                      isMulti
-                      name="colors"
-                      options={options}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                    />
                   </div>
                 </div>
               </div>
