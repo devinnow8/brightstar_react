@@ -4,10 +4,9 @@ import Loader from "../pages/Loader";
 const TimeSheetTable = (props) => {
   const { timeSheets, isLoading } = props;
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
-  const getDate = (date) => {
-    return new Date(date).toUTCString();
-  };
-  console.log("timeSheets", timeSheets);
+  //   const getDate = (date) => {
+  //     return new Date(date).getDate();
+  //   };
   return (
     <div className="table-responsive crew-table">
       {isLoading && (
@@ -22,21 +21,23 @@ const TimeSheetTable = (props) => {
           ))}
         </thead>
         <tbody>
-          {timeSheets?.length
-            ? timeSheets.map((item, key) => {
-                const punchIn = getDate(item.punch_in_date_time);
-                const punchOut = getDate(item.punch_out_date_time);
+          {timeSheets?.length ? (
+            timeSheets?.map((item, key) => {
+              //   const punchIn = getDate(item.time_entry_in);
+              //   const punchOut = getDate(item.time_entry_out);
 
-                return (
-                  <tr key={key}>
-                    <td>{punchIn}</td>
-                    <td>{punchOut}</td>
-                    <td>{item.crew_id}</td>
-                    <td>{item.crew_user_id}</td>
-                  </tr>
-                );
-              })
-            : !isLoading && <div>No data found</div>}
+              return (
+                <tr key={key}>
+                  <td>{item?.time_entry_in}</td>
+                  <td>{item.time_entry_out}</td>
+                  <td>{item.crew_id}</td>
+                  <td>{item.crew_user_id}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <div>No data found</div>
+          )}
         </tbody>
       </table>
     </div>
