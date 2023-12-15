@@ -2,6 +2,7 @@ import React from "react";
 
 const Table = ({ list, tableHeadings, detailHandler }) => {
   return (
+    <>
     <div className="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -21,7 +22,7 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
             ?.map((item, key) => {
               return (
                 <tr key={key}>
-                  <th scope="row">{item.id}</th>
+                  <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.status}</td>
                   <td>{item.description}</td>
@@ -36,9 +37,14 @@ const Table = ({ list, tableHeadings, detailHandler }) => {
                 </tr>
               );
             })}
+          
         </tbody>
       </table>
     </div>
+    {!list && <div className="no-data">
+      <p>No data found</p>
+    </div>}
+    </>
   );
 };
 

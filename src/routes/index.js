@@ -5,10 +5,10 @@ import SideBar from "../components/Sidebar";
 import { ROUTES } from "../utils/routes";
 function AuthRoute({ children }) {
   const accessToken = localStorage.getItem("accessToken");
-  if (!accessToken) {
-    //Not signed in
-    return <Navigate to="/" />;
-  }
+  // if (!accessToken) {
+  //   //Not signed in
+  //   return <Navigate to="/" />;
+  // }
   //Signed in
   return (
     <>

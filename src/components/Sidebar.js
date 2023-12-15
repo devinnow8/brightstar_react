@@ -77,7 +77,7 @@ const SideBar = () => {
               <span className="d-none d-sm-inline mx-1">Winner</span>
             </a>
             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
-              <li>
+              {/* <li>
                 <a className="dropdown-item" href="/">
                   New project...
                 </a>
@@ -94,7 +94,7 @@ const SideBar = () => {
               </li>
               <li>
                 <hr className="dropdown-divider" />
-              </li>
+              </li> */}
               <li>
                 <a className="dropdown-item" href="/" onClick={signOutHandler}>
                   Sign out
