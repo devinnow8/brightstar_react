@@ -90,7 +90,7 @@ const CrewManagement = () => {
   //   { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
   // ];
   // const tableHeadings = ["Name", "Boss_Id"];
-  const crewTableHeadings = ["Id", "Username", "Crew Id"];
+  const crewTableHeadings = ["Id", "Name", "Crew Id"];
 
   // const [manageCrewDropdownData, setManageCrewDropdownData] = useState(
   //   crewDropdownData.reduce((acc, curr) => ({ ...acc, [curr.id]: false }), {})
