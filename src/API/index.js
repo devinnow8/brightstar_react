@@ -1,6 +1,9 @@
 import makeApiCall from "../API/baseApi";
 
-const url = "http://webtime.eastus.cloudapp.azure.com:3000";
+const url = "https://webtime.eastus.cloudapp.azure.com";
+// const url = "http://webtime.eastus.cloudapp.azure.com:3000";
+// const url = "https://lacewing-living-lacewing.ngrok-free.app";
+
 const headers = {
   Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
 };
