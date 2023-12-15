@@ -355,11 +355,11 @@ const CrewManagement = () => {
                           key={key}
                         >
                           <th scope="row" className="table-heading">
-                            {item.id}
+                            {item?.id}
                           </th>
-                          <td>{user.name}</td>
-                          <td>{item.crew_id}</td>
-                          <td>{item.description}</td>
+                          <td>{user?.name}</td>
+                          <td>{item?.crew_id}</td>
+                          <td>{item?.description}</td>
                           <td className="details-td"></td>
                         </tr>
                       );
