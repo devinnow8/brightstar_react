@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
 
 const ProjectCrewTable = (props) => {
   const { projectCrews } = props;
+  const [selectedCrewId, setSelectedCrewId] = useState();
+
   const tableHeadings = ["Name", "Boss Id", "Project Id"];
   const navigate = useNavigate();
 
@@ -11,6 +15,9 @@ const ProjectCrewTable = (props) => {
       state: { project_id: item?.project_id, crew_id: item?.id },
     });
   };
+  const selectCrewIdForTimeEntry = (id) => {
+    setSelectedCrewId(id)
+  }
   return (
     <div className="table-responsive crew-table">
       <table className="table table-striped">
@@ -37,13 +44,23 @@ const ProjectCrewTable = (props) => {
                   >
                     Crew Management
                   </button>
-                  <AddCrewTimeDateModal crew_id={item?.id} />
+                  {/* <AddCrewTimeDateModal crew_id={item?.id} /> */}
+                  <button
+        type="button"
+        class="btn btn-primary primary-btn px-3"
+        data-bs-toggle="modal"
+        data-bs-target="#largeModal"
+        onClick={() => selectCrewIdForTimeEntry(item?.id)}
+      >
+        + Add Crew Time/Date
+      </button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal"/>
     </div>
   );
 };

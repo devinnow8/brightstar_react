@@ -8,33 +8,46 @@ const AddCrewTimeDateModal = (props) => {
   const [crewUsers, setCrewUsers] = useState([]);
 
   console.log("crewUsers ===><<><>", crewUsers);
+  console.log("crew_id ===><<><>", crew_id);
 
-  console.log("allUsersallUsersallUsers", allUsers);
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
-      .then((res) => setAllUsers(res?.data))
-      .catch((err) =>
-        console.log("error occured in AddCrewTimeDateModal", err)
-      );
-    await getAllCrewUser(crew_id)
-      .then((res) => {
-        if (res?.status === 200) {
-          console.log("getAllCrewUser list", res?.data);
-          const filteredCrewUsers = res?.data?.map((ele) => {
+    .then(async (res) => {
+      setAllUsers(res?.data)
+      const userData = res?.data.slice()
+      console.log("userData", userData)
+      await getAllCrewUser(crew_id)
+    .then((res) => {
+      if (res?.status === 200) {
+        const filteredCrewUsers = res?.data?.map((ele) => {
+            const matchingUser = userData?.find((crewEle) => ele?.user_id == crewEle?.id)
+            console.log("matchingUser", matchingUser)
             return {
-              label: allUsers?.find((crewEle) => ele?.user_id === crewEle?.id)
-                ?.name,
-              value: allUsers?.find((crewEle) => ele?.user_id === crewEle?.id),
-            };
+              value: matchingUser,
+              label: matchingUser?.name
+            }
           });
+
+          console.log("filteredCrewUsers", filteredCrewUsers)
           setCrewUsers(filteredCrewUsers);
         }
       })
       .catch((err) =>
         console.log("Error Occured in AddCrewTimeDateModal", err)
       );
+    })
+    .catch((err) =>
+    console.log("error occured in AddCrewTimeDateModal", err)
+    );
+    
   };
+
+  useEffect(()=> {
+    if(crew_id){
+      onClickAddCrewTimeDate()
+    }
+  }, [crew_id])
 
   const options = [
     { value: "chocolate", label: "Chocolate" },
@@ -43,15 +56,7 @@ const AddCrewTimeDateModal = (props) => {
   ];
   return (
     <>
-      <button
-        type="button"
-        class="btn btn-primary primary-btn px-3"
-        data-bs-toggle="modal"
-        data-bs-target="#largeModal"
-        onClick={() => onClickAddCrewTimeDate()}
-      >
-        + Add Crew Time/Date
-      </button>
+      
       <div
         class="modal fade time-entry-modal"
         id="largeModal"
