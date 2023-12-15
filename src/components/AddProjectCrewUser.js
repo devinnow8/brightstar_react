@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addCrewUser, addProjectUser } from "../API";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
@@ -27,6 +28,7 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
         addProjectUser(projectUserPayload).then((res) => {
           if (res?.status === 200) {
             onAddNewMember();
+
             // window.location.reload();
           }
         });

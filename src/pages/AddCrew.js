@@ -11,6 +11,7 @@ import {
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
+import { toast } from "react-toastify";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -142,6 +143,7 @@ const CrewManagement = () => {
         addProjectUser(projectUserPayload).then((res) => {
           console.log("addProjectUser res", res);
           if (res?.status === 200) {
+            toast.success("Changed Successfully");
             // window.location.reload();
           }
         });
