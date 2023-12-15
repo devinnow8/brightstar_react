@@ -19,7 +19,7 @@ const SideBar = () => {
     location.pathname.split("/")[1].includes(item.label)
   );
   const [selectedTab, setSelectedTab] = useState(
-    sideBarItems[currentSelectedTab].name
+    sideBarItems[currentSelectedTab]?.name
   );
 
   const signOutHandler = (event) => {
@@ -30,7 +30,7 @@ const SideBar = () => {
   };
 
   const onTabClick = (item) => {
-    setSelectedTab(item.name);
+    setSelectedTab(item?.name);
   };
 
   return (
@@ -42,12 +42,12 @@ const SideBar = () => {
             className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
             id="menu"
           >
-            {sideBarItems.map((item, key) => {
+            {sideBarItems?.map((item, key) => {
               return (
                 <li
                   onClick={() => onTabClick(item)}
                   className={
-                    selectedTab === item.name
+                    selectedTab === item?.name
                       ? "nav-item selectedTab"
                       : "nav-item"
                   }
@@ -58,7 +58,7 @@ const SideBar = () => {
                       className="nav-link align-middle px-0"
                       to={item.route}
                     >
-                      {item.name}
+                      {item?.name}
                       <i className="fs-4 bi-house"></i>{" "}
                     </Link>
                   </span>
