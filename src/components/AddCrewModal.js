@@ -32,7 +32,6 @@ const AddCrewModal = (props) => {
       })
       .catch((err) => console.log("Error occured while adding new crew", err));
   };
-  console.log("addCrewDetails", addCrewDetails);
   return (
     <>
       <button

@@ -29,7 +29,6 @@ const CrewManagement = () => {
       // const request3 = getAllCrewUser(state?.crew_id);
       // const request4 = getProjectUserDetails();
       const request5 = await getRoleIds();
-      console.log("request5", request5);
       setRoles(request5.data);
       const [projects, employees, userOptions, empList] = await Promise.all([
         getAllProjectList(),
@@ -53,8 +52,6 @@ const CrewManagement = () => {
             employeeArr.push({ value: user.id, name: user.name });
           }
         });
-        console.log("roleList", employeeArr);
-        console.log("employeeArremployeeArr", empList.data);
 
         setProjectOptions(projectLists);
         setEmployeeOptions(employeeArr);
@@ -79,7 +76,6 @@ const CrewManagement = () => {
     fetchData();
   }, []);
 
-  console.log("thirdApi==>>", userOptions);
   // const crewDropdownData = [
   //   { id: "dropdown1", label: "Label 1", name: "Dropdown 1" },
   //   { id: "dropdown2", label: "Label 2", name: "Dropdown 2" },
@@ -106,14 +102,11 @@ const CrewManagement = () => {
     // { ...selectedOptions, selectedOptions[dropdown] = event.target.value})
     // ...selectedOptions,
     // (selectedOptions[dropdown] = event.target.value)
-    console.log("handleSelectChange", roles, dropdown);
     const obj = { ...selectedOptions };
     obj[dropdown] = Number(event.target.value);
-    console.log("pppp", obj);
 
     setSelectedOptions(obj);
     const selectedRoleUser = roles.find((role) => role.name === dropdown);
-    console.log("selectedRoleUser", selectedRoleUser.id);
     const data = {
       user_id: Number(event.target.value),
       project_role_id: selectedRoleUser.id,
@@ -133,11 +126,8 @@ const CrewManagement = () => {
     };
 
     await addCrewUser(crewUserPayload).then((res) => {
-      console.log("addCrewUserRes", res);
       if (res?.status === 200) {
-        console.log("addCrewUserRes success", res);
         addProjectUser(projectUserPayload).then((res) => {
-          console.log("addProjectUser res", res);
           if (res?.status === 200) {
             // window.location.reload();
           }
@@ -296,7 +286,6 @@ const CrewManagement = () => {
           Add Crew Users
         </button>
       </div> */}
-      {console.log("hhhhhh", userOptions)}
 
       <>
         <div className="table-responsive">

@@ -10,7 +10,6 @@ const AddProjectCrewUser = ({ userOptions, state }) => {
   };
 
   const addNewCrewMemberPromise = async (data) => {
-    console.log("daatatatatta", data);
     const crewUserPayload = {
       crew_id: state?.crew_id,
       user_id: data?.value,
@@ -22,11 +21,8 @@ const AddProjectCrewUser = ({ userOptions, state }) => {
     };
 
     await addCrewUser(crewUserPayload).then((res) => {
-      console.log("addCrewUserRes", res);
       if (res?.status === 200) {
-        console.log("addCrewUserRes success", res);
         addProjectUser(projectUserPayload).then((res) => {
-          console.log("addProjectUser res", res);
           if (res?.status === 200) {
             // window.location.reload();
           }

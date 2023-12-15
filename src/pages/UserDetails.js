@@ -8,7 +8,6 @@ const UserDetails = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const param = useParams();
-  console.log("param", param);
 
   const fetchProjectDetails = async () => {
     try {
