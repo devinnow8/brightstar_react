@@ -71,6 +71,10 @@ const CrewManagement = () => {
       console.error("Error fetching data:", error);
     }
   };
+  const onAddNewMember = async () => {
+    const userOptions = await getAllCrewUser(crewId);
+    setUserOptions(userOptions.data);
+  };
 
   useEffect(() => {
     fetchData();
@@ -276,7 +280,10 @@ const CrewManagement = () => {
           ))} */}
         </div>
       </div>
-      <AddProjectCrewUser state={crewId} userOptions={employeeOptions} />
+      <AddProjectCrewUser
+        onAddNewMember={onAddNewMember}
+        userOptions={employeeOptions}
+      />
       {/* <div className="text-end">
         <button
           className="primary-btn mb-4"
