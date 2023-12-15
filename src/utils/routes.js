@@ -7,6 +7,7 @@ import ProjectDetails from "../pages/ProjectDetails";
 import UserDetails from "../pages/UserDetails";
 import CrewManagement from "../pages/AddCrew";
 import AllCrewsManagement from "../pages/AllCrewsManagement";
+import NotFound from "../components/NotFound";
 
 export const ROUTES = {
   HOME: {
@@ -43,6 +44,6 @@ export const ROUTES = {
   },
   NOTFOUND: {
     path: "*",
-    element: <div>404 Error</div>,
+    element: <NotFound />
   },
 };
