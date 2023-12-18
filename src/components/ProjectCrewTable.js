@@ -46,14 +46,14 @@ const ProjectCrewTable = (props) => {
                   </button>
                   {/* <AddCrewTimeDateModal crew_id={item?.id} /> */}
                   <button
-        type="button"
-        class="btn btn-primary primary-btn px-3"
-        data-bs-toggle="modal"
-        data-bs-target="#largeModal"
-        onClick={() => selectCrewIdForTimeEntry(item?.id)}
-      >
-        + Add Crew Time/Date
-      </button>
+                    type="button"
+                    class="btn btn-primary primary-btn detail-btn px-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#largeModal"
+                    onClick={() => selectCrewIdForTimeEntry(item?.id)}
+                  >
+                    + Add Crew Time/Date
+                  </button>
                 </td>
               </tr>
             );

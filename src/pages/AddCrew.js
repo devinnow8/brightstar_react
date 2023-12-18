@@ -167,7 +167,7 @@ const CrewManagement = () => {
         <div className="crew-flex row">
           {projectOptions?.length > 0 ? (
             <>
-              <div className="col-md-6 col-lg-3">
+              <div className="col-md-6 col-lg-6 col-xl-3">
                 <div className="mb-3 mb-lg-0">
                   <label htmlFor="">Project Id</label>
                   <select
@@ -194,7 +194,7 @@ const CrewManagement = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3">
+              <div className="col-md-6 col-lg-6 col-xl-3 mb-3 mb-xl-0">
                 <div>
                   <label htmlFor="">Foreman</label>
                   <select
@@ -218,7 +218,7 @@ const CrewManagement = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3">
+              <div className="col-md-6 col-lg-6 col-xl-3">
                 <div>
                   <label htmlFor="">General Foreman</label>
                   <select
@@ -242,7 +242,7 @@ const CrewManagement = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-6 col-lg-3">
+              <div className="col-md-6 col-lg-6 col-xl-3">
                 <div>
                   <label htmlFor="">Ops Manager</label>
                   <select

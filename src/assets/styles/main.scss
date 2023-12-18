@@ -185,13 +185,20 @@ $primary-color: #49adff;
     td {
       vertical-align: middle;
       height: 62px;
+      @media (max-width: 1024px) {
+        height: 80px;
+      }
       .detail-btn {
         @extend .primary-btn;
+        @media (max-width: 1024px) {
+          height: 52px;
+        }
       }
     }
     .details-td {
       display: flex;
       justify-content: flex-start;
+      align-items: center;
       padding-right: 14px;
     }
     .crew-mgmt {
