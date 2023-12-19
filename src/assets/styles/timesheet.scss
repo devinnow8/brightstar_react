@@ -21,60 +21,67 @@
         &:last-child {
           border-right: none;
         }
-        .txt {
-          text-align: center;
+        .timesheet-header {
           padding: 14px 0px 17px 0px;
           border-bottom: 1px solid #B7B7B7;
-          font-size: 27px;
+        }
+        .txt {
+          text-align: center;
+          font-size: 25px;
           color: #272725;
           margin-bottom: 0;
         }
-        .status-card {
-          margin: 8px;
-          border-radius: 10px;
-          padding: 18px 14px 16px 20px;
-          border: 1px solid #7D7D7D;
-          margin-bottom: 20px;
-          > p {
-            font-size: 16px;
-            color: #272725;
-            font-weight: 400;
-          }
-          .btn-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0px 5px 0px;
-            @media (max-width: 1024px) {
-              display: block;
+        .timesheet-content {
+          height: calc(100% - 74px);
+          overflow-y: auto;
+          .status-card {
+            margin: 8px;
+            border-radius: 10px;
+            padding: 18px 14px 16px 20px;
+            border: 1px solid #7D7D7D;
+            margin-bottom: 20px;
+            > p {
+              font-size: 16px;
+              color: #272725;
+              font-weight: 400;
             }
-            .open {
+            .btn-flex {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin: 20px 0px 5px 0px;
               @media (max-width: 1024px) {
-                width: 130px;
-                margin-bottom: 10px;
+                display: block;
               }
-              @media (max-width: 768px) {
-                width: 100px;
-                text-align: center;
-                margin-bottom: 10px;
-                padding: 0;
+              .open {
+                @media (max-width: 1024px) {
+                  width: 130px;
+                  margin-bottom: 10px;
+                }
+                @media (max-width: 768px) {
+                  width: 100px;
+                  text-align: center;
+                  margin-bottom: 10px;
+                  padding: 0;
+                }
               }
-            }
-            .submit {
-              border: 1px solid #000;
-              color: #000;
-              @media (max-width: 1024px) {
-                width: 130px;
-              }
-              @media (max-width: 768px) {
-                width: 100px;
-                padding: 0;
-                text-align: center;
-                margin-bottom: 10px;
+              .submit {
+                border: 1px solid #000;
+                color: #000;
+                @media (max-width: 1024px) {
+                  width: 130px;
+                }
+                @media (max-width: 768px) {
+                  width: 100px;
+                  padding: 0;
+                  text-align: center;
+                  margin-bottom: 10px;
+                }
               }
             }
           }
         }
+        
         .new-btn {
           border: 1px solid #000;
           margin-right: 8px;
