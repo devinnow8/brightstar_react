@@ -266,11 +266,14 @@ $primary-color: #49adff;
       height: 100%;
       position: fixed;
       top: 0%;
-      left: 0;
+      left: 240px;
       .ddd {
         position: absolute;
-        top: 36%;
-        left: 50%;
+        top: 40%;
+        left: 38%;
+        @media (max-width: 1024px) {
+          left: calc(60% - 240px);
+        }
         .spinner-border {
           width: 3rem;
           height: 3rem;

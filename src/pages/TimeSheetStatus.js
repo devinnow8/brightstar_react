@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTimeSheet, getUserDetails,  } from "../API";
-import TimeSheetTable from "../components/TimeSheetTable";
+import MyTimesheet from "../components/MyTimesheet";
 
 export const TimeCards = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ export const TimeCards = () => {
   return (
     <div className="timesheet">
       <h3>My Timesheets</h3>{" "}
-      <TimeSheetTable
+      <MyTimesheet
         employeeOptions={allUsers}
         timeSheets={timeSheets}
         isLoading={isLoading}
