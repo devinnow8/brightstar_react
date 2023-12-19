@@ -1,57 +1,71 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../pages/Loader";
 
 const MyTimesheet = (props) => {
   const { timeSheets, isLoading } = props;
+  const navigate = useNavigate();
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
-  //   const getDate = (date) => {
-  //     return new Date(date).getDate();
-  //   };
+  const onCardClick = (card) => {
+    navigate(`/time-card/${card}`);
+  };
   return (
     <div className="timesheet-data">
       <div className="timesheet-flex">
         <div className="timesheet-status">
-          <div className="timesheet-header">
-            <h3 className="txt">Open</h3>
-          </div>
-          <div className="timesheet-content">
-            <div className="status-card">
-              <p>It is a long established fact that a reader will be distracted by the readable content of a page when.</p>
-              <div className="btn-flex">
-                <button className="primary-btn open">Open</button>
-                <button className="primary-btn-outlined submit">Submit</button>
+          <h3 className="txt">Open</h3>
+          {[1, 2, 3, 4].map((card) => {
+            return (
+              <div className="status-card">
+                <p>
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page when.
+                </p>
+                <div className="btn-flex">
+                  <button
+                    onClick={() => {
+                      onCardClick(card);
+                    }}
+                    className="primary-btn open"
+                  >
+                    Open
+                  </button>
+                  <button className="primary-btn-outlined submit">
+                    Submit
+                  </button>
+                </div>
               </div>
-            </div>
-            {/* <div className="text-end">
-              <button className="primary-btn-outlined new-btn px-3">+ New Timesheet</button>
-            </div> */}
+            );
+          })}
+          <div className="text-end">
+            <button className="primary-btn-outlined new-btn px-3">
+              + New Timesheet
+            </button>
           </div>
         </div>
         <div className="timesheet-status">
-          <div className="timesheet-header">
-            <h3 className="txt">In Review</h3>
-          </div>
-          <div className="timesheet-content">
-            <div className="status-card">
-              <p>It is a long established fact that a reader will be distracted by the readable content of a page when.</p>
-              <div className="btn-flex">
-                <button className="primary-btn open">Open</button>
-                <button className="primary-btn-outlined submit">Submit</button>
-              </div>
+          <h3 className="txt">In Review</h3>
+          <div className="status-card">
+            <p>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when.
+            </p>
+            <div className="btn-flex">
+              <button className="primary-btn open">Open</button>
+              <button className="primary-btn-outlined submit">Submit</button>
             </div>
           </div>
         </div>
         <div className="timesheet-status">
-          <div className="timesheet-header">
-            <h3 className="txt">Processing</h3>
-          </div>
-          <div className="timesheet-content">
-            <div className="status-card">
-              <p>It is a long established fact that a reader will be distracted by the readable content of a page when.</p>
-              <div className="btn-flex">
-                <button className="primary-btn open">Open</button>
-                <button className="primary-btn-outlined submit">Submit</button>
-              </div>
+          <h3 className="txt">Processing</h3>
+          <div className="status-card">
+            <p>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when.
+            </p>
+            <div className="btn-flex">
+              <button className="primary-btn open">Open</button>
+              <button className="primary-btn-outlined submit">Submit</button>
             </div>
           </div>
         </div>

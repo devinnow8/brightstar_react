@@ -10,6 +10,7 @@ import AllCrewsManagement from "../pages/AllCrewsManagement";
 import NotFound from "../components/NotFound";
 import TimeSheet from "../pages/TimeSheet";
 import TimeCards from "../pages/TimeSheetStatus";
+import TimeCard from "../pages/TimeCard";
 
 export const ROUTES = {
   HOME: {
@@ -50,12 +51,19 @@ export const ROUTES = {
   CREW_MANAGEMENT: {
     path: "/all-crews-management",
     element: <AllCrewsManagement />,
-    availability: ["all"],
+    availability: ["Ops Manager"],
   },
   TIME_CARDS: {
     path: "/time-card",
     element: <TimeCards />,
-    availability: ["Forman", "General Forman"],
+    // availability: ["Forman", "General Forman"],
+    availability: ["all"],
+  },
+  TIME_CARD: {
+    path: "/time-card/:id",
+    element: <TimeCard />,
+    // availability: ["Forman", "General Forman"],
+    availability: ["all"],
   },
   NOTFOUND: {
     path: "*",

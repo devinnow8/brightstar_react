@@ -14,22 +14,25 @@ const SideBar = () => {
   const sideBarItems = [
     { name: "Projects", route: "/projects", label: "projects" },
     { name: "Users", route: "/users", label: "users" },
-    {
-      name: "Crew Management",
-      route: "/all-crews-management",
-      label: "crew",
-    },
+
     { name: "Time Sheet", route: "/time-sheet", label: "time" },
   ];
 
-  if (
-    currentRoleAccess === "Forman" ||
-    currentRoleAccess === "General Forman"
-  ) {
+  // if (
+  //   currentRoleAccess === "Forman" ||
+  //   currentRoleAccess === "General Forman"
+  // ) {
+  sideBarItems.push({
+    name: "Time Cards",
+    route: "/time-card",
+    label: "cards",
+  });
+  // }
+  if (currentRoleAccess === "Ops Manager") {
     sideBarItems.push({
-      name: "Time Cards",
-      route: "/time-card",
-      label: "cards",
+      name: "Crew Management",
+      route: "/all-crews-management",
+      label: "crew",
     });
   }
 
