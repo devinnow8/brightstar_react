@@ -12,6 +12,7 @@ import {
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
+import { Button } from "bootstrap";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -20,7 +21,7 @@ const CrewManagement = () => {
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
   const [roles, setRoles] = useState([]);
-
+  // const [selectedCostCodes, setSelectedCostCodes] = useState([]);
   const { crewId, projectId } = useParams();
   useEffect(() => {
     fetchData();
@@ -118,6 +119,11 @@ const CrewManagement = () => {
 
   console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
+  const onRowSelection = (e, item) => {
+    if (e.target.checked) {
+      // setSelectedCostCodes(item);
+    }
+  };
 
   return (
     <div className="crew-mgmt">
@@ -258,6 +264,75 @@ const CrewManagement = () => {
             </div>
           ))} */}
         </div>
+        <>
+          <h3>Cost codes</h3>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                {["Team", "id", "Cost code", "Description"]?.map(
+                  (item, key) => (
+                    <th scope="col" className="table-heading" key={key}>
+                      {item}
+                    </th>
+                  )
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {/* {userOptions?.map((item, key) => {
+                  return (
+                    <tr
+                      className={selectedUser.id === item.id ? "activeRow" : ""}
+                      onClick={() => setSelectedUser(item)}
+                      key={key}
+                    >
+                      <th scope="row" className="table-heading">
+                        {item.id}
+                      </th>
+                      <td>{item.user_id}</td>
+                      <td>{item.crew_id}</td>
+                      <td>{item.description}</td>
+                      <td className="details-td"></td>
+                    </tr>
+                  );
+                  
+                })} */}
+              {userOptions && userOptions.length > 0
+                ? userOptions.map((item, key) => {
+                    const user = employeeOptions.find(
+                      (user) => user.value === item.user_id
+                    );
+                    return (
+                      <tr
+                        className={
+                          selectedUser.id === item.id ? "activeRow" : ""
+                        }
+                        onClick={() => setSelectedUser(item)}
+                        key={key}
+                      >
+                        {/* <td>
+                          <input type="checkbox"></input>
+                          <label>{item?.id}</label>
+                        </td> */}
+                        <th scope="col">
+                          <input
+                            onChange={(evt) => onRowSelection(evt, item)}
+                            type="checkbox"
+                          />
+                        </th>
+                        <td>{item.id}</td>
+
+                        <td>{user?.name}</td>
+                        <td>{item?.crew_id}</td>
+                        <td>{item?.description}</td>
+                        <td className="details-td"></td>
+                      </tr>
+                    );
+                  })
+                : !loading && <tr>No data found</tr>}
+            </tbody>
+          </table>
+        </>
       </div>
       <AddProjectCrewUser
         state={crewId}

@@ -1,18 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../pages/Loader";
 
 const MyTimesheet = (props) => {
   const { timeSheets, isLoading } = props;
+  const navigate = useNavigate();
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
-  //   const getDate = (date) => {
-  //     return new Date(date).getDate();
-  //   };
+  const onCardClick = (card) => {
+    navigate(`/time-card/${card}`);
+  };
   return (
     <div className="timesheet-data">
       <div className="timesheet-flex">
         <div className="timesheet-status">
           <h3 className="txt">Open</h3>
-          {[1, 2, 3, 4].map(() => {
+          {[1, 2, 3, 4].map((card) => {
             return (
               <div className="status-card">
                 <p>
@@ -20,7 +22,14 @@ const MyTimesheet = (props) => {
                   by the readable content of a page when.
                 </p>
                 <div className="btn-flex">
-                  <button className="primary-btn open">Open</button>
+                  <button
+                    onClick={() => {
+                      onCardClick(card);
+                    }}
+                    className="primary-btn open"
+                  >
+                    Open
+                  </button>
                   <button className="primary-btn-outlined submit">
                     Submit
                   </button>
