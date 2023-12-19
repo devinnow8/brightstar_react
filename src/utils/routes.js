@@ -9,6 +9,7 @@ import CrewManagement from "../pages/AddCrew";
 import AllCrewsManagement from "../pages/AllCrewsManagement";
 import NotFound from "../components/NotFound";
 import TimeSheet from "../pages/TimeSheet";
+import TimeCards from '../pages/TimeSheetStatus'
 
 export const ROUTES = {
   HOME: {
@@ -42,6 +43,10 @@ export const ROUTES = {
   CREW_MANAGEMENT: {
     path: "/all-crews-management",
     element: <AllCrewsManagement />,
+  },
+  TIME_CARDS: {
+    path: "/time-card",
+    element: <TimeCards />,
   },
   NOTFOUND: {
     path: "*",

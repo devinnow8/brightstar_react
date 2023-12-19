@@ -14,6 +14,7 @@ const SideBar = () => {
       label: "crew",
     },
     { name: "Time Sheet", route: "/time-sheet", label: "time" },
+    { name: "Time Cards", route: "/time-card", label: "cards" },
   ];
   const currentSelectedTab = sideBarItems.findIndex((item) =>
     location.pathname.split("/")[1].includes(item.label)
