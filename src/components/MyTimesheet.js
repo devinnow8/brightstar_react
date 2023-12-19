@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "../pages/Loader";
 
-const TimeSheetTable = (props) => {
+const MyTimesheet = (props) => {
   const { timeSheets, isLoading } = props;
   const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
   //   const getDate = (date) => {
@@ -75,4 +75,4 @@ const TimeSheetTable = (props) => {
   );
 };
 
-export default TimeSheetTable;
+export default MyTimesheet;

@@ -27,13 +27,16 @@ export const TimeCards = () => {
     }
   };
   return (
-    <div>
-      <h3>TimeSheets</h3>{" "}
+    <div className="timesheet">
+      <h3>My Timesheets</h3>{" "}
       <TimeSheetTable
         employeeOptions={allUsers}
         timeSheets={timeSheets}
         isLoading={isLoading}
       />{" "}
+      <div className="text-end">
+        <button className="primary-btn save-btn">Save</button>
+      </div>
     </div>
   );
 };
