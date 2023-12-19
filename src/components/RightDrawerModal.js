@@ -129,11 +129,11 @@ const RightDrawerModal = (props) => {
           ></button>
         </div>
         <div class="offcanvas-body">
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">
-                Date:
-              </label>
+          <div class="input-flex">
+            <label for="recipient-name" class="col-form-label">
+              Date:
+            </label>
+            <div className="input-box">
               <input
                 onChange={(e) => onDateChange(e)}
                 aria-label="Date"
@@ -142,24 +142,26 @@ const RightDrawerModal = (props) => {
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div class="input-flex">
             <label for="recipient-name" class="col-form-label">
               Select Team Members
             </label>
-            <Select
-              className="react-select-container"
-              classNamePrefix="react-select"
-              isMulti
-              name="colors"
-              options={crewUsers}
-              onChange={(item) => onChangeUserSelect(item)}
-            />
+            <div className="input-box">
+              <Select
+                className="react-select-container"
+                classNamePrefix="react-select"
+                isMulti
+                name="colors"
+                options={crewUsers}
+                onChange={(item) => onChangeUserSelect(item)}
+              />
+            </div>
           </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label htmlFor="" class="col-form-label">
-                Project Task
-              </label>
+          <div class="input-flex">
+            <label htmlFor="" class="col-form-label">
+              Project Task
+            </label>
+            <div className="input-box">
               <select
                 // onChange={(e) => handleSelectChange(e, "project")}
                 class="form-select input-field"
@@ -167,11 +169,23 @@ const RightDrawerModal = (props) => {
               ></select>
             </div>
           </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label htmlFor="" class="col-form-label">
-                Cost Code
-              </label>
+          <div class="input-flex">
+            <label htmlFor="" class="col-form-label">
+              Cost Code
+            </label>
+            <div className="input-box">
+              <select
+                // onChange={(e) => handleSelectChange(e, "project")}
+                class="form-select input-field"
+                aria-label="Default select example"
+              ></select>
+            </div>
+          </div>
+          <div className="input-flex">
+            <label htmlFor="" class="col-form-label">
+              Cost Code
+            </label>
+            <div className="input-box">
               <select
                 // onChange={(e) => handleSelectChange(e, "project")}
                 class="form-select"
@@ -179,102 +193,98 @@ const RightDrawerModal = (props) => {
               ></select>
             </div>
           </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">
-                Lunch Time
-              </label>
-              <input
-                name="time_entry_in"
-                aria-label="Time"
-                type="time"
-                className="input-field"
-                onChange={(e) => onLunchTimeChange(e)}
-                value={lunchPunchInOutTime?.lunch_entry_in}
-              />
-              <label for="recipient-name" class="col-form-label">
-                Start
-              </label>
+          <div className="input-flex">
+            <label htmlFor="" class="col-form-label">
+              Lunch
+            </label>
+            <div className="input-box d-flex align-items-center justify-content-between">
+              <div className="col-md-6" style={{width: '48%'}}>
+                <div>
+                  <input
+                    name="time_entry_in"
+                    aria-label="Time"
+                    type="time"
+                    className="input-field w-100"
+                    onChange={(e) => onLunchTimeChange(e)}
+                    value={lunchPunchInOutTime?.lunch_entry_in}
+                  />
+                  <label for="recipient-name" class="col-form-label">
+                    Start
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-6" style={{width: '48%'}}>
+                <div>
+                  <input
+                    name="time_entry_in"
+                    aria-label="Time"
+                    type="time"
+                    className="input-field w-100"
+                    onChange={(e) => onLunchTimeChange(e)}
+                    value={lunchPunchInOutTime?.lunch_entry_in}
+                  />
+                  <label for="recipient-name" class="col-form-label">
+                    End
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label
-                for="recipient-name"
-                class="col-form-label"
-                style={{ visibility: "hidden" }}
-              >
-                Lunch Time
-              </label>
-              <input
-                name="time_entry_out"
-                aria-label="Time"
-                type="time"
-                className="input-field"
-                onChange={(e) => onLunchTimeChange(e)}
-                value={lunchPunchInOutTime?.lunch_entry_out}
-              />
-              <label for="recipient-name" class="col-form-label">
-                End
-              </label>
+          <div className="input-flex">
+            <label for="recipient-name" class="col-form-label">
+              Working Time
+            </label>
+            <div className="input-box d-flex align-items-center justify-content-between">
+              <div className="col-md-6" style={{width: '48%'}}>
+                <div>
+                  <input
+                    name="time_entry_in"
+                    aria-label="Time"
+                    type="time"
+                    className="input-field"
+                    onChange={(e) => onTimeChange(e)}
+                    value={punchInOutTime?.time_entry_in}
+                  />
+                  <label for="recipient-name" class="col-form-label">
+                    Start
+                  </label>
+                </div>
+              </div>
+              <div className="col-md-6" style={{width: '48%'}}>
+                <div>
+                  <input
+                    name="time_entry_out"
+                    aria-label="Time"
+                    type="time"
+                    className="input-field"
+                    onChange={(e) => onTimeChange(e)}
+                    value={punchInOutTime?.time_entry_out}
+                  />
+                  <label for="recipient-name" class="col-form-label">
+                    End
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">
-                Working Time
-              </label>
-              <input
-                name="time_entry_in"
-                aria-label="Time"
-                type="time"
-                className="input-field"
-                onChange={(e) => onTimeChange(e)}
-                value={punchInOutTime?.time_entry_in}
-              />
-              <label for="recipient-name" class="col-form-label">
-                Start
-              </label>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-4">
-            <div class="mb-3">
-              <label
-                for="recipient-name"
-                class="col-form-label"
-                style={{ visibility: "hidden" }}
-              >
-                Working Time
-              </label>
-              <input
-                name="time_entry_out"
-                aria-label="Time"
-                type="time"
-                className="input-field"
-                onChange={(e) => onTimeChange(e)}
-                value={punchInOutTime?.time_entry_out}
-              />
-              <label for="recipient-name" class="col-form-label">
-                End
-              </label>
-            </div>
-          </div>
-          <div className="mb-3">
+          <div className="input-flex">
             <label for="recipient-name" class="col-form-label">
               Notes
             </label>
-            <textarea />
+            <div className="input-box">
+              <textarea rows="3" className="textarea" />
+            </div>
           </div>
         </div>
         <div class="modal-footer">
           <button
             onClick={() => onClickSave()}
             type="button"
-            class="primary-btn-outlined"
+            class="primary-btn-outlined me-3"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           >
-            Close
+            Cancel
           </button>
           <button
             onClick={() => onClickSave()}

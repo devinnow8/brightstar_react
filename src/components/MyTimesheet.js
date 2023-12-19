@@ -41,11 +41,11 @@ const MyTimesheet = (props) => {
               );
             })}
           </div>
-          <div className="text-end">
+          {/* <div className="text-end">
             <button className="primary-btn-outlined new-btn px-3">
               + New Timesheet
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="timesheet-status">
           <div className="timesheet-header">
@@ -76,11 +76,6 @@ const MyTimesheet = (props) => {
               );
             })}
           </div>
-          <div className="text-end">
-            <button className="primary-btn-outlined new-btn px-3">
-              + New Timesheet
-            </button>
-          </div>
         </div>
         <div className="timesheet-status">
           <div className="timesheet-header">
@@ -110,11 +105,6 @@ const MyTimesheet = (props) => {
                 </div>
               );
             })}
-          </div>
-          <div className="text-end">
-            <button className="primary-btn-outlined new-btn px-3">
-              + New Timesheet
-            </button>
           </div>
         </div>
       </div>
