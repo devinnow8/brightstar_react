@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { Roles } from "../utils/constants";
 
 const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  let role_id;
+  if (localStorage.getItem("role_id")) {
+    role_id = JSON.parse(localStorage.getItem("role_id"));
+  }
+  const currentRoleAccess = Roles[role_id];
 
   const sideBarItems = [
     { name: "Projects", route: "/projects", label: "projects" },
@@ -14,8 +20,19 @@ const SideBar = () => {
       label: "crew",
     },
     { name: "Time Sheet", route: "/time-sheet", label: "time" },
-    { name: "Time Cards", route: "/time-card", label: "cards" },
   ];
+
+  if (
+    currentRoleAccess === "Forman" ||
+    currentRoleAccess === "General Forman"
+  ) {
+    sideBarItems.push({
+      name: "Time Cards",
+      route: "/time-card",
+      label: "cards",
+    });
+  }
+
   const currentSelectedTab = sideBarItems.findIndex((item) =>
     location.pathname.split("/")[1].includes(item.label)
   );
@@ -26,9 +43,9 @@ const SideBar = () => {
   );
 
   const signOutHandler = (event) => {
-    // event.preventDefault();
     localStorage.removeItem("accessToken");
-    // isLogged((prevLogged) => !prevLogged);
+    localStorage.removeItem("role_id");
+
     navigate("/");
   };
 

@@ -27,12 +27,7 @@ const CrewManagement = () => {
   }, []);
   const fetchData = async () => {
     try {
-      // const request1 = getAllProjectList;
-      // const request2 = getUserDetails();
-      // const request3 = getAllCrewUser(state?.crew_id);
-      // const request4 = getProjectUserDetails();
       const request5 = await getRoleIds();
-      console.log("request5", request5);
       setRoles(request5.data);
       const [projects, employees, userOptions, empList] = await Promise.all([
         getAllProjectList(),
@@ -56,8 +51,6 @@ const CrewManagement = () => {
             employeeArr.push({ value: user.id, name: user.name });
           }
         });
-        console.log("roleList", employeeArr);
-        console.log("employeeArremployeeArr", empList.data);
 
         setProjectOptions(projectLists);
         setEmployeeOptions(employeeArr);
@@ -83,42 +76,17 @@ const CrewManagement = () => {
     setUserOptions(userOptions.data);
     toast.success("New member added successfully");
   };
-
-  console.log("thirdApi==>>", userOptions);
-  // const crewDropdownData = [
-  //   { id: "dropdown1", label: "Label 1", name: "Dropdown 1" },
-  //   { id: "dropdown2", label: "Label 2", name: "Dropdown 2" },
-  //   { id: "dropdown3", label: "Label 3", name: "Dropdown 3" },
-  //   { id: "dropdown4", label: "Label 4", name: "Dropdown 4" },
-  // ];
-  // const tableHeadings = ["Name", "Boss_Id"];
   const crewTableHeadings = ["Id", "Name", "Crew Id"];
 
-  // const [manageCrewDropdownData, setManageCrewDropdownData] = useState(
-  //   crewDropdownData.reduce((acc, curr) => ({ ...acc, [curr.id]: false }), {})
-  // );
-
-  // const toggleCrewDropdown = (dropdownId) => {
-  //   setManageCrewDropdownData((prevState) => ({
-  //     ...prevState,
-  //     [dropdownId]: !prevState[dropdownId],
-  //   }));
-  // };
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
 
   function handleSelectChange(event, dropdown) {
-    // { ...selectedOptions, selectedOptions[dropdown] = event.target.value})
-    // ...selectedOptions,
-    // (selectedOptions[dropdown] = event.target.value)
-    console.log("handleSelectChange", roles, dropdown);
     const obj = { ...selectedOptions };
     obj[dropdown] = Number(event.target.value);
-    console.log("pppp", obj);
 
     setSelectedOptions(obj);
     const selectedRoleUser = roles.find((role) => role.name === dropdown);
-    console.log("selectedRoleUser", selectedRoleUser.id);
     const data = {
       user_id: Number(event.target.value),
       project_role_id: selectedRoleUser.id,
@@ -138,14 +106,10 @@ const CrewManagement = () => {
     };
 
     await addCrewUser(crewUserPayload).then((res) => {
-      console.log("addCrewUserRes", res);
       if (res?.status === 200) {
-        console.log("addCrewUserRes success", res);
         addProjectUser(projectUserPayload).then((res) => {
-          console.log("addProjectUser res", res);
           if (res?.status === 200) {
             toast.success("Changed Successfully");
-            // window.location.reload();
           }
         });
       }

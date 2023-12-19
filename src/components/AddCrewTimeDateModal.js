@@ -52,16 +52,12 @@ const AddCrewTimeDateModal = (props) => {
                 const matchingUser = userData?.find(
                   (crewEle) => ele?.user_id == crewEle?.id
                 );
-                console.log("matchingUser", matchingUser);
                 return {
                   value: matchingUser,
                   label: matchingUser?.name,
                 };
               });
-              console.log(
-                "filteredCrewUsersfilteredCrewUsers",
-                filteredCrewUsers
-              );
+
               setCrewUsers(filteredCrewUsers);
             }
           })
