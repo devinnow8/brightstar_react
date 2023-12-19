@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
+import RightDrawerModal from "./RightDrawerModal";
 
 const ProjectCrewTable = (props) => {
   const { projectCrews } = props;
   const [selectedCrewId, setSelectedCrewId] = useState();
 
-  const tableHeadings = ["Name", "Boss Id", "Project Id"];
+  const tableHeadings = ["Name", "Actions"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
@@ -16,8 +17,8 @@ const ProjectCrewTable = (props) => {
     });
   };
   const selectCrewIdForTimeEntry = (id) => {
-    setSelectedCrewId(id)
-  }
+    setSelectedCrewId(id);
+  };
   return (
     <div className="table-responsive crew-table">
       <table className="table table-striped">
@@ -35,8 +36,8 @@ const ProjectCrewTable = (props) => {
                 <th scope="row" className="table-heading">
                   {item.name}
                 </th>
-                <td>{item.boss_user_id}</td>
-                <td>{item.project_id}</td>
+                {/* <td>{item.boss_user_id}</td>
+                <td>{item.project_id}</td> */}
                 <td className="details-td">
                   <button
                     className="btn btn-info detail-btn me-3"
@@ -45,11 +46,21 @@ const ProjectCrewTable = (props) => {
                     Crew Management
                   </button>
                   {/* <AddCrewTimeDateModal crew_id={item?.id} /> */}
-                  <button
+                  {/* <button
                     type="button"
                     class="btn btn-primary primary-btn detail-btn px-3"
                     data-bs-toggle="modal"
                     data-bs-target="#largeModal"
+                    onClick={() => selectCrewIdForTimeEntry(item?.id)}
+                  >
+                    + Add Crew Time/Date old
+                  </button> */}
+                  <button
+                    class="btn btn-primary primary-btn detail-btn px-3"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight"
+                    aria-controls="offcanvasRight"
                     onClick={() => selectCrewIdForTimeEntry(item?.id)}
                   >
                     + Add Crew Time/Date
@@ -60,7 +71,8 @@ const ProjectCrewTable = (props) => {
           })}
         </tbody>
       </table>
-      <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal"/>
+      {/* <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal" /> */}
+      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" />
     </div>
   );
 };
