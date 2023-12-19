@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { addCrewUser, addProjectUser } from "../API";
+import { addCrewUser } from "../API";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
@@ -16,22 +16,20 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
     const crewUserPayload = {
       crew_id: crewId,
       user_id: data?.value,
+      crew_role_id: 4
     };
-    const projectUserPayload = {
-      user_id: data?.value,
-      project_id: projectId,
-      project_role_id: 4,
-    };
+    // const projectUserPayload = {
+    //   user_id: data?.value,
+    //   project_id: projectId,
+    //   project_role_id: 4,
+    // };
 
     await addCrewUser(crewUserPayload).then((res) => {
       if (res?.status === 200) {
-        addProjectUser(projectUserPayload).then((res) => {
-          if (res?.status === 200) {
-            onAddNewMember();
-
-            // window.location.reload();
-          }
-        });
+          onAddNewMember();
+          // window.location.reload();
+        // addProjectUser(projectUserPayload).then((res) => {
+        // });
       }
     });
   };

@@ -112,7 +112,7 @@ const ProjectDetails = () => {
         </button> */}
       </div>
       {projectCrews?.length > 0 && (
-        <ProjectCrewTable projectCrews={projectCrews} />
+        <ProjectCrewTable projectCrews={projectCrews} projectId = {param?.id} />
       )}
       {/* {isCrewTimeModal && } */}
     </div>

@@ -5,13 +5,15 @@ import AddCrewTimeDateModal from "./AddCrewTimeDateModal";
 import RightDrawerModal from "./RightDrawerModal";
 
 const ProjectCrewTable = (props) => {
-  const { projectCrews } = props;
+  const { projectCrews, projectId } = props;
+  console.log("projectCrews ===>", projectCrews);
   const [selectedCrewId, setSelectedCrewId] = useState();
 
   const tableHeadings = ["Name", "Actions"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
+    // setProjectId(item?.project_id);
     navigate(`/crew-management/${item?.project_id}/${item?.id}`, {
       state: { project_id: item?.project_id, crew_id: item?.id },
     });
@@ -72,7 +74,7 @@ const ProjectCrewTable = (props) => {
         </tbody>
       </table>
       {/* <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal" /> */}
-      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" />
+      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" project_id = {projectId} />
     </div>
   );
 };

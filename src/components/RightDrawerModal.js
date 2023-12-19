@@ -2,28 +2,44 @@ import { useState, useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { addCrewTimeEntry, getAllCrewUser, getUserDetails } from "../API";
+import {
+  addCrewTimeEntry,
+  getAllCrewUser,
+  getProjectTask,
+  getUserDetails,
+} from "../API";
 import { getCurrentDateTime } from "../utils/utils";
 
 const RightDrawerModal = (props) => {
-  const { crew_id } = props;
-  console.log("propspropspropsprops", crew_id);
+  const { crew_id, project_id } = props;
+
   const [selectedDate, setSelectedDate] = useState();
+  const [allProjectTasks, setAllProjectTasks] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [crewUsers, setCrewUsers] = useState([]);
   const [allSelectedUsers, setAllSelectedUsers] = useState([]);
-
   const [punchInOutTime, setPunchInOutTime] = useState({
     time_entry_in: "08:30",
     time_entry_out: "17:00",
   });
-
   const [lunchPunchInOutTime, setLunchPunchInOutTime] = useState({
     lunch_entry_in: "13:00",
     lunch_entry_out: "14:00",
   });
+  const [projectTaskOptions, setProjectTaskOptions] = useState([]);
 
   const navigate = useNavigate();
+
+  const getAllProjectTasks = async () => {
+    await getProjectTask(project_id).then((res) => {
+      if (res?.status === 200) {
+        const dropDownOptions = res?.data?.map((ele) => {
+          return { label: ele?.description, value: ele };
+        });
+        setProjectTaskOptions(dropDownOptions);
+      }
+    });
+  };
 
   const onChangeUserSelect = (item) => {
     setAllSelectedUsers(item);
@@ -82,7 +98,10 @@ const RightDrawerModal = (props) => {
     if (crew_id) {
       onClickAddCrewTimeDate();
     }
-  }, [crew_id]);
+    if (project_id) {
+      getAllProjectTasks();
+    }
+  }, [crew_id, project_id]);
 
   const onClickSave = async () => {
     allSelectedUsers?.forEach(async (ele) => {
@@ -172,23 +191,14 @@ const RightDrawerModal = (props) => {
               Project Task
             </label>
             <div className="input-box">
-              <select
-                // onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select input-field"
-                aria-label="Default select example"
-              ></select>
-            </div>
-          </div>
-          <div class="input-flex">
-            <label htmlFor="" class="col-form-label">
-              Project Task
-            </label>
-            <div className="input-box">
-              <select
-                // onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select input-field"
-                aria-label="Default select example"
-              ></select>
+              <Select
+                className="react-select-container"
+                classNamePrefix="react-select"
+                isMulti
+                name="colors"
+                options={projectTaskOptions}
+                // onChange={(item) => onChangeUserSelect(item)}
+              />
             </div>
           </div>
           <div className="input-flex">
@@ -208,7 +218,7 @@ const RightDrawerModal = (props) => {
               Lunch
             </label>
             <div className="input-box d-flex align-items-center justify-content-between">
-              <div className="col-md-6" style={{width: '48%'}}>
+              <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
                     name="time_entry_in"
@@ -223,7 +233,7 @@ const RightDrawerModal = (props) => {
                   </label>
                 </div>
               </div>
-              <div className="col-md-6" style={{width: '48%'}}>
+              <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
                     name="time_entry_in"
@@ -245,7 +255,7 @@ const RightDrawerModal = (props) => {
               Working Time
             </label>
             <div className="input-box d-flex align-items-center justify-content-between">
-              <div className="col-md-6" style={{width: '48%'}}>
+              <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
                     name="time_entry_in"
@@ -260,7 +270,7 @@ const RightDrawerModal = (props) => {
                   </label>
                 </div>
               </div>
-              <div className="col-md-6" style={{width: '48%'}}>
+              <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
                     name="time_entry_out"

@@ -64,7 +64,10 @@ const CrewManagement = () => {
 
         setProjectOptions(projectLists);
         setEmployeeOptions(employeeArr);
-        setUserOptions(userOptions.data);
+        const filteredCrewMembers = userOptions?.data?.filter(
+          (ele) => ele.crew_role_id === 4
+        );
+        setUserOptions(filteredCrewMembers);
         const selectedByDefaultOptions = {
           project: projectLists[0].value,
           Forman: employeeArr[0].value,
@@ -83,10 +86,14 @@ const CrewManagement = () => {
 
   const onAddNewMember = async () => {
     const userOptions = await getAllCrewUser(crewId);
-    setUserOptions(userOptions.data);
+    const filteredCrewMembers = userOptions?.data?.filter(
+      (ele) => ele.crew_role_id === 4
+    );
+    setUserOptions(filteredCrewMembers);
     toast.success("New member added successfully");
   };
-  const crewTableHeadings = ["Id", "Name", "Crew Id"];
+
+  const crewTableHeadings = ["User Id", "Name", "Crew Id"];
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
@@ -108,20 +115,21 @@ const CrewManagement = () => {
     const crewUserPayload = {
       crew_id: Number(crewId),
       user_id: data?.user_id,
+      crew_role_id: 4,
     };
-    const projectUserPayload = {
-      user_id: data?.user_id,
-      project_id: Number(projectId),
-      project_role_id: data.project_role_id,
-    };
+    // const projectUserPayload = {
+    //   user_id: data?.user_id,
+    //   project_id: Number(projectId),
+    //   project_role_id: data.project_role_id,
+    // };
 
     await addCrewUser(crewUserPayload).then((res) => {
       if (res?.status === 200) {
-        addProjectUser(projectUserPayload).then((res) => {
-          if (res?.status === 200) {
-            toast.success("Changed Successfully");
-          }
-        });
+        toast.success("Changed Successfully");
+        // addProjectUser(projectUserPayload).then((res) => {
+        //   if (res?.status === 200) {
+        //   }
+        // });
       }
     });
   };
@@ -274,7 +282,7 @@ const CrewManagement = () => {
             </div>
           ))} */}
         </div>
-        <>
+        {/* <>
           <h3>Cost codes</h3>
           <table className="table table-striped">
             <thead>
@@ -307,7 +315,7 @@ const CrewManagement = () => {
                 : !loading && <tr>No data found</tr>}
             </tbody>
           </table>
-        </>
+        </> */}
       </div>
       <AddProjectCrewUser
         state={crewId}
@@ -362,7 +370,7 @@ const CrewManagement = () => {
                           key={key}
                         >
                           <th scope="row" className="table-heading">
-                            {item?.id}
+                            {item?.user_id}
                           </th>
                           <td>{user?.name}</td>
                           <td>{item?.crew_id}</td>
