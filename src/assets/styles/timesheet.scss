@@ -24,16 +24,20 @@
         .timesheet-header {
           padding: 14px 0px 17px 0px;
           border-bottom: 1px solid #B7B7B7;
-        }
-        .txt {
-          text-align: center;
-          font-size: 25px;
-          color: #272725;
-          margin-bottom: 0;
+          .txt {
+            text-align: center;
+            font-size: 25px;
+            color: #272725;
+            margin-bottom: 0;
+          }
         }
         .timesheet-content {
-          height: calc(100% - 74px);
+          height: calc(100% - 137px);
           overflow-y: auto;
+          @media (max-width: 820px) {
+            height: calc(100% - 176px);
+            padding-bottom: 18px;
+          }
           .status-card {
             margin: 8px;
             border-radius: 10px;
@@ -81,14 +85,14 @@
             }
           }
         }
-        
         .new-btn {
           border: 1px solid #000;
           margin-right: 8px;
           color: #000;
+          margin-top: 18px;
           @media (max-width: 820px) {
             height: 60px;
-            margin: 0px 8px;
+            margin: 40px 8px;
           }
         }
       }

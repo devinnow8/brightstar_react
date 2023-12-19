@@ -13,30 +13,34 @@ const MyTimesheet = (props) => {
     <div className="timesheet-data">
       <div className="timesheet-flex">
         <div className="timesheet-status">
-          <h3 className="txt">Open</h3>
-          {[1, 2, 3, 4].map((card) => {
-            return (
-              <div className="status-card">
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when.
-                </p>
-                <div className="btn-flex">
-                  <button
-                    onClick={() => {
-                      onCardClick(card);
-                    }}
-                    className="primary-btn open"
-                  >
-                    Open
-                  </button>
-                  <button className="primary-btn-outlined submit">
-                    Submit
-                  </button>
+          <div className="timesheet-header">
+            <h3 className="txt">Open</h3>
+          </div>
+          <div className="timesheet-content">
+            {[1, 2, 3, 4].map((card) => {
+              return (
+                <div className="status-card">
+                  <p>
+                    It is a long established fact that a reader will be distracted
+                    by the readable content of a page when.
+                  </p>
+                  <div className="btn-flex">
+                    <button
+                      onClick={() => {
+                        onCardClick(card);
+                      }}
+                      className="primary-btn open"
+                    >
+                      Open
+                    </button>
+                    <button className="primary-btn-outlined submit">
+                      Submit
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
           <div className="text-end">
             <button className="primary-btn-outlined new-btn px-3">
               + New Timesheet
@@ -44,29 +48,73 @@ const MyTimesheet = (props) => {
           </div>
         </div>
         <div className="timesheet-status">
-          <h3 className="txt">In Review</h3>
-          <div className="status-card">
-            <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when.
-            </p>
-            <div className="btn-flex">
-              <button className="primary-btn open">Open</button>
-              <button className="primary-btn-outlined submit">Submit</button>
-            </div>
+          <div className="timesheet-header">
+            <h3 className="txt">Open</h3>
+          </div>
+          <div className="timesheet-content">
+            {[1, 2, 3, 4].map((card) => {
+              return (
+                <div className="status-card">
+                  <p>
+                    It is a long established fact that a reader will be distracted
+                    by the readable content of a page when.
+                  </p>
+                  <div className="btn-flex">
+                    <button
+                      onClick={() => {
+                        onCardClick(card);
+                      }}
+                      className="primary-btn open"
+                    >
+                      Open
+                    </button>
+                    <button className="primary-btn-outlined submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="text-end">
+            <button className="primary-btn-outlined new-btn px-3">
+              + New Timesheet
+            </button>
           </div>
         </div>
         <div className="timesheet-status">
-          <h3 className="txt">Processing</h3>
-          <div className="status-card">
-            <p>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when.
-            </p>
-            <div className="btn-flex">
-              <button className="primary-btn open">Open</button>
-              <button className="primary-btn-outlined submit">Submit</button>
-            </div>
+          <div className="timesheet-header">
+            <h3 className="txt">Open</h3>
+          </div>
+          <div className="timesheet-content">
+            {[1, 2, 3, 4].map((card) => {
+              return (
+                <div className="status-card">
+                  <p>
+                    It is a long established fact that a reader will be distracted
+                    by the readable content of a page when.
+                  </p>
+                  <div className="btn-flex">
+                    <button
+                      onClick={() => {
+                        onCardClick(card);
+                      }}
+                      className="primary-btn open"
+                    >
+                      Open
+                    </button>
+                    <button className="primary-btn-outlined submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="text-end">
+            <button className="primary-btn-outlined new-btn px-3">
+              + New Timesheet
+            </button>
           </div>
         </div>
       </div>
