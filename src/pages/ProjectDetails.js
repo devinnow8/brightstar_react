@@ -5,6 +5,7 @@ import AddCrewTimeDateModal from "../components/AddCrewTimeDateModal";
 import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
 import AddCrewTimeModal from "../components/Modal";
+import { formatDateTime } from "../utils/utils";
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
@@ -17,11 +18,16 @@ const ProjectDetails = () => {
     await getProjectDetails(param?.id)
       .then((res) => {
         if (res.status === 200) {
+          console.log("dataDatata", res?.data);
           setProjectDetails(res?.data);
         }
       })
       .catch((err) => console.log("error occured in getProjectDetails", err));
   };
+  let formattedDateTime = "";
+  if (projectDetails?.created_at) {
+    formattedDateTime = formatDateTime(projectDetails?.created_at);
+  }
 
   const onAddCrewClick = () => {};
   const addNewCrewToList = async () => {
@@ -60,10 +66,10 @@ const ProjectDetails = () => {
       <div className="row">
         <div className="col-md-12 col-lg-12 project-col">
           <div className="card">
-            <div className="card-data">
+            {/* <div className="card-data">
               <p className="heading">Name:</p>
               <p className="data">{projectDetails?.name}</p>
-            </div>
+            </div> */}
             <div className="card-data">
               <p className="heading">Acumatica Project id:</p>
               <p className="data">{projectDetails?.acumatica_project_id}</p>
@@ -72,17 +78,17 @@ const ProjectDetails = () => {
               <p className="heading">Description:</p>
               <p className="data">{projectDetails?.description}</p>
             </div>
-            <div className="card-data">
+            {/* <div className="card-data">
               <p className="heading">External Id Source:</p>
               <p className="data">{projectDetails?.external_id_source}</p>
-            </div>
+            </div> */}
             <div className="card-data">
               <p className="heading">Status:</p>
               <p className="data">{projectDetails?.status}</p>
             </div>
             <div className="card-data">
-              <p className="heading">Created At:</p>
-              <p className="data">{projectDetails?.created_at}</p>
+              <p className="heading">Start Date/Time:</p>
+              <p className="data">{formattedDateTime || projectDetails?.created_at}</p>
             </div>
           </div>
         </div>
