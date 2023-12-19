@@ -207,6 +207,12 @@ $primary-color: #49adff;
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
         margin-bottom: 2.2rem;
+        .title {
+          font-size: 25px;
+          font-weight: 700;
+          color: $primary-color;
+          margin-bottom: 20px;
+        }
         label {
           display: block;
           font-weight: 500;
@@ -229,6 +235,9 @@ $primary-color: #49adff;
             border-color: $primary-color;
             box-shadow: unset;
           }
+        }
+        .icon {
+          cursor: pointer;
         }
       }
       .team-table {

@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import editIcon from "../assets/images/edit.png";
+import deleteIcon from "../assets/images/delete.png";
 
 export const TimeCard = () => {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ export const TimeCard = () => {
         Back
       </button>
       <div className="crew-mgmt-card">
-        <h3>Team hours</h3>
+        <h3 className="title">Team hours</h3>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -40,11 +42,14 @@ export const TimeCard = () => {
                         />
                       </th>
                       <td>pp</td>
-
                       <td>ffed</td>
                       <td>dcesc</td>
-                      <td>cdsc</td>
-                      <td className="details-td"></td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <img src={editIcon} className="img-fluid me-3 icon" alt="" />
+                          <img src={deleteIcon} className="img-fluid icon" alt="" />
+                        </div>
+                      </td>
                     </tr>
                   );
                 })
@@ -53,7 +58,7 @@ export const TimeCard = () => {
         </table>
       </div>
       <div className="crew-mgmt-card">
-        <h3>Equipment hours</h3>
+        <h3 className="title">Equipment hours</h3>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -85,8 +90,12 @@ export const TimeCard = () => {
 
                       <td>ffed</td>
                       <td>dcesc</td>
-                      <td>cdsc</td>
-                      <td className="details-td"></td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <img src={editIcon} className="img-fluid me-3 icon" alt="" />
+                          <img src={deleteIcon} className="img-fluid icon" alt="" />
+                        </div>
+                      </td>
                     </tr>
                   );
                 })
