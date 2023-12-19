@@ -66,10 +66,6 @@ const RightDrawerModal = (props) => {
                   label: matchingUser?.name,
                 };
               });
-              console.log(
-                "filteredCrewUsersfilteredCrewUsers",
-                filteredCrewUsers
-              );
               setCrewUsers(filteredCrewUsers);
             }
           })
@@ -111,6 +107,19 @@ const RightDrawerModal = (props) => {
     });
   };
 
+  const onCloseClick = () => {
+    console.log("onCloseClick");
+    setSelectedDate("");
+    setPunchInOutTime({
+      time_entry_in: "08:30",
+      time_entry_out: "17:00",
+    });
+    setLunchPunchInOutTime({
+      lunch_entry_in: "13:00",
+      lunch_entry_out: "14:00",
+    });
+  };
+
   return (
     <>
       <div
@@ -126,6 +135,7 @@ const RightDrawerModal = (props) => {
             class="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            onClick={() => onCloseClick()}
           ></button>
         </div>
         <div class="offcanvas-body">
@@ -171,7 +181,7 @@ const RightDrawerModal = (props) => {
           </div>
           <div class="input-flex">
             <label htmlFor="" class="col-form-label">
-              Cost Code
+              Project Task
             </label>
             <div className="input-box">
               <select
@@ -278,7 +288,7 @@ const RightDrawerModal = (props) => {
         </div>
         <div class="modal-footer">
           <button
-            onClick={() => onClickSave()}
+            onClick={() => onCloseClick()}
             type="button"
             class="primary-btn-outlined me-3"
             data-bs-dismiss="offcanvas"
