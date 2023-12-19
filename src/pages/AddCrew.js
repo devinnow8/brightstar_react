@@ -8,6 +8,7 @@ import {
   getRoleIds,
   addCrewUser,
   addProjectUser,
+  getCostCodesByProjectId,
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
@@ -23,6 +24,7 @@ const CrewManagement = () => {
   const [roles, setRoles] = useState([]);
   // const [selectedCostCodes, setSelectedCostCodes] = useState([]);
   const { crewId, projectId } = useParams();
+  const [costCodes, setCostCodes] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
@@ -30,12 +32,19 @@ const CrewManagement = () => {
     try {
       const request5 = await getRoleIds();
       setRoles(request5.data);
-      const [projects, employees, userOptions, empList] = await Promise.all([
-        getAllProjectList(),
-        getUserDetails(),
-        getAllCrewUser(crewId),
-        getProjectUserDetails(),
-      ]);
+
+      const [projects, employees, userOptions, empList, projectCostCodes] =
+        await Promise.all([
+          getAllProjectList(),
+          getUserDetails(),
+          getAllCrewUser(crewId),
+          getProjectUserDetails(),
+          getCostCodesByProjectId(projectId),
+        ]);
+      console.log("projectCostCodes", projectCostCodes.data);
+      if (projectCostCodes?.data?.length) {
+        setCostCodes(projectCostCodes.data);
+      }
 
       if (projects && employees && userOptions) {
         setLoading(false);
@@ -124,6 +133,7 @@ const CrewManagement = () => {
       // setSelectedCostCodes(item);
     }
   };
+  console.log("costCodes11", costCodes);
 
   return (
     <div className="crew-mgmt">
@@ -269,63 +279,28 @@ const CrewManagement = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-                {["Team", "id", "Cost code", "Description"]?.map(
-                  (item, key) => (
-                    <th scope="col" className="table-heading" key={key}>
-                      {item}
-                    </th>
-                  )
-                )}
+                {["Team", "id", "Cost code", "Description"].map((item, key) => (
+                  <th scope="col" className="table-heading" key={key}>
+                    {item}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {/* {userOptions?.map((item, key) => {
-                  return (
-                    <tr
-                      className={selectedUser.id === item.id ? "activeRow" : ""}
-                      onClick={() => setSelectedUser(item)}
-                      key={key}
-                    >
-                      <th scope="row" className="table-heading">
-                        {item.id}
-                      </th>
-                      <td>{item.user_id}</td>
-                      <td>{item.crew_id}</td>
-                      <td>{item.description}</td>
-                      <td className="details-td"></td>
-                    </tr>
-                  );
-                  
-                })} */}
-              {userOptions && userOptions.length > 0
-                ? userOptions.map((item, key) => {
-                    const user = employeeOptions.find(
-                      (user) => user.value === item.user_id
-                    );
+              {costCodes && costCodes.length > 0
+                ? costCodes.map((costCode, key) => {
                     return (
-                      <tr
-                        className={
-                          selectedUser.id === item.id ? "activeRow" : ""
-                        }
-                        onClick={() => setSelectedUser(item)}
-                        key={key}
-                      >
-                        {/* <td>
-                          <input type="checkbox"></input>
-                          <label>{item?.id}</label>
-                        </td> */}
-                        <th scope="col">
+                      <tr key={key}>
+                        <td scope="col">
                           <input
-                            onChange={(evt) => onRowSelection(evt, item)}
+                            onChange={(evt) => onRowSelection(evt, costCode)}
                             type="checkbox"
                           />
-                        </th>
-                        <td>{item.id}</td>
+                        </td>
+                        <td>{costCode.id}</td>
 
-                        <td>{user?.name}</td>
-                        <td>{item?.crew_id}</td>
-                        <td>{item?.description}</td>
-                        <td className="details-td"></td>
+                        <td>{costCode?.cost_code}</td>
+                        <td>{costCode?.description}</td>
                       </tr>
                     );
                   })
@@ -339,15 +314,7 @@ const CrewManagement = () => {
         userOptions={employeeOptions}
         onAddNewMember={onAddNewMember}
       />
-      {/* <div className="text-end">
-        <button
-          className="primary-btn mb-4"
-          onClick={() => AddProjectCrewUser()}
-          // onClick={() => navigate("/projects")}
-        >
-          Add Crew Users
-        </button>
-      </div> */}
+
       <>
         {
           <div className="table-responsive">
