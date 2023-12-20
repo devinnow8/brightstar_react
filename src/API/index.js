@@ -41,6 +41,11 @@ export const getAllCrews = async () => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
+export const addCostCode = async (data) => {
+  const apiUrl = `${url}/api/crew_project_cost_code`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};
+
 export const getUserDetails = async () => {
   const apiUrl = `${url}/api/user`;
   return await makeApiCall("get", apiUrl, {}, headers);
