@@ -15,7 +15,7 @@ import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
 import { Button } from "bootstrap";
-import ArrowLeft from "../assets/images/arrow-left.svg"
+import ArrowLeft from "../assets/images/arrow-left.svg";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -129,7 +129,7 @@ const CrewManagement = () => {
 
   console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
-  const onRowSelection = async (e, item) => {
+  const onRowSelection = async (e, item, key) => {
     if (e.target.checked) {
       console.log("itemitemitem", item);
       const costCodePayload = {
@@ -139,6 +139,9 @@ const CrewManagement = () => {
 
       await addCostCode(costCodePayload).then((res) => {
         if (res?.status === 200) {
+          const allCostCodes = costCodes.slice();
+          allCostCodes[key].isActive = true;
+          setCostCodes(allCostCodes);
           toast.success("Cost code added Successfully");
         }
       });
@@ -152,7 +155,8 @@ const CrewManagement = () => {
         className="primary-btn back-btn mb-4"
         onClick={() => navigate("/projects")}
       >
-        <img src={ArrowLeft} />Back
+        <img src={ArrowLeft} />
+        Back
       </button>
       <div className="crew-mgmt-card">
         <div class="row">
@@ -324,9 +328,10 @@ const CrewManagement = () => {
                               <td scope="col">
                                 <input
                                   onChange={(evt) =>
-                                    onRowSelection(evt, costCode)
+                                    onRowSelection(evt, costCode, key)
                                   }
                                   type="checkbox"
+                                  disabled={costCode?.isActive}
                                 />
                               </td>
                               <td>{costCode.id}</td>
