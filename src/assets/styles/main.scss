@@ -130,6 +130,9 @@ $primary-color: #49adff;
     .crew-table {
       height: 266px;
       overflow-y: auto;
+      .offcanvas.offcanvas-end{
+        width: 600px;
+      }
       &.all-crew-table {
         height: auto;
       }
