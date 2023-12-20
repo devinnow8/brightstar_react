@@ -282,7 +282,7 @@ const CrewManagement = () => {
             </div>
           ))} */}
         </div>
-        {/* <>
+        <>
           <h3>Cost codes</h3>
           <table className="table table-striped">
             <thead>
@@ -315,7 +315,7 @@ const CrewManagement = () => {
                 : !loading && <tr>No data found</tr>}
             </tbody>
           </table>
-        </> */}
+        </>
       </div>
       <AddProjectCrewUser
         state={crewId}
