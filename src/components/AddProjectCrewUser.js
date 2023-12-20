@@ -26,8 +26,8 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
 
     await addCrewUser(crewUserPayload).then((res) => {
       if (res?.status === 200) {
-          onAddNewMember();
-          // window.location.reload();
+        onAddNewMember();
+        // window.location.reload();
         // addProjectUser(projectUserPayload).then((res) => {
         // });
       }
@@ -36,15 +36,18 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
 
   return (
     <>
-      <button
-        type="button"
-        className="btn btn-info detail-btn primary-btn mb-4 px-3"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+      <div className="text-end">
+        <button
+          type="button"
+          className="btn primary-btn-outlined mb-4 px-3"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
         // onClick={() => onAddCrewClick()}
-      >
-        + Add Member
-      </button>
+        >
+          + Add Member
+        </button>
+      </div>
+
       <div
         className="modal fade"
         id="exampleModal"
