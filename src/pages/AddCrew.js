@@ -9,6 +9,7 @@ import {
   addCrewUser,
   addProjectUser,
   getCostCodesByProjectId,
+  addCostCode,
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
@@ -117,28 +118,29 @@ const CrewManagement = () => {
       user_id: data?.user_id,
       crew_role_id: 4,
     };
-    // const projectUserPayload = {
-    //   user_id: data?.user_id,
-    //   project_id: Number(projectId),
-    //   project_role_id: data.project_role_id,
-    // };
 
     await addCrewUser(crewUserPayload).then((res) => {
       if (res?.status === 200) {
         toast.success("Changed Successfully");
-        // addProjectUser(projectUserPayload).then((res) => {
-        //   if (res?.status === 200) {
-        //   }
-        // });
       }
     });
   };
 
   console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
-  const onRowSelection = (e, item) => {
+  const onRowSelection = async (e, item) => {
     if (e.target.checked) {
-      // setSelectedCostCodes(item);
+      console.log("itemitemitem", item);
+      const costCodePayload = {
+        crew_id: Number(crewId),
+        project_cost_code_id: item?.cost_code,
+      };
+
+      await addCostCode(costCodePayload).then((res) => {
+        if (res?.status === 200) {
+          toast.success("Cost code added Successfully");
+        }
+      });
     }
   };
   console.log("costCodes11", costCodes);
@@ -158,7 +160,9 @@ const CrewManagement = () => {
               {projectOptions?.length > 0 ? (
                 <>
                   <div className="row mb-3">
-                    <label className="col-xl-3 col-form-label" htmlFor="">Project Id</label>
+                    <label className="col-xl-3 col-form-label" htmlFor="">
+                      Project Id
+                    </label>
                     <div class="col-xl-9">
                       <select
                         disabled={true}
@@ -185,7 +189,9 @@ const CrewManagement = () => {
                     </div>
                   </div>
                   <div className="row mb-3">
-                    <label className="col-xl-3 col-form-label" htmlFor="">Foreman</label>
+                    <label className="col-xl-3 col-form-label" htmlFor="">
+                      Foreman
+                    </label>
                     <div class="col-xl-9">
                       <select
                         onChange={(e) => handleSelectChange(e, "Forman")}
@@ -209,10 +215,14 @@ const CrewManagement = () => {
                     </div>
                   </div>
                   <div className="row mb-3">
-                    <label className="col-xl-3 col-form-label" htmlFor="">General Foreman</label>
+                    <label className="col-xl-3 col-form-label" htmlFor="">
+                      General Foreman
+                    </label>
                     <div class="col-xl-9">
                       <select
-                        onChange={(e) => handleSelectChange(e, "General Forman")}
+                        onChange={(e) =>
+                          handleSelectChange(e, "General Forman")
+                        }
                         className="form-select"
                         aria-label="Default select example"
                       >
@@ -221,7 +231,8 @@ const CrewManagement = () => {
                             return (
                               <option
                                 selected={
-                                  selectedOptions["General Forman"] === option.value
+                                  selectedOptions["General Forman"] ===
+                                  option.value
                                 }
                                 value={option.value}
                               >
@@ -233,7 +244,9 @@ const CrewManagement = () => {
                     </div>
                   </div>
                   <div className="row mb-3">
-                    <label className="col-xl-3 col-form-label" htmlFor="">Ops Manager</label>
+                    <label className="col-xl-3 col-form-label" htmlFor="">
+                      Ops Manager
+                    </label>
                     <div class="col-xl-9">
                       <select
                         onChange={(e) => handleSelectChange(e, "Ops Manager")}
@@ -245,7 +258,8 @@ const CrewManagement = () => {
                             return (
                               <option
                                 selected={
-                                  selectedOptions["Ops Manager"] === option.value
+                                  selectedOptions["Ops Manager"] ===
+                                  option.value
                                 }
                                 value={option.value}
                               >
@@ -292,41 +306,42 @@ const CrewManagement = () => {
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      {["Team", "id", "Cost code", "Description"].map((item, key) => (
-                        <th scope="col" className="table-heading" key={key}>
-                          {item}
-                        </th>
-                      ))}
+                      {["Team", "id", "Cost code", "Description"].map(
+                        (item, key) => (
+                          <th scope="col" className="table-heading" key={key}>
+                            {item}
+                          </th>
+                        )
+                      )}
                     </tr>
                   </thead>
                   <tbody>
                     {costCodes && costCodes.length > 0
                       ? costCodes.map((costCode, key) => {
-                        return (
-                          <tr key={key}>
-                            <td scope="col">
-                              <input
-                                onChange={(evt) => onRowSelection(evt, costCode)}
-                                type="checkbox"
-                              />
-                            </td>
-                            <td>{costCode.id}</td>
+                          return (
+                            <tr key={key}>
+                              <td scope="col">
+                                <input
+                                  onChange={(evt) =>
+                                    onRowSelection(evt, costCode)
+                                  }
+                                  type="checkbox"
+                                />
+                              </td>
+                              <td>{costCode.id}</td>
 
-                            <td>{costCode?.cost_code}</td>
-                            <td>{costCode?.description}</td>
-                          </tr>
-                        );
-                      })
+                              <td>{costCode?.cost_code}</td>
+                              <td>{costCode?.description}</td>
+                            </tr>
+                          );
+                        })
                       : !loading && <tr>No data found</tr>}
                   </tbody>
                 </table>
               </div>
-
             </>
           </div>
         </div>
-
-
       </div>
       <AddProjectCrewUser
         state={crewId}
@@ -369,27 +384,27 @@ const CrewManagement = () => {
                 })} */}
                 {userOptions && userOptions.length > 0
                   ? userOptions.map((item, key) => {
-                    const user = employeeOptions.find(
-                      (user) => user.value === item.user_id
-                    );
-                    return (
-                      <tr
-                        className={
-                          selectedUser.id === item.id ? "activeRow" : ""
-                        }
-                        onClick={() => setSelectedUser(item)}
-                        key={key}
-                      >
-                        <th scope="row" className="table-heading">
-                          {item?.user_id}
-                        </th>
-                        <td>{user?.name}</td>
-                        <td>{item?.crew_id}</td>
-                        <td>{item?.description}</td>
-                        <td className="details-td"></td>
-                      </tr>
-                    );
-                  })
+                      const user = employeeOptions.find(
+                        (user) => user.value === item.user_id
+                      );
+                      return (
+                        <tr
+                          className={
+                            selectedUser.id === item.id ? "activeRow" : ""
+                          }
+                          onClick={() => setSelectedUser(item)}
+                          key={key}
+                        >
+                          <th scope="row" className="table-heading">
+                            {item?.user_id}
+                          </th>
+                          <td>{user?.name}</td>
+                          <td>{item?.crew_id}</td>
+                          <td>{item?.description}</td>
+                          <td className="details-td"></td>
+                        </tr>
+                      );
+                    })
                   : !loading && <tr>No data found</tr>}
               </tbody>
             </table>
