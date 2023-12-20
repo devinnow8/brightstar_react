@@ -51,8 +51,8 @@ export const addCostCode = async (data) => {
   return await makeApiCall("post", apiUrl, data, headers);
 };
 
-export const removeCostCode = async (data) => {
-  const apiUrl = `${url}/api/crew_project_cost_code`;
+export const removeCostCode = async (data, id) => {
+  const apiUrl = `${url}/api/crew_project_cost_code/${id}`;
   return await makeApiCall("put", apiUrl, data, headers);
 };
 
