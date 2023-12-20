@@ -6,6 +6,7 @@ import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
 import AddCrewTimeModal from "../components/Modal";
 import { formatDateTime } from "../utils/utils";
+import chevronLeft from "../assets/images/chevron-left.svg"
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
@@ -29,7 +30,7 @@ const ProjectDetails = () => {
     formattedDateTime = formatDateTime(projectDetails?.created_at);
   }
 
-  const onAddCrewClick = () => {};
+  const onAddCrewClick = () => { };
   const addNewCrewToList = async () => {
     await fetchProjectCrews();
   };
@@ -60,7 +61,7 @@ const ProjectDetails = () => {
         className="btn btn-primary back-btn"
         onClick={() => navigate("/projects")}
       >
-        Back
+        <img src={chevronLeft} />Back
       </button>
       <h1 className="title">Project Details</h1>
       <div className="row">
@@ -112,7 +113,7 @@ const ProjectDetails = () => {
         </button> */}
       </div>
       {projectCrews?.length > 0 && (
-        <ProjectCrewTable projectCrews={projectCrews} projectId = {param?.id} />
+        <ProjectCrewTable projectCrews={projectCrews} projectId={param?.id} />
       )}
       {/* {isCrewTimeModal && } */}
     </div>

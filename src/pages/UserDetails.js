@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUserDetailsInfo } from "../API";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "./Loader";
+import chevronLeft from "../assets/images/chevron-left.svg"
 
 const UserDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
@@ -32,7 +33,7 @@ const UserDetails = () => {
           className="btn btn-primary back-btn"
           onClick={() => navigate("/users")}
         >
-          Back
+          <img src={chevronLeft} />  Back
         </button>
         <h2 className="title">User Details</h2>
         <div className="row">
