@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTimeSheet, getUserDetails,  } from "../API";
+import { getTimeSheet, getUserDetails, } from "../API";
 import TimeSheetTable from "../components/TimeSheetTable";
 
 export const TimeSheet = () => {
@@ -28,7 +28,7 @@ export const TimeSheet = () => {
   };
   return (
     <div>
-      <h3>TimeSheets</h3>{" "}
+      <h2 className="title">TimeSheets</h2>{" "}
       <TimeSheetTable
         employeeOptions={allUsers}
         timeSheets={timeSheets}

@@ -38,6 +38,7 @@ const UserList = () => {
 
   return (
     <div>
+      <h2 className="title">Users</h2>{" "}
       <div>
         {/* {loading && <Loader />}
         {error && <div>Something went wrong</div>}

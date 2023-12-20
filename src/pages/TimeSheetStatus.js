@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTimeSheet, getUserDetails,  } from "../API";
+import { getTimeSheet, getUserDetails, } from "../API";
 import MyTimesheet from "../components/MyTimesheet";
 
 export const TimeCards = () => {
@@ -29,12 +29,12 @@ export const TimeCards = () => {
   return (
     <div className="timesheet">
       <div className="options">
-      <h3>My Timesheets</h3>{" "}
-      <div className="text-end">
-        <button className="primary-btn-outlined new-btn px-3">
-          + New Timesheet
-        </button>
-      </div>
+        <h2 className="title">My Timesheets</h2>{" "}
+        <div className="text-end">
+          <button className="primary-btn-outlined new-btn px-3">
+            + New Timesheet
+          </button>
+        </div>
       </div>
       <MyTimesheet
         employeeOptions={allUsers}
