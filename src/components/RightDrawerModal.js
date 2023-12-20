@@ -249,7 +249,7 @@ const RightDrawerModal = (props) => {
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
-                    name="time_entry_in"
+                    name="lunch_entry_in"
                     aria-label="Time"
                     type="time"
                     className="input-field w-100"
@@ -264,12 +264,12 @@ const RightDrawerModal = (props) => {
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
-                    name="time_entry_in"
+                    name="lunch_entry_out"
                     aria-label="Time"
                     type="time"
                     className="input-field w-100"
                     onChange={(e) => onLunchTimeChange(e)}
-                    value={lunchPunchInOutTime?.lunch_entry_in}
+                    value={lunchPunchInOutTime?.lunch_entry_out}
                   />
                   <label for="recipient-name" class="col-form-label">
                     End
