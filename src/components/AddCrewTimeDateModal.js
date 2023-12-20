@@ -138,7 +138,7 @@ const AddCrewTimeDateModal = (props) => {
                 <div className="col-md-6 col-lg-4">
                   <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">
-                      Date:
+                      {"Date:(YYYY/MM/DD)"}
                     </label>
                     <input
                       onChange={(e) => onDateChange(e)}
