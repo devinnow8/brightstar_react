@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -7,13 +8,19 @@ import {
   getAllCrewUser,
   getProjectTask,
   getUserDetails,
+  getCostCodes,
 } from "../API";
-import { getCurrentDateTime } from "../utils/utils";
+import { getCurrentDateTime, formatDateToYYYYMMDD } from "../utils/utils";
+import "react-datepicker/dist/react-datepicker.css";
 
 const RightDrawerModal = (props) => {
   const { crew_id, project_id } = props;
 
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState({
+    selectedDateLabel: "",
+    selectedDateValue: "",
+  });
+
   const [allProjectTasks, setAllProjectTasks] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [crewUsers, setCrewUsers] = useState([]);
@@ -27,6 +34,7 @@ const RightDrawerModal = (props) => {
     lunch_entry_out: "14:00",
   });
   const [projectTaskOptions, setProjectTaskOptions] = useState([]);
+  const [costCodesOptions, setCostCodesOptions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -41,14 +49,25 @@ const RightDrawerModal = (props) => {
     });
   };
 
+  const getAllCostCodes = async () => {
+    await getCostCodes(project_id).then((res) => {
+      if (res?.status === 200) {
+        const costCodes = res?.data?.map((ele) => ({
+          label: ele?.description,
+          value: ele,
+        }));
+        setCostCodesOptions(costCodes);
+      }
+    });
+  };
+
   const onChangeUserSelect = (item) => {
     setAllSelectedUsers(item);
   };
 
   const onDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
-    const formattedDate = selectedDate.toISOString().split("T")[0];
-    setSelectedDate(formattedDate);
+    const date = formatDateToYYYYMMDD(e);
+    setSelectedDate({ selectedDateLabel: e, selectedDateValue: date });
   };
 
   const onTimeChange = (e) => {
@@ -101,6 +120,7 @@ const RightDrawerModal = (props) => {
     if (project_id) {
       getAllProjectTasks();
     }
+    getAllCostCodes();
   }, [crew_id, project_id]);
 
   const onClickSave = async () => {
@@ -111,7 +131,7 @@ const RightDrawerModal = (props) => {
         time_entry_type_id: 1,
         crew_user_id: ele?.value?.id,
         crew_id,
-        time_entry_date: selectedDate || "",
+        time_entry_date: selectedDate.selectedDateValue || "",
         is_crew_entry: true,
         time_entry_status_id: 1,
       };
@@ -163,12 +183,19 @@ const RightDrawerModal = (props) => {
               Date:
             </label>
             <div className="input-box">
-              <input
+              <DatePicker
+                selected={selectedDate.selectedDateLabel}
+                onChange={(e) => onDateChange(e)}
+                dateFormat="yyyy/MM/dd"
+                aria-label="Date"
+                className="input-field"
+              />
+              {/* <input
                 onChange={(e) => onDateChange(e)}
                 aria-label="Date"
                 className="input-field"
                 type="Date"
-              />
+              /> */}
             </div>
           </div>
           <div class="input-flex">
@@ -194,7 +221,6 @@ const RightDrawerModal = (props) => {
               <Select
                 className="react-select-container"
                 classNamePrefix="react-select"
-                isMulti
                 name="colors"
                 options={projectTaskOptions}
                 // onChange={(item) => onChangeUserSelect(item)}
@@ -206,11 +232,13 @@ const RightDrawerModal = (props) => {
               Cost Code
             </label>
             <div className="input-box">
-              <select
-                // onChange={(e) => handleSelectChange(e, "project")}
-                class="form-select"
-                aria-label="Default select example"
-              ></select>
+              <Select
+                className="react-select-container"
+                classNamePrefix="react-select"
+                name="colors"
+                options={costCodesOptions}
+                // onChange={(item) => onChangeUserSelect(item)}
+              />
             </div>
           </div>
           <div className="input-flex">

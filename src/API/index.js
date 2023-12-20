@@ -89,9 +89,9 @@ export const getTimeSheet = async (data) => {
   return await makeApiCall("get", apiUrl, data, headers);
 };
 
-export const getCostCode = async (data) => {
-  const apiUrl = `${url}/api/project_cost_code`;
-  return await makeApiCall("get", apiUrl, data, headers);
+export const getCostCodes = async (id) => {
+  const apiUrl = `${url}/api/project_cost_code?project_id=${id}`;
+  return await makeApiCall("get", apiUrl, {}, headers);
 };
 
 export const getProjectTask = async (id) => {
