@@ -140,7 +140,7 @@ const CrewManagement = () => {
       await addCostCode(costCodePayload).then((res) => {
         if (res?.status === 200) {
           const allCostCodes = costCodes.slice();
-          allCostCodes[key].isActive = true;
+          allCostCodes[key].is_active = true;
           setCostCodes(allCostCodes);
           toast.success("Cost code added Successfully");
         }
@@ -331,7 +331,7 @@ const CrewManagement = () => {
                                     onRowSelection(evt, costCode, key)
                                   }
                                   type="checkbox"
-                                  disabled={costCode?.isActive}
+                                  disabled={costCode?.is_active}
                                 />
                               </td>
                               <td>{costCode.id}</td>
