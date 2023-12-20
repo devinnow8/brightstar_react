@@ -10,6 +10,8 @@ import {
   addProjectUser,
   getCostCodesByProjectId,
   addCostCode,
+  getActiveCostCodes,
+  removeCostCode,
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
@@ -27,13 +29,16 @@ const CrewManagement = () => {
   // const [selectedCostCodes, setSelectedCostCodes] = useState([]);
   const { crewId, projectId } = useParams();
   const [costCodes, setCostCodes] = useState([]);
+  const [activeCostCodes, setActiveCostCodes] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
   const fetchData = async () => {
     try {
       const request5 = await getRoleIds();
+      const activeCostCodes = await getActiveCostCodes(crewId);
       setRoles(request5.data);
+      setActiveCostCodes(activeCostCodes.data);
 
       const [projects, employees, userOptions, empList, projectCostCodes] =
         await Promise.all([
@@ -134,7 +139,7 @@ const CrewManagement = () => {
       console.log("itemitemitem", item);
       const costCodePayload = {
         crew_id: Number(crewId),
-        project_cost_code_id: item?.cost_code,
+        project_cost_code_id: item?.id,
       };
 
       await addCostCode(costCodePayload).then((res) => {
@@ -142,6 +147,18 @@ const CrewManagement = () => {
           const allCostCodes = costCodes.slice();
           allCostCodes[key].is_active = true;
           setCostCodes(allCostCodes);
+          toast.success("Cost code added Successfully");
+        }
+      });
+    } else {
+      const costCodePayload = {
+        crew_id: Number(crewId),
+        project_cost_code_id: item?.id,
+        is_active: false,
+      };
+
+      await removeCostCode(costCodePayload).then((res) => {
+        if (res?.status === 200) {
           toast.success("Cost code added Successfully");
         }
       });
@@ -323,6 +340,16 @@ const CrewManagement = () => {
                   <tbody>
                     {costCodes && costCodes.length > 0
                       ? costCodes.map((costCode, key) => {
+                          const activeCostCode = activeCostCodes.some(
+                            (code) => code.project_cost_code_id === costCode.id
+                          );
+                          console.log(
+                            "activeCostCodes111",
+                            activeCostCodes,
+                            costCode,
+                            activeCostCode
+                          );
+
                           return (
                             <tr key={key}>
                               <td scope="col">
@@ -331,7 +358,7 @@ const CrewManagement = () => {
                                     onRowSelection(evt, costCode, key)
                                   }
                                   type="checkbox"
-                                  disabled={costCode?.is_active}
+                                  checked={activeCostCode}
                                 />
                               </td>
                               <td>{costCode.id}</td>

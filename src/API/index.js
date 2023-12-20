@@ -26,6 +26,11 @@ export const getCostCodesByProjectId = async (id) => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
+export const getActiveCostCodes = async (crew_id) => {
+  const apiUrl = `${url}/api/crew_project_cost_code?expand=project_cost_code&crew_id=${crew_id}&is_active=true`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};
+
 export const getRoleIds = async (id) => {
   const apiUrl = `${url}/api/crew_role`;
   return await makeApiCall("get", apiUrl, {}, headers);
@@ -44,6 +49,11 @@ export const getAllCrews = async () => {
 export const addCostCode = async (data) => {
   const apiUrl = `${url}/api/crew_project_cost_code`;
   return await makeApiCall("post", apiUrl, data, headers);
+};
+
+export const removeCostCode = async (data) => {
+  const apiUrl = `${url}/api/crew_project_cost_code`;
+  return await makeApiCall("put", apiUrl, data, headers);
 };
 
 export const getUserDetails = async () => {
