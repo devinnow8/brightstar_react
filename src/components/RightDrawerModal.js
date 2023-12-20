@@ -180,7 +180,7 @@ const RightDrawerModal = (props) => {
         <div class="offcanvas-body">
           <div class="input-flex">
             <label for="recipient-name" class="col-form-label">
-              Date:
+            {"Date:(YYYY/MM/DD)"}
             </label>
             <div className="input-box">
               <DatePicker
