@@ -13,9 +13,8 @@ const SideBar = () => {
 
   const sideBarItems = [
     { name: "Projects", route: "/projects", label: "projects" },
-    { name: "Users", route: "/users", label: "users" },
-
-    { name: "Time Sheet", route: "/time-sheet", label: "time" },
+    { name: "Users", route: "/users", label: "user" },
+    { name: "Time Sheet", route: "/time-sheet", label: "sheet" },
   ];
 
   // if (
@@ -25,7 +24,7 @@ const SideBar = () => {
   sideBarItems.push({
     name: "Time Cards",
     route: "/time-card",
-    label: "cards",
+    label: "card",
   });
   // }
   if (currentRoleAccess === "Ops Manager") {
@@ -38,6 +37,11 @@ const SideBar = () => {
 
   const currentSelectedTab = sideBarItems.findIndex((item) =>
     location.pathname.split("/")[1].includes(item.label)
+  );
+  console.log(
+    "currentSelectedTab",
+    location.pathname.split("/")[1],
+    currentSelectedTab
   );
   const [selectedTab, setSelectedTab] = useState(
     currentSelectedTab !== -1

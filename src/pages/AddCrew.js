@@ -152,113 +152,115 @@ const CrewManagement = () => {
         Back
       </button>
       <div className="crew-mgmt-card">
-        <div className="crew-flex row">
-          {projectOptions?.length > 0 ? (
-            <>
-              <div className="col-md-6 col-lg-6 col-xl-3">
-                <div className="mb-3 mb-lg-0">
-                  <label htmlFor="">Project Id</label>
-                  <select
-                    disabled={true}
-                    defaultValue={Number(projectId)}
-                    onChange={(e) => handleSelectChange(e, "project")}
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    {projectOptions &&
-                      projectOptions?.map((option) => {
-                        return (
-                          <option
-                            disabled="disabled"
-                            selected={
-                              selectedOptions["project"] === option.value
-                            }
-                            value={option.value}
-                          >
-                            {option.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6 col-lg-6 col-xl-3 mb-3 mb-xl-0">
-                <div>
-                  <label htmlFor="">Foreman</label>
-                  <select
-                    onChange={(e) => handleSelectChange(e, "Forman")}
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    {employeeOptions &&
-                      employeeOptions?.map((option) => {
-                        return (
-                          <option
-                            selected={
-                              selectedOptions["Forman"] === option.value
-                            }
-                            value={option.value}
-                          >
-                            {option.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6 col-lg-6 col-xl-3">
-                <div>
-                  <label htmlFor="">General Foreman</label>
-                  <select
-                    onChange={(e) => handleSelectChange(e, "General Forman")}
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    {employeeOptions &&
-                      employeeOptions?.map((option) => {
-                        return (
-                          <option
-                            selected={
-                              selectedOptions["General Forman"] === option.value
-                            }
-                            value={option.value}
-                          >
-                            {option.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-6 col-lg-6 col-xl-3">
-                <div>
-                  <label htmlFor="">Ops Manager</label>
-                  <select
-                    onChange={(e) => handleSelectChange(e, "Ops Manager")}
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    {employeeOptions &&
-                      employeeOptions?.map((option) => {
-                        return (
-                          <option
-                            selected={
-                              selectedOptions["Ops Manager"] === option.value
-                            }
-                            value={option.value}
-                          >
-                            {option.name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-              </div>
-            </>
-          ) : (
-            <Loader />
-          )}
-          {/* {crewDropdownData.map((dropdown) => (
+        <div class="row">
+          <div class="col-xl-5">
+            <div className="crew-flex row">
+              {projectOptions?.length > 0 ? (
+                <>
+                  <div className="row mb-3">
+                    <label className="col-xl-3 col-form-label" htmlFor="">Project Id</label>
+                    <div class="col-xl-9">
+                      <select
+                        disabled={true}
+                        defaultValue={Number(projectId)}
+                        onChange={(e) => handleSelectChange(e, "project")}
+                        className="form-select"
+                        aria-label="Default select example"
+                      >
+                        {projectOptions &&
+                          projectOptions?.map((option) => {
+                            return (
+                              <option
+                                disabled="disabled"
+                                selected={
+                                  selectedOptions["project"] === option.value
+                                }
+                                value={option.value}
+                              >
+                                {option.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <label className="col-xl-3 col-form-label" htmlFor="">Foreman</label>
+                    <div class="col-xl-9">
+                      <select
+                        onChange={(e) => handleSelectChange(e, "Forman")}
+                        className="form-select"
+                        aria-label="Default select example"
+                      >
+                        {employeeOptions &&
+                          employeeOptions?.map((option) => {
+                            return (
+                              <option
+                                selected={
+                                  selectedOptions["Forman"] === option.value
+                                }
+                                value={option.value}
+                              >
+                                {option.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <label className="col-xl-3 col-form-label" htmlFor="">General Foreman</label>
+                    <div class="col-xl-9">
+                      <select
+                        onChange={(e) => handleSelectChange(e, "General Forman")}
+                        className="form-select"
+                        aria-label="Default select example"
+                      >
+                        {employeeOptions &&
+                          employeeOptions?.map((option) => {
+                            return (
+                              <option
+                                selected={
+                                  selectedOptions["General Forman"] === option.value
+                                }
+                                value={option.value}
+                              >
+                                {option.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <label className="col-xl-3 col-form-label" htmlFor="">Ops Manager</label>
+                    <div class="col-xl-9">
+                      <select
+                        onChange={(e) => handleSelectChange(e, "Ops Manager")}
+                        className="form-select"
+                        aria-label="Default select example"
+                      >
+                        {employeeOptions &&
+                          employeeOptions?.map((option) => {
+                            return (
+                              <option
+                                selected={
+                                  selectedOptions["Ops Manager"] === option.value
+                                }
+                                value={option.value}
+                              >
+                                {option.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Loader />
+              )}
+              {/* {crewDropdownData.map((dropdown) => (
             <div className="col-md-6 col-lg-3">
               <label htmlFor="">{dropdown.label}</label>
               <Dropdown
@@ -281,41 +283,50 @@ const CrewManagement = () => {
               </Dropdown>
             </div>
           ))} */}
-        </div>
-        <>
-          <h3>Cost codes</h3>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                {["Team", "id", "Cost code", "Description"].map((item, key) => (
-                  <th scope="col" className="table-heading" key={key}>
-                    {item}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {costCodes && costCodes.length > 0
-                ? costCodes.map((costCode, key) => {
-                    return (
-                      <tr key={key}>
-                        <td scope="col">
-                          <input
-                            onChange={(evt) => onRowSelection(evt, costCode)}
-                            type="checkbox"
-                          />
-                        </td>
-                        <td>{costCode.id}</td>
+            </div>
+          </div>
+          <div class="col-xl-7">
+            <>
+              <h3>Cost codes</h3>
+              <div className="table-responsive cost-code-table">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      {["Team", "id", "Cost code", "Description"].map((item, key) => (
+                        <th scope="col" className="table-heading" key={key}>
+                          {item}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {costCodes && costCodes.length > 0
+                      ? costCodes.map((costCode, key) => {
+                        return (
+                          <tr key={key}>
+                            <td scope="col">
+                              <input
+                                onChange={(evt) => onRowSelection(evt, costCode)}
+                                type="checkbox"
+                              />
+                            </td>
+                            <td>{costCode.id}</td>
 
-                        <td>{costCode?.cost_code}</td>
-                        <td>{costCode?.description}</td>
-                      </tr>
-                    );
-                  })
-                : !loading && <tr>No data found</tr>}
-            </tbody>
-          </table>
-        </>
+                            <td>{costCode?.cost_code}</td>
+                            <td>{costCode?.description}</td>
+                          </tr>
+                        );
+                      })
+                      : !loading && <tr>No data found</tr>}
+                  </tbody>
+                </table>
+              </div>
+
+            </>
+          </div>
+        </div>
+
+
       </div>
       <AddProjectCrewUser
         state={crewId}
@@ -358,27 +369,27 @@ const CrewManagement = () => {
                 })} */}
                 {userOptions && userOptions.length > 0
                   ? userOptions.map((item, key) => {
-                      const user = employeeOptions.find(
-                        (user) => user.value === item.user_id
-                      );
-                      return (
-                        <tr
-                          className={
-                            selectedUser.id === item.id ? "activeRow" : ""
-                          }
-                          onClick={() => setSelectedUser(item)}
-                          key={key}
-                        >
-                          <th scope="row" className="table-heading">
-                            {item?.user_id}
-                          </th>
-                          <td>{user?.name}</td>
-                          <td>{item?.crew_id}</td>
-                          <td>{item?.description}</td>
-                          <td className="details-td"></td>
-                        </tr>
-                      );
-                    })
+                    const user = employeeOptions.find(
+                      (user) => user.value === item.user_id
+                    );
+                    return (
+                      <tr
+                        className={
+                          selectedUser.id === item.id ? "activeRow" : ""
+                        }
+                        onClick={() => setSelectedUser(item)}
+                        key={key}
+                      >
+                        <th scope="row" className="table-heading">
+                          {item?.user_id}
+                        </th>
+                        <td>{user?.name}</td>
+                        <td>{item?.crew_id}</td>
+                        <td>{item?.description}</td>
+                        <td className="details-td"></td>
+                      </tr>
+                    );
+                  })
                   : !loading && <tr>No data found</tr>}
               </tbody>
             </table>
