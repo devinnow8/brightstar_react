@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import editIcon from "../assets/images/edit.png";
 import deleteIcon from "../assets/images/delete.png";
-import chevronLeft from "../assets/images/chevron-left.svg"
+import ArrowLeft from "../assets/images/arrow-left.svg"
 
 export const TimeCard = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const TimeCard = () => {
   return (
     <div className="crew-mgmt">
       <button className="primary-btn back-btn mb-4" onClick={() => navigate(-1)}>
-        <img src={chevronLeft} />   Back
+        <img src={ArrowLeft} />   Back
       </button>
       <div className="crew-mgmt-card">
         <h3 className="title">Team hours</h3>

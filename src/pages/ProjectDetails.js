@@ -6,7 +6,7 @@ import ProjectCrewTable from "../components/ProjectCrewTable";
 import AddCrewModal from "../components/AddCrewModal";
 import AddCrewTimeModal from "../components/Modal";
 import { formatDateTime } from "../utils/utils";
-import chevronLeft from "../assets/images/chevron-left.svg"
+import ArrowLeft from "../assets/images/arrow-left.svg"
 
 const ProjectDetails = () => {
   const [projectDetails, setProjectDetails] = useState();
@@ -61,7 +61,7 @@ const ProjectDetails = () => {
         className="btn btn-primary back-btn"
         onClick={() => navigate("/projects")}
       >
-        <img src={chevronLeft} />Back
+        <img src={ArrowLeft} />Back
       </button>
       <h1 className="title">Project Details</h1>
       <div className="row">

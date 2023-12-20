@@ -14,7 +14,7 @@ import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
 import { Button } from "bootstrap";
-import chevronLeft from "../assets/images/chevron-left.svg"
+import ArrowLeft from "../assets/images/arrow-left.svg"
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -150,7 +150,7 @@ const CrewManagement = () => {
         className="primary-btn back-btn mb-4"
         onClick={() => navigate("/projects")}
       >
-        <img src={chevronLeft} />Back
+        <img src={ArrowLeft} />Back
       </button>
       <div className="crew-mgmt-card">
         <div class="row">
