@@ -41,7 +41,7 @@ const AllCrewsTable = (props) => {
                 <td>{item.project_id}</td>
                 <td className="details-td">
                   <button
-                    className="btn btn-info detail-btn"
+                    className="primary-btn-outlined"
                     onClick={() => onClickCrewManagement(item)}
                   >
                     All Crews Management

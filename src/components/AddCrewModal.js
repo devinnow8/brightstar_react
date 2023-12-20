@@ -40,10 +40,10 @@ const AddCrewModal = (props) => {
     <>
       <button
         type="button"
-        className="btn btn-info primary-btn px-3"
+        className="px-3 primary-btn-outlined"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        // onClick={() => onAddCrewClick()}
+      // onClick={() => onAddCrewClick()}
       >
         + Add Crew
       </button>

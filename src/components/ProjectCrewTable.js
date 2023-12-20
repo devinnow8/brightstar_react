@@ -42,7 +42,7 @@ const ProjectCrewTable = (props) => {
                 <td>{item.project_id}</td> */}
                 <td className="details-td">
                   <button
-                    className="btn btn-info detail-btn me-3"
+                    className="primary-btn-outlined me-3"
                     onClick={() => onClickCrewManagement(item)}
                   >
                     Crew Management
@@ -74,7 +74,7 @@ const ProjectCrewTable = (props) => {
         </tbody>
       </table>
       {/* <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal" /> */}
-      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" project_id = {projectId} />
+      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" project_id={projectId} />
     </div>
   );
 };

@@ -31,7 +31,7 @@ const AllCrewsManagement = () => {
   return (
     <div className="project-details">
       <div className="crew-info">
-        <h1 className="title">All Crews</h1>
+        <h2 className="title">All Crews</h2>
         <AddNewCrewModal addNewCrewUser={addNewCrewUser} />
         <AddCrewTimeDateModal />
       </div>

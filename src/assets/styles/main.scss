@@ -77,18 +77,6 @@ $primary-color: #49adff;
   }
   .project-details {
     // padding: 20px;
-    .back-btn {
-      padding: 8px 32px;
-      background-color: $primary-color;
-      color: #fff;
-      border: none;
-      font-weight: 600;
-    }
-    .title {
-      font-weight: 700;
-      font-size: 26px;
-      margin: 30px 0px;
-    }
     .project-col {
       margin-bottom: 10px;
       .card {
@@ -138,13 +126,13 @@ $primary-color: #49adff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .title {
-        margin: 18px 0px;
-      }
     }
     .crew-table {
       height: 266px;
       overflow-y: auto;
+      .offcanvas.offcanvas-end{
+        width: 600px;
+      }
       &.all-crew-table {
         height: auto;
       }
@@ -363,8 +351,25 @@ input {
 .activeRow{
   background-color: yellow
 }
-
-
+.title {
+  font-size: 22px;
+  padding: 10px 0;
+  font-weight: 600;
+}
+.back-btn {
+  padding: 8px 32px;
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  img{
+    filter: invert(1);
+    width: 18px;
+    margin-right: 4px;
+  }
+}
 @import "./auth.scss";
 @import "./entry-modal.scss";
 @import "./timesheet.scss";
