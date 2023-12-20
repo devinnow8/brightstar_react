@@ -177,6 +177,29 @@ $primary-color: #49adff;
     .cost-code-table{
       height: 250px;
       overflow-y: scroll;
+      border: 1px solid #dee2e6;
+      /* width */
+&::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+}
+
+/* Track */
+&::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+&::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+&::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
     }
     .table-heading {
       font-size: 17px;

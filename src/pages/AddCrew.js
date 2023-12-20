@@ -289,7 +289,7 @@ const CrewManagement = () => {
             <>
               <h3>Cost codes</h3>
               <div className="table-responsive cost-code-table">
-                <table className="table table-striped">
+                <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
                       {["Team", "id", "Cost code", "Description"].map((item, key) => (
