@@ -9,12 +9,15 @@ import {
   getProjectTask,
   getUserDetails,
   getCostCodes,
+  getCrewCostCodes
 } from "../API";
 import { getCurrentDateTime, formatDateToYYYYMMDD } from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
 
 const RightDrawerModal = (props) => {
   const { crew_id, project_id } = props;
+
+  console.log("crew_iddddddddd", crew_id);
 
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
@@ -25,6 +28,8 @@ const RightDrawerModal = (props) => {
   const [allUsers, setAllUsers] = useState([]);
   const [crewUsers, setCrewUsers] = useState([]);
   const [allSelectedUsers, setAllSelectedUsers] = useState([]);
+  const [selectedCostCodeId, setSelectedCostCodeId] = useState();
+  const [selectedProjectTaskId, setSelectedProjectTaskId] = useState();
   const [punchInOutTime, setPunchInOutTime] = useState({
     time_entry_in: "08:30",
     time_entry_out: "17:00",
@@ -50,15 +55,25 @@ const RightDrawerModal = (props) => {
   };
 
   const getAllCostCodes = async () => {
-    await getCostCodes(project_id).then((res) => {
+    await getCrewCostCodes(crew_id).then((res) => {
       if (res?.status === 200) {
+        console.log("getCrewCostCodes ==>", res?.data);
         const costCodes = res?.data?.map((ele) => ({
-          label: ele?.description,
+          label: ele?.project_cost_code?.description,
           value: ele,
         }));
         setCostCodesOptions(costCodes);
       }
     });
+    // await getCostCodes(project_id).then((res) => {
+    //   if (res?.status === 200) {
+    //     const costCodes = res?.data?.map((ele) => ({
+    //       label: ele?.description,
+    //       value: ele,
+    //     }));
+    //     setCostCodesOptions(costCodes);
+    //   }
+    // });
   };
 
   const onChangeUserSelect = (item) => {
@@ -81,6 +96,16 @@ const RightDrawerModal = (props) => {
     const selectedTime = e.target.value;
     setLunchPunchInOutTime({ ...lunchPunchInOutTime, [name]: selectedTime });
   };
+
+  const onProjectTaskChange = (e) => {
+    console.log("onProjectTaskChange", e?.value?.id);
+    setSelectedProjectTaskId(e?.value?.id);
+  }
+
+  const onCostCodeChange = (e) => {
+    console.log("onCostCodeChange", e?.value?.id);
+    setSelectedCostCodeId(e?.value?.id);
+  }
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
@@ -116,11 +141,11 @@ const RightDrawerModal = (props) => {
   useEffect(() => {
     if (crew_id) {
       onClickAddCrewTimeDate();
+      getAllCostCodes();
     }
     if (project_id) {
       getAllProjectTasks();
     }
-    getAllCostCodes();
   }, [crew_id, project_id]);
 
   const onClickSave = async () => {
@@ -134,6 +159,8 @@ const RightDrawerModal = (props) => {
         time_entry_date: selectedDate.selectedDateValue || "",
         is_crew_entry: true,
         time_entry_status_id: 1,
+        project_task_id: selectedProjectTaskId,
+        crew_project_cost_code_id: selectedCostCodeId,
       };
       await addCrewTimeEntry(payload)
         .then((res) => {
@@ -223,7 +250,7 @@ const RightDrawerModal = (props) => {
                 classNamePrefix="react-select"
                 name="colors"
                 options={projectTaskOptions}
-                // onChange={(item) => onChangeUserSelect(item)}
+                onChange={(item) => onProjectTaskChange(item)}
               />
             </div>
           </div>
@@ -237,7 +264,7 @@ const RightDrawerModal = (props) => {
                 classNamePrefix="react-select"
                 name="colors"
                 options={costCodesOptions}
-                // onChange={(item) => onChangeUserSelect(item)}
+                onChange={(item) => onCostCodeChange(item)}
               />
             </div>
           </div>
