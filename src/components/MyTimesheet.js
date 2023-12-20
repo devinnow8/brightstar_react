@@ -21,8 +21,8 @@ const MyTimesheet = (props) => {
               return (
                 <div className="status-card">
                   <p>
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when.
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when.
                   </p>
                   <div className="btn-flex">
                     <button
@@ -49,15 +49,15 @@ const MyTimesheet = (props) => {
         </div>
         <div className="timesheet-status">
           <div className="timesheet-header">
-            <h3 className="txt">Open</h3>
+            <h3 className="txt">In Review</h3>
           </div>
           <div className="timesheet-content">
             {[1, 2, 3, 4].map((card) => {
               return (
                 <div className="status-card">
                   <p>
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when.
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when.
                   </p>
                   <div className="btn-flex">
                     <button
@@ -79,15 +79,15 @@ const MyTimesheet = (props) => {
         </div>
         <div className="timesheet-status">
           <div className="timesheet-header">
-            <h3 className="txt">Open</h3>
+            <h3 className="txt">Processing</h3>
           </div>
           <div className="timesheet-content">
             {[1, 2, 3, 4].map((card) => {
               return (
                 <div className="status-card">
                   <p>
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when.
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when.
                   </p>
                   <div className="btn-flex">
                     <button
