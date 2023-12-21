@@ -136,3 +136,8 @@ export const addMyTimeSheetDetails = async (data) => {
   const apiUrl = `${url}/api/time_sheet?expand=crew`;
   return await makeApiCall("post", apiUrl, data, headers);
 };
+
+export const getTimeSheetByWeek = async (data) => {
+  const apiUrl = `${url}/api/time_entry/time_sheet_by_week?week=${data?.week}&crew_id=${data?.crew_id}`;
+  return await makeApiCall("get", apiUrl, data, headers);
+};

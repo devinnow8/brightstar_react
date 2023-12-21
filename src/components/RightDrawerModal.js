@@ -121,12 +121,13 @@ const RightDrawerModal = (props) => {
         console.log("userData", userData);
         await getAllCrewUser(crew_id)
           .then((res) => {
-            if (res?.status === 200) {
+            if (res?.status === 200) {              
               const filteredCrewUsers = res?.data?.map((ele) => {
                 const matchingUser = userData?.find(
                   (crewEle) => ele?.user_id == crewEle?.id
                 );
-                console.log("matchingUser", matchingUser);
+                console.log("eleelelel", ele);
+                matchingUser.crew_user_id = ele?.id;
                 return {
                   value: matchingUser,
                   label: matchingUser?.name,
@@ -165,7 +166,7 @@ const RightDrawerModal = (props) => {
             ...lunchPunchInOutTime,
             entry_time: getCurrentDateTime(),
             time_entry_type_id: 1,
-            crew_user_id: ele?.value?.id,
+            crew_user_id: ele?.value?.crew_user_id,
             crew_id,
             time_entry_date: selectedDate.selectedDateValue || "",
             is_crew_entry: true,
@@ -192,12 +193,14 @@ const RightDrawerModal = (props) => {
         addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
           if (res?.status === 200) {
             allSelectedUsers?.forEach(async (ele) => {
+            console.log("ele?.value?.crew_user_id", ele);
+
               const payload = {
                 ...punchInOutTime,
                 ...lunchPunchInOutTime,
                 entry_time: getCurrentDateTime(),
                 time_entry_type_id: 1,
-                crew_user_id: ele?.value?.id,
+                crew_user_id: ele?.value?.crew_user_id,
                 crew_id,
                 time_entry_date: selectedDate.selectedDateValue || "",
                 is_crew_entry: true,
