@@ -44,7 +44,7 @@ const AllCrewsTable = (props) => {
                     className="primary-btn-outlined"
                     onClick={() => onClickCrewManagement(item)}
                   >
-                    All Crews Management
+                    Crew Management
                   </button>
                 </td>
               </tr>
