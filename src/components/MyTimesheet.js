@@ -54,7 +54,7 @@ const MyTimesheet = (props) => {
   console.log("timeSheetDetailstimeSheetDetails", timeSheetDetails);
 
   const onCardClick = (card) => {
-    navigate(`/time-card/${card}`);
+    navigate(`/time-card/${card.id}`);
   };
 
   return (

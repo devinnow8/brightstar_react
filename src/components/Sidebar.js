@@ -14,7 +14,7 @@ const SideBar = () => {
   const sideBarItems = [
     { name: "Projects", route: "/projects", label: "projects" },
     { name: "Users", route: "/users", label: "user" },
-    { name: "Time Sheet", route: "/time-sheet", label: "sheet" },
+    // { name: "Time Sheet", route: "/time-sheet", label: "sheet" },
   ];
 
   // if (
@@ -22,9 +22,9 @@ const SideBar = () => {
   //   currentRoleAccess === "General Forman"
   // ) {
   sideBarItems.push({
-    name: "Time Cards",
-    route: "/time-card",
-    label: "card",
+    name: "Time Sheets",
+    route: "/time-sheet",
+    label: "sheet",
   });
   // }
   if (currentRoleAccess === "Ops Manager") {

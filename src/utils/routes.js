@@ -25,7 +25,7 @@ export const ROUTES = {
   },
   TIME_SHEET: {
     path: "/time-sheet",
-    element: <TimeSheet />,
+    element: <TimeCards />,
     availability: ["all"],
   },
   USERS: {
@@ -53,12 +53,12 @@ export const ROUTES = {
     element: <AllCrewsManagement />,
     availability: ["Ops Manager"],
   },
-  TIME_CARDS: {
-    path: "/time-card",
-    element: <TimeCards />,
-    // availability: ["Forman", "General Forman"],
-    availability: ["all"],
-  },
+  // TIME_CARDS: {
+  //   path: "/time-card",
+  //   element: <TimeCards />,
+  //   // availability: ["Forman", "General Forman"],
+  //   availability: ["all"],
+  // },
   TIME_CARD: {
     path: "/time-card/:id",
     element: <TimeCard />,
