@@ -9,7 +9,7 @@ import {
   getProjectTask,
   getUserDetails,
   getCostCodes,
-  getCrewCostCodes
+  getCrewCostCodes,
 } from "../API";
 import { getCurrentDateTime, formatDateToYYYYMMDD } from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
@@ -20,7 +20,7 @@ const RightDrawerModal = (props) => {
   console.log("crew_iddddddddd", crew_id);
 
   const [selectedDate, setSelectedDate] = useState({
-    selectedDateLabel: "",
+    selectedDateLabel: new Date(),
     selectedDateValue: "",
   });
 
@@ -100,12 +100,12 @@ const RightDrawerModal = (props) => {
   const onProjectTaskChange = (e) => {
     console.log("onProjectTaskChange", e?.value?.id);
     setSelectedProjectTaskId(e?.value?.id);
-  }
+  };
 
   const onCostCodeChange = (e) => {
     console.log("onCostCodeChange", e?.value?.id);
     setSelectedCostCodeId(e?.value?.id);
-  }
+  };
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
@@ -186,6 +186,8 @@ const RightDrawerModal = (props) => {
     });
   };
 
+  console.log("selectedDate====>", selectedDate);
+
   return (
     <>
       <div
@@ -207,10 +209,11 @@ const RightDrawerModal = (props) => {
         <div class="offcanvas-body">
           <div class="input-flex">
             <label for="recipient-name" class="col-form-label">
-            {"Date:(YYYY/MM/DD)"}
+              {"Date:(YYYY/MM/DD)"}
             </label>
             <div className="input-box">
               <DatePicker
+                default
                 selected={selectedDate.selectedDateLabel}
                 onChange={(e) => onDateChange(e)}
                 dateFormat="yyyy/MM/dd"

@@ -115,7 +115,6 @@ export const getProjectTask = async (id) => {
 };
 
 export const getCrewCostCodes = async (id) => {
-  console.log("getCrewCostCodes id", id);
-  const apiUrl = `${url}/api/crew_project_cost_code?expand=project_cost_code&crew_id=${id}`;
+  const apiUrl = `${url}/api/crew_project_cost_code?expand=project_cost_code&crew_id=${id}&is_active=true`;
   return await makeApiCall("get", apiUrl, {}, headers);
 };
