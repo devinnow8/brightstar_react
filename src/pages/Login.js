@@ -19,6 +19,7 @@ const Login = () => {
         if (res.status === 200) {
           localStorage.setItem("accessToken", res?.data?.access_token);
           localStorage.setItem("role_id", 3);
+          localStorage.setItem("name", res?.data?.user?.name);
           navigate("/projects");
         }
       })
