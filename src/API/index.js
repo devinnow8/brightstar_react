@@ -118,3 +118,8 @@ export const getCrewCostCodes = async (id) => {
   const apiUrl = `${url}/api/crew_project_cost_code?expand=project_cost_code&crew_id=${id}&is_active=true`;
   return await makeApiCall("get", apiUrl, {}, headers);
 };
+
+export const getMyTimeSheetDetails = async () => {
+  const apiUrl = `${url}/api/time_sheet?expand=crew`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};

@@ -20,7 +20,7 @@ const RightDrawerModal = (props) => {
   console.log("crew_iddddddddd", crew_id);
 
   const [selectedDate, setSelectedDate] = useState({
-    selectedDateLabel: new Date(),
+    selectedDateLabel: "",
     selectedDateValue: "",
   });
 
@@ -209,10 +209,11 @@ const RightDrawerModal = (props) => {
         <div class="offcanvas-body">
           <div class="input-flex">
             <label for="recipient-name" class="col-form-label">
-              {"Date:(YYYY/MM/DD)"}
+              Date
             </label>
             <div className="input-box">
               <DatePicker
+                placeholderText="YYYY/MM/DD"
                 default
                 selected={selectedDate.selectedDateLabel}
                 onChange={(e) => onDateChange(e)}

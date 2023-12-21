@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../pages/Loader";
+import { getMyTimeSheetDetails } from "../API";
+// import {convertWeekToDateString} from '../utils/utils'
 
 const MyTimesheet = (props) => {
+  console.log("myTimesheet ====>");
   const { timeSheets, isLoading } = props;
+  const [timeSheetDetails, setTimeSheetDeatils] = useState([]);
+  const [weekString, setWeekString] = useState();
+
   const navigate = useNavigate();
-  const tableHeadings = ["Punch In", "Punch Out", "Crew Id", "Crew User Id"];
+  const getTimeSheetDeatils = async () => {
+    await getMyTimeSheetDetails().then((res) => {
+      if(res?.status === 200){
+        setTimeSheetDeatils(res?.data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getTimeSheetDeatils();
+  }, []);
+
+  console.log("timeSheetDetailstimeSheetDetails", timeSheetDetails);
+
   const onCardClick = (card) => {
     navigate(`/time-card/${card}`);
   };
+
   return (
     <div className="timesheet-data">
       <div className="timesheet-flex">
@@ -17,13 +37,14 @@ const MyTimesheet = (props) => {
             <h3 className="txt">Open</h3>
           </div>
           <div className="timesheet-content">
-            {[1, 2, 3, 4].map((card) => {
+            {timeSheetDetails?.length> 0 && timeSheetDetails?.map((card) => {
               return (
                 <div className="status-card">
                   <p>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when.
+                    {card?.crew?.name}
                   </p>
+                  <br />
+                  <h2>{card?.week}</h2>
                   <div className="btn-flex">
                     <button
                       onClick={() => {
@@ -52,7 +73,7 @@ const MyTimesheet = (props) => {
             <h3 className="txt">In Review</h3>
           </div>
           <div className="timesheet-content">
-            {[1, 2, 3, 4].map((card) => {
+            {/* {[1, 2, 3, 4].map((card) => {
               return (
                 <div className="status-card">
                   <p>
@@ -74,7 +95,7 @@ const MyTimesheet = (props) => {
                   </div>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="timesheet-status">
@@ -82,7 +103,7 @@ const MyTimesheet = (props) => {
             <h3 className="txt">Processing</h3>
           </div>
           <div className="timesheet-content">
-            {[1, 2, 3, 4].map((card) => {
+            {/* {[1, 2, 3, 4].map((card) => {
               return (
                 <div className="status-card">
                   <p>
@@ -104,7 +125,7 @@ const MyTimesheet = (props) => {
                   </div>
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>
