@@ -142,27 +142,24 @@ const CrewManagement = () => {
         project_cost_code_id: item?.id,
       };
 
-      await addCostCode(costCodePayload).then((res) => {
+      await addCostCode(costCodePayload).then(async (res) => {
         if (res?.status === 200) {
-          const allCostCodes = costCodes.slice();
-          allCostCodes[key].is_active = true;
-          setCostCodes(allCostCodes);
           toast.success("Cost code added Successfully");
         }
       });
     } else {
       const costCodePayload = {
-        crew_id: Number(crewId),
-        project_cost_code_id: item?.id,
         is_active: false,
       };
 
-      await removeCostCode(costCodePayload).then((res) => {
+      await removeCostCode(costCodePayload, item.id).then((res) => {
         if (res?.status === 200) {
-          toast.success("Cost code added Successfully");
+          toast.success("Cost code removed Successfully");
         }
       });
     }
+    const activeCostCodes = await getActiveCostCodes(crewId);
+    setActiveCostCodes(activeCostCodes.data);
   };
   console.log("costCodes11", costCodes);
 
@@ -340,25 +337,29 @@ const CrewManagement = () => {
                   <tbody>
                     {costCodes && costCodes.length > 0
                       ? costCodes.map((costCode, key) => {
-                          const activeCostCode = activeCostCodes.some(
+                          const activeCostCode = activeCostCodes.find(
                             (code) => code.project_cost_code_id === costCode.id
                           );
+                          let selectedCostCode = costCode;
                           console.log(
                             "activeCostCodes111",
                             activeCostCodes,
                             costCode,
                             activeCostCode
                           );
+                          if (activeCostCode) {
+                            selectedCostCode = activeCostCode;
+                          }
 
                           return (
                             <tr key={key}>
                               <td scope="col">
                                 <input
                                   onChange={(evt) =>
-                                    onRowSelection(evt, costCode, key)
+                                    onRowSelection(evt, selectedCostCode, key)
                                   }
                                   type="checkbox"
-                                  checked={activeCostCode}
+                                  checked={!!activeCostCode}
                                 />
                               </td>
                               <td>{costCode.id}</td>
