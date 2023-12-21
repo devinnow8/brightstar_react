@@ -6,6 +6,17 @@ const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let role_id;
+  let userName = localStorage.getItem("name");
+  function capitalizeWords(str) {
+    return str.replace(/\b\w/g, function (char) {
+      return char.toUpperCase();
+    });
+  }
+
+  // Example usage:
+  let capitalizedString = capitalizeWords(userName);
+  console.log(capitalizedString);
+
   if (localStorage.getItem("role_id")) {
     role_id = JSON.parse(localStorage.getItem("role_id"));
   }
@@ -80,7 +91,7 @@ const SideBar = () => {
                   }
                   key={key}
                 >
-                  <span className="nav-link align-middle px-0">
+                  <span className="nav-link align-middle px-User0">
                     <Link
                       className="nav-link align-middle px-0"
                       to={item.route}
@@ -101,14 +112,16 @@ const SideBar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img
+              {/* <img
                 src="https://github.com/mdo.png"
                 alt="hugenerd"
                 width="30"
                 height="30"
                 className="rounded-circle"
-              />
-              <span className="d-none d-sm-inline mx-1">User</span>
+              /> */}
+              <span className="d-none d-sm-inline mx-1">
+                {capitalizedString}
+              </span>
             </a>
             <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
               {/* <li>

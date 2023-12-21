@@ -31,9 +31,9 @@ export const TimeCards = () => {
       <div className="options">
         <h2 className="title">My Timesheets</h2>{" "}
         <div className="text-end">
-          <button className="primary-btn-outlined new-btn px-3">
+          {/* <button className="primary-btn-outlined new-btn px-3">
             + New Timesheet
-          </button>
+          </button> */}
         </div>
       </div>
       <MyTimesheet
@@ -41,9 +41,9 @@ export const TimeCards = () => {
         timeSheets={timeSheets}
         isLoading={isLoading}
       />{" "}
-      <div className="text-end">
+      {/* <div className="text-end">
         <button className="primary-btn save-btn">Save</button>
-      </div>
+      </div> */}
     </div>
   );
 };
