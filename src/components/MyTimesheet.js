@@ -13,11 +13,39 @@ const MyTimesheet = (props) => {
   const navigate = useNavigate();
   const getTimeSheetDeatils = async () => {
     await getMyTimeSheetDetails().then((res) => {
-      if(res?.status === 200){
+      if (res?.status === 200) {
         setTimeSheetDeatils(res?.data);
       }
     });
   };
+
+  const getDateInFormat = (date) => {
+    var finalDate =
+      date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
+    return finalDate;
+  };
+  function getDateFromWeek(year, weekNumber) {
+    const januaryFirst = new Date(year, 0, 1);
+    const dayOfWeek = januaryFirst.getDay();
+    const daysUntilMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek;
+    const firstMonday = new Date(januaryFirst);
+    firstMonday.setDate(januaryFirst.getDate() + daysUntilMonday);
+
+    // Calculate the start date of the specified week
+    const daysToAdd = (weekNumber - 1) * 7;
+    const resultDate = new Date(firstMonday);
+
+    const getFirstMondayOfWeek = resultDate.setDate(
+      firstMonday.getDate() + daysToAdd
+    );
+    const startWeekDate = new Date(getFirstMondayOfWeek);
+    startWeekDate.setDate(startWeekDate.getDate() + 6);
+
+    const startDate = getDateInFormat(resultDate);
+    const endDate = getDateInFormat(startWeekDate);
+
+    return { startDate, endDate };
+  }
 
   useEffect(() => {
     getTimeSheetDeatils();
@@ -37,30 +65,33 @@ const MyTimesheet = (props) => {
             <h3 className="txt">Open</h3>
           </div>
           <div className="timesheet-content">
-            {timeSheetDetails?.length> 0 && timeSheetDetails?.map((card) => {
-              return (
-                <div className="status-card">
-                  <p>
-                    {card?.crew?.name}
-                  </p>
-                  <br />
-                  <h2>{card?.week}</h2>
-                  <div className="btn-flex">
-                    <button
-                      onClick={() => {
-                        onCardClick(card);
-                      }}
-                      className="primary-btn open"
-                    >
-                      Open
-                    </button>
-                    <button className="primary-btn-outlined">
-                      Submit
-                    </button>
+            {timeSheetDetails?.length > 0 &&
+              timeSheetDetails?.map((card) => {
+                const week = card?.week;
+                const year = week.split("-")[0];
+                const cardWeek = week.split("W")[1];
+
+                const { startDate, endDate } = getDateFromWeek(year, cardWeek);
+                console.log("datt", startDate, endDate);
+                return (
+                  <div className="status-card">
+                    <p>{card?.crew?.name}</p>
+                    <br />
+                    <h2>{startDate + "-" + endDate}</h2>
+                    <div className="btn-flex">
+                      <button
+                        onClick={() => {
+                          onCardClick(card);
+                        }}
+                        className="primary-btn open"
+                      >
+                        Open
+                      </button>
+                      <button className="primary-btn-outlined">Submit</button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           {/* <div className="text-end">
             <button className="primary-btn-outlined new-btn px-3">
