@@ -30,7 +30,6 @@ export const TimeCard = () => {
       crew_id: timeSheetData?.crew_id,
     };
     await getTimeSheetByWeek(data).then((res) => {
-      console.log("resss", res);
       setTimeSheetWeekDetails(res?.data);
     });
   };
@@ -40,7 +39,6 @@ export const TimeCard = () => {
 
     await getMyTimeSheetDetails(queryParams).then((res) => {
       if (res?.status === 200) {
-        console.log("ppp", res);
         setTimeSheetDetails(res?.data[0]);
         getTimeSheetWeekDetails(res?.data[0]);
         //   setTimeSheetDeatils(res?.data);
@@ -49,14 +47,12 @@ export const TimeCard = () => {
   };
 
   const getPerDayDetails = (data) => {
-    console.log("getPerDayDetails", data);
     return _.groupBy(data, "time_entry_date");
   };
 
   const cachedValue = useMemo(() => {
-    if (timeSheetWeekDetails.length) {
+    if (timeSheetWeekDetails?.length > 0) {
       const data = getPerDayDetails(timeSheetWeekDetails);
-      console.log("datadata", data);
       return data;
     } else {
       return {};
@@ -67,11 +63,10 @@ export const TimeCard = () => {
 
   let cardStartDate = "";
   let cardEndDate = "";
-  if (Object.keys(timeSheetDetails).length) {
-    console.log("timeSheetDetails", timeSheetDetails);
+  if (Object?.keys(timeSheetDetails)?.length) {
     const week = timeSheetDetails?.week;
-    const year = week.split("-")[0];
-    const cardWeek = week.split("W")[1];
+    const year = week?.split("-")[0];
+    const cardWeek = week?.split("W")[1];
     const { startDate, endDate } = getDateFromWeek(year, cardWeek);
     console.log("startDate", startDate);
     cardStartDate = startDate;
@@ -87,9 +82,11 @@ export const TimeCard = () => {
         <img src={ArrowLeft} /> Back
       </button>
       <h2>{timeSheetDetails?.crew?.name}</h2>
-      <h3>{cardStartDate + "-" + cardEndDate}</h3>
-      {Object.keys(cachedValue).length > 0 &&
-        Object.keys(cachedValue).map((dayDetails) => {
+      {Object?.keys(cachedValue)?.length > 0 && (
+        <h3>{cardStartDate + "-" + cardEndDate}</h3>
+      )}
+      {Object?.keys(cachedValue)?.length > 0 &&
+        Object?.keys(cachedValue)?.map((dayDetails) => {
           console.log("dayDetails", dayDetails, cachedValue[dayDetails]);
           return (
             <div className="crew-mgmt-card">
@@ -113,8 +110,8 @@ export const TimeCard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cachedValue[dayDetails] && cachedValue[dayDetails].length > 0
-                    ? cachedValue[dayDetails].map((item, key) => {
+                  {cachedValue[dayDetails] && cachedValue[dayDetails]?.length > 0
+                    ? cachedValue[dayDetails]?.map((item, key) => {
                         console.log("fastmap ==>", item);
                         return (
                           <tr
