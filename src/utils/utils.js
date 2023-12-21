@@ -21,7 +21,6 @@ export const formatDateTime = (inputDate) => {
   return `${year}/${month}/${day}, ${formattedTime}`;
 };
 
-
 export const getCurrentDateTime = () => {
   const currentDate = new Date();
   const formattedDateTime = currentDate
@@ -33,8 +32,37 @@ export const getCurrentDateTime = () => {
 
 export function formatDateToYYYYMMDD(date) {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
+}
+
+export const getDateInFormat = (date) => {
+  var finalDate =
+    date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
+  return finalDate;
+};
+
+export function getDateFromWeek(year, weekNumber) {
+  const januaryFirst = new Date(year, 0, 1);
+  const dayOfWeek = januaryFirst.getDay();
+  const daysUntilMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek;
+  const firstMonday = new Date(januaryFirst);
+  firstMonday.setDate(januaryFirst.getDate() + daysUntilMonday);
+
+  // Calculate the start date of the specified week
+  const daysToAdd = (weekNumber - 1) * 7;
+  const resultDate = new Date(firstMonday);
+
+  const getFirstMondayOfWeek = resultDate.setDate(
+    firstMonday.getDate() + daysToAdd
+  );
+  const startWeekDate = new Date(getFirstMondayOfWeek);
+  startWeekDate.setDate(startWeekDate.getDate() + 6);
+
+  const startDate = getDateInFormat(resultDate);
+  const endDate = getDateInFormat(startWeekDate);
+
+  return { startDate, endDate };
 }

@@ -1,13 +1,46 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import editIcon from "../assets/images/edit.png";
 import deleteIcon from "../assets/images/delete.png";
 import ArrowLeft from "../assets/images/arrow-left.svg";
+import { getMyTimeSheetDetails, getUserDetails } from "../API";
+import { getDateInFormat, getDateFromWeek } from "../utils/utils";
 
 export const TimeCard = () => {
   const navigate = useNavigate();
+  const [timeSheetDetails, setTimeSheet] = useState({});
+
   const costCodes = [1, 2, 3, 4];
   const loading = false;
+  const { id } = useParams();
+
+  useEffect(() => {
+    getDetailsofCard();
+  }, []);
+  const getDetailsofCard = async () => {
+    const queryParams = `id=${id}`;
+
+    await getMyTimeSheetDetails(queryParams).then((res) => {
+      if (res?.status === 200) {
+        console.log("ppp", res);
+        setTimeSheet(res.data[0]);
+        //   setTimeSheetDeatils(res?.data);
+      }
+    });
+  };
+  let cardStartDate = "";
+  let cardEndDate = "";
+  if (Object.keys(timeSheetDetails).length) {
+    console.log("timeSheetDetails", timeSheetDetails);
+    const week = timeSheetDetails?.week;
+    const year = week.split("-")[0];
+    const cardWeek = week.split("W")[1];
+    const { startDate, endDate } = getDateFromWeek(year, cardWeek);
+    console.log("startDate", startDate);
+    cardStartDate = startDate;
+    cardEndDate = endDate;
+  }
+
   return (
     <div className="crew-mgmt">
       <button
@@ -16,6 +49,8 @@ export const TimeCard = () => {
       >
         <img src={ArrowLeft} /> Back
       </button>
+      <h2>{timeSheetDetails?.crew?.name}</h2>
+      <h3>{cardStartDate + "-" + cardEndDate}</h3>
       <div className="crew-mgmt-card">
         <h3 className="title">Team hours</h3>
         <table className="table table-striped">

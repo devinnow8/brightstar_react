@@ -119,7 +119,10 @@ export const getCrewCostCodes = async (id) => {
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 
-export const getMyTimeSheetDetails = async () => {
-  const apiUrl = `${url}/api/time_sheet?expand=crew`;
+export const getMyTimeSheetDetails = async (queryParams) => {
+  let apiUrl = `${url}/api/time_sheet?expand=crew`;
+  if (queryParams) {
+    apiUrl = `${url}/api/time_sheet?expand=crew&${queryParams}`;
+  }
   return await makeApiCall("get", apiUrl, {}, headers);
 };

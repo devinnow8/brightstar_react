@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../pages/Loader";
 import { getMyTimeSheetDetails } from "../API";
-// import {convertWeekToDateString} from '../utils/utils'
+import { getDateInFormat, getDateFromWeek } from "../utils/utils";
 
 const MyTimesheet = (props) => {
   console.log("myTimesheet ====>");
@@ -18,34 +18,6 @@ const MyTimesheet = (props) => {
       }
     });
   };
-
-  const getDateInFormat = (date) => {
-    var finalDate =
-      date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
-    return finalDate;
-  };
-  function getDateFromWeek(year, weekNumber) {
-    const januaryFirst = new Date(year, 0, 1);
-    const dayOfWeek = januaryFirst.getDay();
-    const daysUntilMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek;
-    const firstMonday = new Date(januaryFirst);
-    firstMonday.setDate(januaryFirst.getDate() + daysUntilMonday);
-
-    // Calculate the start date of the specified week
-    const daysToAdd = (weekNumber - 1) * 7;
-    const resultDate = new Date(firstMonday);
-
-    const getFirstMondayOfWeek = resultDate.setDate(
-      firstMonday.getDate() + daysToAdd
-    );
-    const startWeekDate = new Date(getFirstMondayOfWeek);
-    startWeekDate.setDate(startWeekDate.getDate() + 6);
-
-    const startDate = getDateInFormat(resultDate);
-    const endDate = getDateInFormat(startWeekDate);
-
-    return { startDate, endDate };
-  }
 
   useEffect(() => {
     getTimeSheetDeatils();
