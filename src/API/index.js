@@ -126,3 +126,13 @@ export const getMyTimeSheetDetails = async (queryParams) => {
   }
   return await makeApiCall("get", apiUrl, {}, headers);
 };
+
+export const getWeekSheet = async (week) => {
+  const apiUrl = `${url}/api/time_sheet?expand=crew&week=${week}`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};
+
+export const addMyTimeSheetDetails = async (data) => {
+  const apiUrl = `${url}/api/time_sheet?expand=crew`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};

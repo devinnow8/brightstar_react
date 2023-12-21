@@ -47,9 +47,8 @@ const MyTimesheet = (props) => {
                 console.log("datt", startDate, endDate);
                 return (
                   <div className="status-card">
-                    <p>{card?.crew?.name}</p>
-                    <br />
-                    <h2>{startDate + "-" + endDate}</h2>
+                    <h5>{card?.crew?.name}</h5>
+                    <p>{startDate + "-" + endDate}</p>
                     <div className="btn-flex">
                       <button
                         onClick={() => {

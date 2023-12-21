@@ -66,3 +66,21 @@ export function getDateFromWeek(year, weekNumber) {
 
   return { startDate, endDate };
 }
+
+export const getWeekFromDate = (dateString) => {
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return "Invalid date";
+  }
+  const year = date.getFullYear();
+  const weekNumber = getISOWeekNumber(date);
+  const formattedWeek = `${year}-W${weekNumber.toString().padStart(2, "0")}`;
+
+  return formattedWeek;
+};
+const getISOWeekNumber = (date) => {
+  const onejan = new Date(date.getFullYear(), 0, 1);
+  const daysInYear = Math.floor((date - onejan) / 86400000);
+  return Math.ceil((date.getDay() + 1 + daysInYear) / 7);
+};

@@ -10,8 +10,14 @@ import {
   getUserDetails,
   getCostCodes,
   getCrewCostCodes,
+  getWeekSheet,
+  addMyTimeSheetDetails,
 } from "../API";
-import { getCurrentDateTime, formatDateToYYYYMMDD } from "../utils/utils";
+import {
+  getCurrentDateTime,
+  formatDateToYYYYMMDD,
+  getWeekFromDate,
+} from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
 
 const RightDrawerModal = (props) => {
@@ -35,8 +41,8 @@ const RightDrawerModal = (props) => {
     time_entry_out: "17:00",
   });
   const [lunchPunchInOutTime, setLunchPunchInOutTime] = useState({
-    lunch_entry_in: "13:00",
-    lunch_entry_out: "14:00",
+    time_lunch_start: "13:00",
+    time_lunch_end: "14:00",
   });
   const [projectTaskOptions, setProjectTaskOptions] = useState([]);
   const [costCodesOptions, setCostCodesOptions] = useState([]);
@@ -149,27 +155,70 @@ const RightDrawerModal = (props) => {
   }, [crew_id, project_id]);
 
   const onClickSave = async () => {
-    allSelectedUsers?.forEach(async (ele) => {
-      const payload = {
-        ...punchInOutTime,
-        entry_time: getCurrentDateTime(),
-        time_entry_type_id: 1,
-        crew_user_id: ele?.value?.id,
-        crew_id,
-        time_entry_date: selectedDate.selectedDateValue || "",
-        is_crew_entry: true,
-        time_entry_status_id: 1,
-        project_task_id: selectedProjectTaskId,
-        crew_project_cost_code_id: selectedCostCodeId,
-      };
-      await addCrewTimeEntry(payload)
-        .then((res) => {
-          if (res?.data?.crew_id) {
-            toast.success("Time entry successfully added.");
-            navigate("/time-sheet");
+    const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
+
+    await getWeekSheet(getSelectedWeek).then((res) => {
+      if (res?.status === 200 && res?.data?.length > 0) {
+        allSelectedUsers?.forEach(async (ele) => {
+          const payload = {
+            ...punchInOutTime,
+            ...lunchPunchInOutTime,
+            entry_time: getCurrentDateTime(),
+            time_entry_type_id: 1,
+            crew_user_id: ele?.value?.id,
+            crew_id,
+            time_entry_date: selectedDate.selectedDateValue || "",
+            is_crew_entry: true,
+            time_entry_status_id: 1,
+            project_task_id: selectedProjectTaskId,
+            crew_project_cost_code_id: selectedCostCodeId,
+            time_sheet_id: res?.data[0]?.id,
+          };
+          await addCrewTimeEntry(payload)
+            .then((res) => {
+              if (res?.data?.crew_id) {
+                toast.success("Time entry successfully added.");
+                navigate("/time-sheet");
+              }
+            })
+            .catch((err) => toast.error("Unable to add time entry"));
+        });
+      } else {
+        const addMyTimeSheetPayload = {
+          week: getSelectedWeek,
+          crew_id,
+          time_sheet_status_id: 1,
+        };
+        addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
+          if (res?.status === 200) {
+            allSelectedUsers?.forEach(async (ele) => {
+              const payload = {
+                ...punchInOutTime,
+                ...lunchPunchInOutTime,
+                entry_time: getCurrentDateTime(),
+                time_entry_type_id: 1,
+                crew_user_id: ele?.value?.id,
+                crew_id,
+                time_entry_date: selectedDate.selectedDateValue || "",
+                is_crew_entry: true,
+                time_entry_status_id: 1,
+                project_task_id: selectedProjectTaskId,
+                crew_project_cost_code_id: selectedCostCodeId,
+                time_sheet_id: res?.data?.id,
+              };
+              await addCrewTimeEntry(payload)
+                .then((res) => {
+                  if (res?.data?.crew_id) {
+                    toast.success("Time sheet successfully added for the selected week");
+                    toast.success("Time entry successfully added.");
+                    navigate("/time-sheet");
+                  }
+                })
+                .catch((err) => toast.error("Unable to add time entry"));
+            });
           }
-        })
-        .catch((err) => toast.error("Unable to add time entry"));
+        });
+      }
     });
   };
 
@@ -280,12 +329,12 @@ const RightDrawerModal = (props) => {
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
-                    name="lunch_entry_in"
+                    name="time_lunch_start"
                     aria-label="Time"
                     type="time"
                     className="input-field w-100"
                     onChange={(e) => onLunchTimeChange(e)}
-                    value={lunchPunchInOutTime?.lunch_entry_in}
+                    value={lunchPunchInOutTime?.time_lunch_start}
                   />
                   <label for="recipient-name" class="col-form-label">
                     Start
@@ -295,12 +344,12 @@ const RightDrawerModal = (props) => {
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
-                    name="lunch_entry_out"
+                    name="time_lunch_end"
                     aria-label="Time"
                     type="time"
                     className="input-field w-100"
                     onChange={(e) => onLunchTimeChange(e)}
-                    value={lunchPunchInOutTime?.lunch_entry_out}
+                    value={lunchPunchInOutTime?.time_lunch_end}
                   />
                   <label for="recipient-name" class="col-form-label">
                     End
