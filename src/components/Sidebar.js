@@ -112,13 +112,13 @@ const SideBar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img
+              {/* <img
                 src="https://github.com/mdo.png"
                 alt="hugenerd"
                 width="30"
                 height="30"
                 className="rounded-circle"
-              />
+              /> */}
               <span className="d-none d-sm-inline mx-1">
                 {capitalizedString}
               </span>
