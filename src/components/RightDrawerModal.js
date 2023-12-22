@@ -399,6 +399,7 @@ const RightDrawerModal = (props) => {
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
+            <div className="input-box d-flex align-items-center justify-content-between">
             <TimePickerComponent
               label={"Start Time"}
               time={time?.punchIn}
@@ -411,6 +412,8 @@ const RightDrawerModal = (props) => {
               type="punchOut"
               handleTimeSelectChange={handleTimeSelectChange}
             />
+              </div>
+           
           </div>
 
           <div className="input-flex">

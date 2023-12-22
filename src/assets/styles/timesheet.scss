@@ -140,6 +140,10 @@
 }
 .time-select__control{
   border-color: transparent;
+  &.time-select__control--is-focused{
+    box-shadow: none;
+    border-color: white;
+  }
 }
 .time-select__indicator svg {
   font-size: 6px;
