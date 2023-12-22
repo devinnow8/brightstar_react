@@ -55,14 +55,16 @@ export const TimeCard = () => {
   const cachedValue = useMemo(() => {
     if (timeSheetWeekDetails?.length > 0) {
       const data = getPerDayDetails(timeSheetWeekDetails);
-      console.log("datadata00", data);
       const dates = structuredClone(data);
-      const sortedObject = _.fromPairs(_.sortBy(_.toPairs(dates), [1]));
-      console.log("sortedObject", { ...sortedObject });
-      debugger;
-      console.log("datesdates", dates);
+      let orderedDates = {};
+      _(dates)
+        .keys()
+        .sort()
+        .each(function (key) {
+          orderedDates[key] = dates[key];
+        });
 
-      return sortedObject;
+      return orderedDates;
     } else {
       return {};
     }
@@ -84,13 +86,13 @@ export const TimeCard = () => {
   console.log("timeSheetWeekDetails", timeSheetWeekDetails);
   const getDayFromDate = (date) => {
     let days = [
+      "Sunday",
       "Monday",
       "Tuesday",
       "Wednesday",
       "Thursday",
       "Friday",
       "Saturday",
-      "Sunday",
     ];
     var day = days[date.getDay()];
     console.log("dayyyy", day);
