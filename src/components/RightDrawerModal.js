@@ -31,10 +31,10 @@ const RightDrawerModal = (props) => {
     selectedDateValue: "",
   });
   const [time, setTime] = useState({
-    punchIn: { hours: 1, minutes: "00", ampm: "AM" },
-    punchOut: { hours: 1, minutes: "00", ampm: "AM" },
-    workingTimeIn: { hours: 1, minutes: "00", ampm: "AM" },
-    workingTimeOut: { hours: 1, minutes: "00", ampm: "AM" },
+    punchIn: { hours: 1, minutes: "00", ampm: "PM" },
+    punchOut: { hours: 2, minutes: "00", ampm: "PM" },
+    workingTimeIn: { hours: 8, minutes: "30", ampm: "AM" },
+    workingTimeOut: { hours: 5, minutes: "00", ampm: "PM" },
   });
 
   const [allProjectTasks, setAllProjectTasks] = useState([]);
