@@ -10,6 +10,7 @@ import {
   getUserDetails,
 } from "../API";
 import { getDateInFormat, getDateFromWeek } from "../utils/utils";
+import RightDrawerModal from "../components/RightDrawerModal";
 
 export const TimeCard = () => {
   const navigate = useNavigate();
@@ -107,6 +108,15 @@ export const TimeCard = () => {
       >
         <img src={ArrowLeft} /> Back
       </button>
+      <button
+        class="btn btn-primary primary-btn detail-btn px-3"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight"
+      >
+        + Add Crew Time/Date
+      </button>
       <h2>{timeSheetDetails?.crew?.name}</h2>
       {cachedValue && Object?.keys(cachedValue)?.length > 0 && (
         <h3>{cardStartDate + "-" + cardEndDate}</h3>
@@ -177,6 +187,11 @@ export const TimeCard = () => {
                     : !loading && <tr>No data found</tr>}
                 </tbody>
               </table>
+              <RightDrawerModal
+                crew_id={timeSheetDetails?.crew_id}
+                id="offcanvasRight"
+                project_id={timeSheetDetails?.crew?.project_id}
+              />
             </div>
           );
         })}
