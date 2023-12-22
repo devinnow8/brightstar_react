@@ -84,13 +84,13 @@ export const TimeCard = () => {
   console.log("timeSheetWeekDetails", timeSheetWeekDetails);
   const getDayFromDate = (date) => {
     let days = [
+      "Sunday",
       "Monday",
       "Tuesday",
       "Wednesday",
       "Thursday",
       "Friday",
       "Saturday",
-      "Sunday",
     ];
     var day = days[date.getDay()];
     console.log("dayyyy", day);
