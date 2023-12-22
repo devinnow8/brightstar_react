@@ -294,7 +294,7 @@ const RightDrawerModal = (props) => {
   return (
     <>
       <div
-        class="offcanvas offcanvas-end"
+        class="offcanvas offcanvas-end crew-mdal"
         tabindex="-1"
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel"
@@ -365,7 +365,7 @@ const RightDrawerModal = (props) => {
             <label htmlFor="" class="col-form-label">
               Cost Code
             </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
+            <div className="input-box">
               <Select
                 className="react-select-container"
                 classNamePrefix="react-select"
@@ -380,38 +380,47 @@ const RightDrawerModal = (props) => {
             <label for="recipient-name" class="col-form-label">
               Working Time
             </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
+            <div className="input-box d-flex align-items-center justify-content-between row">
+              <div className="col-6">
               <TimePickerComponent
-                label={"Start Time"}
+                label={"Start"}
                 time={time?.workingTimeIn}
                 type="workingTimeIn"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
+              </div>
+              <div className="col-6">
               <TimePickerComponent
-                label={"End Time"}
+                label={"End"}
                 time={time?.workingTimeOut}
                 type="workingTimeOut"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
+              </div>
             </div>
           </div>
           <div className="input-flex">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
+            <div className="input-box d-flex align-items-center justify-content-between row">
+            <div className="col-6">
             <TimePickerComponent
-              label={"Start Time"}
+              label={"Start"}
               time={time?.punchIn}
               type="punchIn"
               handleTimeSelectChange={handleTimeSelectChange}
             />
+              </div>
+              <div className="col-6">
             <TimePickerComponent
-              label={"End Time"}
+              label={"End"}
               time={time?.punchOut}
               type="punchOut"
               handleTimeSelectChange={handleTimeSelectChange}
             />
+            </div>
+        
               </div>
            
           </div>

@@ -220,7 +220,7 @@ $primary-color: #49adff;
       h2{
         font-size: 22px;
       }
-      h3{
+      > h3{
         font-size: 18px;
         margin-bottom: 15px;
         font-weight: normal;
@@ -236,7 +236,7 @@ $primary-color: #49adff;
           color: $primary-color;
           margin-bottom: 0px;
         }
-        label {
+        > label {
           display: block;
           font-weight: 500;
           font-size: 16px;
@@ -377,6 +377,9 @@ input {
     width: 18px;
     margin-right: 4px;
   }
+}
+.crew-mdal{
+  width: 500px !important;
 }
 @import "./auth.scss";
 @import "./entry-modal.scss";

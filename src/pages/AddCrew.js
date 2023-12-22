@@ -325,7 +325,7 @@ const CrewManagement = () => {
           </div>
           <div class="col-xl-7">
             <>
-              <h3>Cost codes</h3>
+              <h3>Cost code</h3>
               <div className="table-responsive cost-code-table">
                 <table className="table table-striped table-bordered">
                   <thead>
