@@ -217,16 +217,24 @@ $primary-color: #49adff;
       padding-right: 14px;
     }
     .crew-mgmt {
+      h2{
+        font-size: 22px;
+      }
+      h3{
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: normal;
+      }
       .crew-mgmt-card {
         box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
         padding: 30px 20px 32px 22px;
         border-radius: 8px;
         margin-bottom: 2.2rem;
         .title {
-          font-size: 25px;
+          font-size: 22px;
           font-weight: 700;
           color: $primary-color;
-          margin-bottom: 20px;
+          margin-bottom: 0px;
         }
         label {
           display: block;
