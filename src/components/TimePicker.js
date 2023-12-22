@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import "react-datetime-picker/dist/DateTimePicker.css";
 import Select from "react-select";
 
-const TimePickerComponent = ({ time, handleTimeSelectChange, type }) => {
+const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
   const [date, setDate] = useState(new Date());
 
   //   const handleDateChange = (newDate) => {
@@ -47,7 +47,7 @@ const TimePickerComponent = ({ time, handleTimeSelectChange, type }) => {
           />
         </div> */}
         <div className="form-group col-md-6">
-          <label htmlFor="time">Time</label>
+          <label htmlFor="time">{label}</label>
           <div className="time-picker-container">
             <Select
               className="time-picker-select"

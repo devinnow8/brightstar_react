@@ -71,10 +71,6 @@ const RightDrawerModal = (props) => {
     copiedTime[type][field] = value;
     console.log("copiedTimecopiedTime", copiedTime);
     setTime(copiedTime);
-    // setTime((prevTime) => {
-    //   return { time: { ...prevTime, [field]: value } };
-    //   // return { ...prevTime, [field]: value };
-    // });
   };
   const getAllCostCodes = async () => {
     await getCrewCostCodes(crew_id).then((res) => {
@@ -332,7 +328,7 @@ const RightDrawerModal = (props) => {
             <label htmlFor="" class="col-form-label">
               Cost Code
             </label>
-            <div className="input-box">
+            <div className="input-box d-flex align-items-center justify-content-between">
               <Select
                 className="react-select-container"
                 classNamePrefix="react-select"
@@ -343,15 +339,36 @@ const RightDrawerModal = (props) => {
             </div>
           </div>
           <div className="input-flex">
+            <label for="recipient-name" class="col-form-label">
+              Working Time
+            </label>
+            <div className="input-box d-flex align-items-center justify-content-between">
+              <TimePickerComponent
+                label={"Start Time"}
+                time={time.punchIn}
+                type="workingTimeIn"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+              <TimePickerComponent
+                label={"End Time"}
+                time={time.punchOut}
+                type="workingTimeOut"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+            </div>
+          </div>
+          <div className="input-flex">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
             <TimePickerComponent
+              label={"Start Time"}
               time={time.punchIn}
               type="punchIn"
               handleTimeSelectChange={handleTimeSelectChange}
             />
             <TimePickerComponent
+              label={"End Time"}
               time={time.punchOut}
               type="punchOut"
               handleTimeSelectChange={handleTimeSelectChange}
@@ -389,43 +406,7 @@ const RightDrawerModal = (props) => {
               </div>
             </div> */}
           </div>
-          <div className="input-flex">
-            <label for="recipient-name" class="col-form-label">
-              Working Time
-            </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_entry_in"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field"
-                    onChange={(e) => onTimeChange(e)}
-                    value={punchInOutTime?.time_entry_in}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    Start
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_entry_out"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field"
-                    onChange={(e) => onTimeChange(e)}
-                    value={punchInOutTime?.time_entry_out}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    End
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div className="input-flex">
             <label for="recipient-name" class="col-form-label">
               Notes
