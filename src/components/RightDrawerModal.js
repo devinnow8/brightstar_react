@@ -359,7 +359,7 @@ const RightDrawerModal = (props) => {
               />
             </div>
           </div>
-          <div className="input-flex">
+          <div className="input-flex d-flex align-items-center justify-content-between">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>

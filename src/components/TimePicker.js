@@ -35,8 +35,8 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
   console.log("timetime11", time.hours);
 
   return (
-    <div className="container">
-      <div className="row">
+    <>
+      <>
         {/* <div className="form-group col-md-6">
           <label htmlFor="date">Date</label>
           <Datetime
@@ -46,10 +46,11 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
             minDate={new Date()} // Set minimum date to today
           />
         </div> */}
-        <div className="form-group col-md-6">
+        <div className="">
           <label htmlFor="time">{label}</label>
           <div className="time-picker-container">
             <Select
+              classNamePrefix="time-select"
               className="time-picker-select"
               options={hourOptions}
               value={{ label: time.hours.toString(), value: time.hours }}
@@ -59,6 +60,7 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
             />
             <Select
               className="time-picker-select"
+              classNamePrefix="time-select"
               options={minuteOptions}
               value={{
                 label: time.minutes === 0 ? "00" : "30",
@@ -71,6 +73,7 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
             <Select
               className="time-picker-select"
               options={ampmOptions}
+              classNamePrefix="time-select"
               value={{ label: time.ampm, value: time.ampm }}
               onChange={(selected) =>
                 handleTimeSelectChange("ampm", selected.value, type)
@@ -78,8 +81,8 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
             />
           </div>
         </div>
-      </div>
-    </div>
+      </>
+    </>
   );
 };
 

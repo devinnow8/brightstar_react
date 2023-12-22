@@ -117,3 +117,35 @@
     margin-top: 20px;
   }
 }
+.crew-float-btn{
+    width: 300px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-right: 20px;
+    bottom: 20px;
+}
+.time-picker-container{
+  display: flex;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  .time-picker-select{
+    font-size: 13px;
+}
+.time-select__value-container{
+  padding: 0;
+}
+.time-select__indicator-separator {
+  border: none;
+  background-color: transparent;
+}
+.time-select__control{
+  border-color: transparent;
+}
+.time-select__indicator svg {
+  font-size: 6px;
+  width: 15px;
+}
+.time-select__indicator {
+  padding: 0;
+}
+}

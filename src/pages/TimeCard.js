@@ -110,7 +110,7 @@ export const TimeCard = () => {
           <img src={ArrowLeft} /> Back
         </button>
         <button
-          class="btn btn-primary primary-btn detail-btn px-3"
+          class="btn crew-float-btn fixed-bottom btn-primary primary-btn detail-btn px-3"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight"
