@@ -373,6 +373,7 @@ const RightDrawerModal = (props) => {
                 name="colors"
                 options={costCodesOptions}
                 onChange={(item) => onCostCodeChange(item)}
+
               />
             </div>
           </div>
@@ -395,22 +396,25 @@ const RightDrawerModal = (props) => {
               />
             </div>
           </div>
-          <div className="input-flex d-flex align-items-center justify-content-between">
+          <div className="input-flex">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
-            <TimePickerComponent
-              label={"Start Time"}
-              time={time.punchIn}
-              type="punchIn"
-              handleTimeSelectChange={handleTimeSelectChange}
-            />
-            <TimePickerComponent
-              label={"End Time"}
-              time={time.punchOut}
-              type="punchOut"
-              handleTimeSelectChange={handleTimeSelectChange}
-            />
+            <div className="input-box d-flex align-items-center justify-content-between">
+              <TimePickerComponent
+                label={"Start Time"}
+                time={time.punchIn}
+                type="punchIn"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+              <TimePickerComponent
+                label={"End Time"}
+                time={time.punchOut}
+                type="punchOut"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+            </div>
+
             {/* <div className="input-box d-flex align-items-center justify-content-between">
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
