@@ -207,8 +207,12 @@ const RightDrawerModal = (props) => {
         if (res?.status === 200 && res?.data?.length > 0) {
           allSelectedUsers?.forEach(async (ele) => {
             const payload = {
-              ...punchInOutTime,
-              ...lunchPunchInOutTime,
+              cardpunchInTime,
+              cardpunchOutTime,
+              cardworkingTimeIn,
+              cardworkingTimeOut,
+              // ...punchInOutTime,
+              // ...lunchPunchInOutTime,
               entry_time: getCurrentDateTime(),
               time_entry_type_id: 1,
               crew_user_id: ele?.value?.crew_user_id,

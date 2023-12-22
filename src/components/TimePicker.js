@@ -25,14 +25,14 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
 
   const minuteOptions = [
     { value: "00", label: "00" },
-    { value: "30", label: "30" },
+    { value: 30, label: "30" },
   ];
 
   const ampmOptions = [
     { value: "AM", label: "AM" },
     { value: "PM", label: "PM" },
   ];
-  console.log("timetime11", time.hours);
+  console.log("timetime11", time.minutes, time.hours);
 
   return (
     <>
@@ -63,7 +63,7 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
               classNamePrefix="time-select"
               options={minuteOptions}
               value={{
-                label: time.minutes === 0 ? "00" : "30",
+                label: time.minutes === "00" ? "00" : "30",
                 value: time.minutes,
               }}
               onChange={(selected) =>
