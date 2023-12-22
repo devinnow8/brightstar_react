@@ -102,21 +102,24 @@ export const TimeCard = () => {
   console.log("cachedValueii", cachedValue);
   return (
     <div className="crew-mgmt">
-      <button
-        className="primary-btn back-btn mb-4"
-        onClick={() => navigate(-1)}
-      >
-        <img src={ArrowLeft} /> Back
-      </button>
-      <button
-        class="btn btn-primary primary-btn detail-btn px-3"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight"
-        aria-controls="offcanvasRight"
-      >
-        + Add Crew Time/Date
-      </button>
+      <div className="d-flex justify-content-between">
+        <button
+          className="primary-btn back-btn mb-4"
+          onClick={() => navigate(-1)}
+        >
+          <img src={ArrowLeft} /> Back
+        </button>
+        <button
+          class="btn btn-primary primary-btn detail-btn px-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight"
+        >
+          + Add Crew Time/Date
+        </button>
+      </div>
+
       <h2>{timeSheetDetails?.crew?.name}</h2>
       {cachedValue && Object?.keys(cachedValue)?.length > 0 && (
         <h3>{cardStartDate + "-" + cardEndDate}</h3>
@@ -152,38 +155,38 @@ export const TimeCard = () => {
                 </thead>
                 <tbody>
                   {cachedValue[dayDetails] &&
-                  cachedValue[dayDetails]?.length > 0
+                    cachedValue[dayDetails]?.length > 0
                     ? cachedValue[dayDetails]?.map((item, key) => {
-                        console.log("fastmap ==>", item);
-                        return (
-                          <tr
-                            //   className={selectedUser.id === item.id ? "activeRow" : ""}
-                            //   onClick={() => setSelectedUser(item)}
-                            key={key}
-                          >
-                            <td>{item?.name}</td>
-                            <td>{item?.task}</td>
-                            <td>{item?.cost_code}</td>
-                            <td>{item?.time_entry_in}</td>
-                            <td>{item?.time_entry_out}</td>
-                            <td>{item?.hours}hr</td>
-                            <td>
-                              <div className="d-flex align-items-center">
-                                <img
-                                  src={editIcon}
-                                  className="img-fluid me-3 icon"
-                                  alt=""
-                                />
-                                <img
-                                  src={deleteIcon}
-                                  className="img-fluid icon"
-                                  alt=""
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })
+                      console.log("fastmap ==>", item);
+                      return (
+                        <tr
+                          //   className={selectedUser.id === item.id ? "activeRow" : ""}
+                          //   onClick={() => setSelectedUser(item)}
+                          key={key}
+                        >
+                          <td>{item?.name}</td>
+                          <td>{item?.task}</td>
+                          <td>{item?.cost_code}</td>
+                          <td>{item?.time_entry_in}</td>
+                          <td>{item?.time_entry_out}</td>
+                          <td>{item?.hours}hr</td>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <img
+                                src={editIcon}
+                                className="img-fluid me-3 icon"
+                                alt=""
+                              />
+                              <img
+                                src={deleteIcon}
+                                className="img-fluid icon"
+                                alt=""
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
                     : !loading && <tr>No data found</tr>}
                 </tbody>
               </table>
