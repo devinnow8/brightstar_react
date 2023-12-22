@@ -9,7 +9,7 @@ const tableStyleObj = {
 const AllCrewsTable = (props) => {
   const location = useLocation();
   const { crewData, isloading } = props;
-  const tableHeadings = ["Name", "Boss Id", "Project Id", "Actions"];
+  const tableHeadings = ["Name", "Actions"];
   const navigate = useNavigate();
 
   const onClickCrewManagement = (item) => {
@@ -37,8 +37,6 @@ const AllCrewsTable = (props) => {
                 <th scope="row" className="table-heading">
                   {item.name}
                 </th>
-                <td>{item.boss_user_id}</td>
-                <td>{item.project_id}</td>
                 <td className="details-td">
                   <button
                     className="primary-btn-outlined"

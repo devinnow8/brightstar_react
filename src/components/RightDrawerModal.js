@@ -411,38 +411,6 @@ const RightDrawerModal = (props) => {
               type="punchOut"
               handleTimeSelectChange={handleTimeSelectChange}
             />
-            {/* <div className="input-box d-flex align-items-center justify-content-between">
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_lunch_start"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field w-100"
-                    onChange={(e) => onLunchTimeChange(e)}
-                    value={lunchPunchInOutTime?.time_lunch_start}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    Start
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_lunch_end"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field w-100"
-                    onChange={(e) => onLunchTimeChange(e)}
-                    value={lunchPunchInOutTime?.time_lunch_end}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    End
-                  </label>
-                </div>
-              </div>
-            </div> */}
           </div>
 
           <div className="input-flex">
