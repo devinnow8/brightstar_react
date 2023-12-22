@@ -16,12 +16,14 @@ export const TimeCard = () => {
   const navigate = useNavigate();
   const [timeSheetDetails, setTimeSheetDetails] = useState({});
   const [timeSheetWeekDetails, setTimeSheetWeekDetails] = useState({});
+  const [showAddTimeButton, setShowAddTimeButton] = useState(false);
 
   const costCodes = [1, 2, 3, 4];
   const loading = false;
   const { id } = useParams();
 
   useEffect(() => {
+    setShowAddTimeButton(true);
     getDetailsofCard();
   }, []);
 
@@ -32,6 +34,7 @@ export const TimeCard = () => {
     };
     console.log("getTimeSheetWeekDetails", data);
     await getTimeSheetByWeek(data).then((res) => {
+      setShowAddTimeButton(false);
       setTimeSheetWeekDetails(res?.data);
     });
   };
@@ -115,6 +118,7 @@ export const TimeCard = () => {
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasRight"
           aria-controls="offcanvasRight"
+          disabled={showAddTimeButton}
         >
           + Add Crew Time/Date
         </button>
