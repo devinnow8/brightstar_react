@@ -24,8 +24,8 @@ const TimePickerComponent = ({ label, time, handleTimeSelectChange, type }) => {
   }));
 
   const minuteOptions = [
-    { value: 0, label: "00" },
-    { value: 30, label: "30" },
+    { value: "00", label: "00" },
+    { value: "30", label: "30" },
   ];
 
   const ampmOptions = [

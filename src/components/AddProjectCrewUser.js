@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
   const [selectedUser, setSelectedUser] = useState({});
-  const crewTableHeadings = ["User Id", "Name"];
+  const crewTableHeadings = [];
   const { crewId, projectId } = useParams();
 
   const onAddNewUser = () => {
@@ -16,7 +16,7 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
     const crewUserPayload = {
       crew_id: crewId,
       user_id: data?.value,
-      crew_role_id: 4
+      crew_role_id: 4,
     };
     // const projectUserPayload = {
     //   user_id: data?.value,
@@ -34,6 +34,8 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
     });
   };
 
+  console.log("userOptionsuserOptions", userOptions);
+
   return (
     <>
       <div className="text-end">
@@ -42,7 +44,7 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
           className="btn primary-btn-outlined mb-4 px-3"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
-        // onClick={() => onAddCrewClick()}
+          // onClick={() => onAddCrewClick()}
         >
           + Add Member
         </button>
@@ -77,11 +79,12 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
                   <table className="table crew-modal-table table-striped">
                     <thead>
                       <tr>
-                        {crewTableHeadings?.map((item, key) => (
-                          <th scope="col" className="table-heading" key={key}>
-                            {item}
-                          </th>
-                        ))}
+                        {crewTableHeadings?.length > 0 &&
+                          crewTableHeadings?.map((item, key) => (
+                            <th scope="col" className="table-heading" key={key}>
+                              {item}
+                            </th>
+                          ))}
                       </tr>
                     </thead>
                     <tbody>
@@ -97,7 +100,7 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
                             key={key}
                           >
                             {/* <td>{item.id}</td> */}
-                            <td>{item.value}</td>
+                            {/* <td>{item.value}</td> */}
                             <td>{item.name}</td>
                             {/* <td>{item.description}</td> */}
                             <td className="details-td"></td>
