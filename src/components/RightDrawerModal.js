@@ -183,6 +183,7 @@ const RightDrawerModal = (props) => {
 
   const sendDataToBackend = () => {
     const formattedTime = formatTimeForBackend();
+    const date = new Date();
     console.log(`Date: ${date.toISOString()}, Time: ${formattedTime}`);
   };
   const onClickSave = async () => {
