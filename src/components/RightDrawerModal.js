@@ -31,10 +31,10 @@ const RightDrawerModal = (props) => {
     selectedDateValue: "",
   });
   const [time, setTime] = useState({
-    punchIn: { hours: 1, minutes: 0, ampm: "AM" },
-    punchOut: { hours: 1, minutes: 0, ampm: "AM" },
-    workingTimeIn: { hours: 1, minutes: 0, ampm: "AM" },
-    workingTimeOut: { hours: 1, minutes: 0, ampm: "AM" },
+    punchIn: { hours: 1, minutes: "00", ampm: "AM" },
+    punchOut: { hours: 1, minutes: "00", ampm: "AM" },
+    workingTimeIn: { hours: 1, minutes: "00", ampm: "AM" },
+    workingTimeOut: { hours: 1, minutes: "00", ampm: "AM" },
   });
 
   const [allProjectTasks, setAllProjectTasks] = useState([]);
@@ -168,10 +168,37 @@ const RightDrawerModal = (props) => {
       getAllProjectTasks();
     }
   }, [crew_id, project_id]);
+  // Function to format time in 24-hour format
+  const formatTimeForBackend = (timeData) => {
+    let { hours, minutes, ampm } = timeData;
+    console.log("timeDatatimeData", typeof hours, Number(hours) < 9, timeData);
+    let formattedHours = ampm === "PM" ? hours + 12 : hours;
 
+    debugger;
+    if (Number(formattedHours) < 9) {
+      formattedHours = "0" + formattedHours;
+    }
+    return `${formattedHours}:${minutes}`;
+  };
+
+  const sendDataToBackend = () => {
+    const formattedTime = formatTimeForBackend();
+    console.log(`Date: ${date.toISOString()}, Time: ${formattedTime}`);
+  };
   const onClickSave = async () => {
+    console.log("iiiiitime", time);
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
-
+    const cardpunchInTime = formatTimeForBackend(time.punchIn);
+    const cardpunchOutTime = formatTimeForBackend(time.punchOut);
+    const cardworkingTimeIn = formatTimeForBackend(time.workingTimeIn);
+    const cardworkingTimeOut = formatTimeForBackend(time.workingTimeOut);
+    console.log(
+      "onClickSave",
+      cardpunchInTime,
+      cardpunchOutTime,
+      cardworkingTimeIn,
+      cardworkingTimeOut
+    );
     await getWeekSheet(getSelectedWeek).then((res) => {
       if (res?.status === 200 && res?.data?.length > 0) {
         allSelectedUsers?.forEach(async (ele) => {
