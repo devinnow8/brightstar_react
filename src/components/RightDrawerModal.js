@@ -372,6 +372,7 @@ const RightDrawerModal = (props) => {
                 name="colors"
                 options={costCodesOptions}
                 onChange={(item) => onCostCodeChange(item)}
+
               />
             </div>
           </div>
@@ -394,7 +395,7 @@ const RightDrawerModal = (props) => {
               />
             </div>
           </div>
-          <div className="input-flex d-flex align-items-center justify-content-between">
+          <div className="input-flex">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
