@@ -189,10 +189,10 @@ const RightDrawerModal = (props) => {
     console.log("iiiiitime", time);
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
 
-    const lunchTimeIn = formatTimeForBackend(time.punchIn);
-    const lunchTimeOut = formatTimeForBackend(time.punchOut);
-    const entryTimeIn = formatTimeForBackend(time.workingTimeIn);
-    const entryTimeOut = formatTimeForBackend(time.workingTimeOut);
+    const lunchTimeIn = formatTimeForBackend(time?.punchIn);
+    const lunchTimeOut = formatTimeForBackend(time?.punchOut);
+    const entryTimeIn = formatTimeForBackend(time?.workingTimeIn);
+    const entryTimeOut = formatTimeForBackend(time?.workingTimeOut);
     console.log(
       "onClickSave",
       entryTimeIn,
@@ -214,7 +214,7 @@ const RightDrawerModal = (props) => {
               time_entry_type_id: 1,
               crew_user_id: ele?.value?.crew_user_id,
               crew_id,
-              time_entry_date: selectedDate.selectedDateValue || "",
+              time_entry_date: selectedDate?.selectedDateValue || "",
               is_crew_entry: true,
               time_entry_status_id: 1,
               project_task_id: selectedProjectTaskId,
@@ -250,7 +250,7 @@ const RightDrawerModal = (props) => {
                   time_entry_type_id: 1,
                   crew_user_id: ele?.value?.crew_user_id,
                   crew_id,
-                  time_entry_date: selectedDate.selectedDateValue || "",
+                  time_entry_date: selectedDate?.selectedDateValue || "",
                   is_crew_entry: true,
                   time_entry_status_id: 1,
                   project_task_id: selectedProjectTaskId,
@@ -372,7 +372,6 @@ const RightDrawerModal = (props) => {
                 name="colors"
                 options={costCodesOptions}
                 onChange={(item) => onCostCodeChange(item)}
-
               />
             </div>
           </div>
@@ -382,20 +381,20 @@ const RightDrawerModal = (props) => {
             </label>
             <div className="input-box d-flex align-items-center justify-content-between row">
               <div className="col-6">
-              <TimePickerComponent
-                label={"Start"}
-                time={time?.workingTimeIn}
-                type="workingTimeIn"
-                handleTimeSelectChange={handleTimeSelectChange}
-              />
+                <TimePickerComponent
+                  label={"Start"}
+                  time={time?.workingTimeIn}
+                  type="workingTimeIn"
+                  handleTimeSelectChange={handleTimeSelectChange}
+                />
               </div>
               <div className="col-6">
-              <TimePickerComponent
-                label={"End"}
-                time={time?.workingTimeOut}
-                type="workingTimeOut"
-                handleTimeSelectChange={handleTimeSelectChange}
-              />
+                <TimePickerComponent
+                  label={"End"}
+                  time={time?.workingTimeOut}
+                  type="workingTimeOut"
+                  handleTimeSelectChange={handleTimeSelectChange}
+                />
               </div>
             </div>
           </div>
@@ -404,25 +403,23 @@ const RightDrawerModal = (props) => {
               Lunch
             </label>
             <div className="input-box d-flex align-items-center justify-content-between row">
-            <div className="col-6">
-            <TimePickerComponent
-              label={"Start"}
-              time={time?.punchIn}
-              type="punchIn"
-              handleTimeSelectChange={handleTimeSelectChange}
-            />
+              <div className="col-6">
+                <TimePickerComponent
+                  label={"Start"}
+                  time={time?.punchIn}
+                  type="punchIn"
+                  handleTimeSelectChange={handleTimeSelectChange}
+                />
               </div>
               <div className="col-6">
-            <TimePickerComponent
-              label={"End"}
-              time={time?.punchOut}
-              type="punchOut"
-              handleTimeSelectChange={handleTimeSelectChange}
-            />
-            </div>
-        
+                <TimePickerComponent
+                  label={"End"}
+                  time={time?.punchOut}
+                  type="punchOut"
+                  handleTimeSelectChange={handleTimeSelectChange}
+                />
               </div>
-           
+            </div>
           </div>
 
           <div className="input-flex">
