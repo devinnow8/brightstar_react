@@ -58,7 +58,6 @@ const MyTimesheet = (props) => {
                       >
                         Open
                       </button>
-                      <button className="primary-btn-outlined">Submit</button>
                     </div>
                   </div>
                 );

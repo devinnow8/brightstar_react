@@ -149,7 +149,6 @@ export const TimeCard = () => {
                       "Start",
                       "Stop",
                       "Hour",
-                      "Action",
                     ]?.map((item, key) => (
                       <th scope="col" className="table-heading" key={key}>
                         {item}
@@ -174,20 +173,6 @@ export const TimeCard = () => {
                           <td>{item?.time_entry_in}</td>
                           <td>{item?.time_entry_out}</td>
                           <td>{item?.hours}hr</td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <img
-                                src={editIcon}
-                                className="img-fluid me-3 icon"
-                                alt=""
-                              />
-                              <img
-                                src={deleteIcon}
-                                className="img-fluid icon"
-                                alt=""
-                              />
-                            </div>
-                          </td>
                         </tr>
                       );
                     })
