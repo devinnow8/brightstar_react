@@ -19,6 +19,7 @@ import {
   getWeekFromDate,
 } from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
+import TimePickerComponent from "./TimePicker";
 
 const RightDrawerModal = (props) => {
   const { crew_id, project_id } = props;
@@ -28,6 +29,10 @@ const RightDrawerModal = (props) => {
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
     selectedDateValue: "",
+  });
+  const [time, setTime] = useState({
+    punchIn: { hours: 1, minutes: 0, ampm: "AM" },
+    punchOut: { hours: 1, minutes: 0, ampm: "AM" },
   });
 
   const [allProjectTasks, setAllProjectTasks] = useState([]);
@@ -59,7 +64,18 @@ const RightDrawerModal = (props) => {
       }
     });
   };
-
+  const handleTimeSelectChange = (field, value, type) => {
+    console.log("handleTimeSelectChange", field, value, type);
+    const copiedTime = { ...time };
+    const selectedTime = copiedTime[type];
+    copiedTime[type][field] = value;
+    console.log("copiedTimecopiedTime", copiedTime);
+    setTime(copiedTime);
+    // setTime((prevTime) => {
+    //   return { time: { ...prevTime, [field]: value } };
+    //   // return { ...prevTime, [field]: value };
+    // });
+  };
   const getAllCostCodes = async () => {
     await getCrewCostCodes(crew_id).then((res) => {
       if (res?.status === 200) {
@@ -121,7 +137,7 @@ const RightDrawerModal = (props) => {
         console.log("userData", userData);
         await getAllCrewUser(crew_id)
           .then((res) => {
-            if (res?.status === 200) {              
+            if (res?.status === 200) {
               const filteredCrewUsers = res?.data?.map((ele) => {
                 const matchingUser = userData?.find(
                   (crewEle) => ele?.user_id == crewEle?.id
@@ -193,7 +209,7 @@ const RightDrawerModal = (props) => {
         addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
           if (res?.status === 200) {
             allSelectedUsers?.forEach(async (ele) => {
-            console.log("ele?.value?.crew_user_id", ele);
+              console.log("ele?.value?.crew_user_id", ele);
 
               const payload = {
                 ...punchInOutTime,
@@ -212,7 +228,9 @@ const RightDrawerModal = (props) => {
               await addCrewTimeEntry(payload)
                 .then((res) => {
                   if (res?.data?.crew_id) {
-                    toast.success("Time sheet successfully added for the selected week");
+                    toast.success(
+                      "Time sheet successfully added for the selected week"
+                    );
                     toast.success("Time entry successfully added.");
                     navigate("/time-sheet");
                   }
@@ -238,7 +256,7 @@ const RightDrawerModal = (props) => {
     });
   };
 
-  console.log("selectedDate====>", selectedDate);
+  console.log("selectedDate====>1", time);
 
   return (
     <>
@@ -328,7 +346,17 @@ const RightDrawerModal = (props) => {
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
+            <TimePickerComponent
+              time={time.punchIn}
+              type="punchIn"
+              handleTimeSelectChange={handleTimeSelectChange}
+            />
+            <TimePickerComponent
+              time={time.punchOut}
+              type="punchOut"
+              handleTimeSelectChange={handleTimeSelectChange}
+            />
+            {/* <div className="input-box d-flex align-items-center justify-content-between">
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
@@ -359,7 +387,7 @@ const RightDrawerModal = (props) => {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="input-flex">
             <label for="recipient-name" class="col-form-label">
