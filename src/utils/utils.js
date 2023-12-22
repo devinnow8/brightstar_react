@@ -40,7 +40,7 @@ export function formatDateToYYYYMMDD(date) {
 
 export const getDateInFormat = (date) => {
   var finalDate =
-    date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
+    date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
   return finalDate;
 };
 
@@ -50,7 +50,7 @@ export function getDateFromWeek(year, weekNumber) {
   const daysUntilMonday = dayOfWeek === 0 ? 1 : 8 - dayOfWeek;
   const firstMonday = new Date(januaryFirst);
   firstMonday.setDate(januaryFirst.getDate() + daysUntilMonday);
-
+  console.log("weekNumber", weekNumber);
   // Calculate the start date of the specified week
   const daysToAdd = (weekNumber - 1) * 7;
   const resultDate = new Date(firstMonday);
