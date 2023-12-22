@@ -29,6 +29,7 @@ export const TimeCard = () => {
       week: timeSheetData?.week,
       crew_id: timeSheetData?.crew_id,
     };
+    console.log("getTimeSheetWeekDetails", data);
     await getTimeSheetByWeek(data).then((res) => {
       setTimeSheetWeekDetails(res?.data);
     });
@@ -39,6 +40,7 @@ export const TimeCard = () => {
 
     await getMyTimeSheetDetails(queryParams).then((res) => {
       if (res?.status === 200) {
+        console.log("ppppp", res.data);
         setTimeSheetDetails(res?.data[0]);
         getTimeSheetWeekDetails(res?.data[0]);
         //   setTimeSheetDeatils(res?.data);
@@ -53,7 +55,14 @@ export const TimeCard = () => {
   const cachedValue = useMemo(() => {
     if (timeSheetWeekDetails?.length > 0) {
       const data = getPerDayDetails(timeSheetWeekDetails);
-      return data;
+      console.log("datadata00", data);
+      const dates = structuredClone(data);
+      const sortedObject = _.fromPairs(_.sortBy(_.toPairs(dates), [1]));
+      console.log("sortedObject", { ...sortedObject });
+      debugger;
+      console.log("datesdates", dates);
+
+      return sortedObject;
     } else {
       return {};
     }
@@ -63,7 +72,7 @@ export const TimeCard = () => {
 
   let cardStartDate = "";
   let cardEndDate = "";
-  if (Object?.keys(timeSheetDetails)?.length) {
+  if (timeSheetDetails && Object?.keys(timeSheetDetails)?.length) {
     const week = timeSheetDetails?.week;
     const year = week?.split("-")[0];
     const cardWeek = week?.split("W")[1];
@@ -73,6 +82,21 @@ export const TimeCard = () => {
     cardEndDate = endDate;
   }
   console.log("timeSheetWeekDetails", timeSheetWeekDetails);
+  const getDayFromDate = (date) => {
+    let days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    var day = days[date.getDay()];
+    console.log("dayyyy", day);
+    return day;
+  };
+  console.log("cachedValueii", cachedValue);
   return (
     <div className="crew-mgmt">
       <button
@@ -82,15 +106,20 @@ export const TimeCard = () => {
         <img src={ArrowLeft} /> Back
       </button>
       <h2>{timeSheetDetails?.crew?.name}</h2>
-      {Object?.keys(cachedValue)?.length > 0 && (
+      {cachedValue && Object?.keys(cachedValue)?.length > 0 && (
         <h3>{cardStartDate + "-" + cardEndDate}</h3>
       )}
       {Object?.keys(cachedValue)?.length > 0 &&
         Object?.keys(cachedValue)?.map((dayDetails) => {
-          console.log("dayDetails", dayDetails, cachedValue[dayDetails]);
+          console.log("dayDetails111", cachedValue[dayDetails]);
+          const currentDisplayDate = new Date(dayDetails)
+            .toISOString()
+            .split("T");
+          const day = getDayFromDate(new Date(dayDetails));
+          console.log("day", new Date(dayDetails).getDay());
           return (
             <div className="crew-mgmt-card">
-              <h3 className="title">Team hours</h3>
+              <h3 className="title">{day + " " + currentDisplayDate[0]}</h3>
               <table className="table table-striped">
                 <thead>
                   <tr>
@@ -110,7 +139,8 @@ export const TimeCard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cachedValue[dayDetails] && cachedValue[dayDetails]?.length > 0
+                  {cachedValue[dayDetails] &&
+                  cachedValue[dayDetails]?.length > 0
                     ? cachedValue[dayDetails]?.map((item, key) => {
                         console.log("fastmap ==>", item);
                         return (

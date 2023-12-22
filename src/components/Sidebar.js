@@ -14,8 +14,11 @@ const SideBar = () => {
   }
 
   // Example usage:
-  let capitalizedString = capitalizeWords(userName);
-  console.log(capitalizedString);
+  let capitalizedString = "";
+  if (userName) {
+    capitalizedString = capitalizeWords(userName);
+    console.log(capitalizedString);
+  }
 
   if (localStorage.getItem("role_id")) {
     role_id = JSON.parse(localStorage.getItem("role_id"));
