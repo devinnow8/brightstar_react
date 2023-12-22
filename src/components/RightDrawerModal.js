@@ -174,7 +174,6 @@ const RightDrawerModal = (props) => {
     console.log("timeDatatimeData", typeof hours, Number(hours) < 9, timeData);
     let formattedHours = ampm === "PM" ? hours + 12 : hours;
 
-    debugger;
     if (Number(formattedHours) < 9) {
       formattedHours = "0" + formattedHours;
     }
@@ -190,16 +189,16 @@ const RightDrawerModal = (props) => {
     console.log("iiiiitime", time);
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
 
-    const cardpunchInTime = formatTimeForBackend(time.punchIn);
-    const cardpunchOutTime = formatTimeForBackend(time.punchOut);
-    const cardworkingTimeIn = formatTimeForBackend(time.workingTimeIn);
-    const cardworkingTimeOut = formatTimeForBackend(time.workingTimeOut);
+    const lunchTimeIn = formatTimeForBackend(time.punchIn);
+    const lunchTimeOut = formatTimeForBackend(time.punchOut);
+    const entryTimeIn = formatTimeForBackend(time.workingTimeIn);
+    const entryTimeOut = formatTimeForBackend(time.workingTimeOut);
     console.log(
       "onClickSave",
-      cardpunchInTime,
-      cardpunchOutTime,
-      cardworkingTimeIn,
-      cardworkingTimeOut
+      entryTimeIn,
+      entryTimeOut,
+      lunchTimeIn,
+      lunchTimeOut
     );
 
     if (getSelectedWeek) {
@@ -207,12 +206,10 @@ const RightDrawerModal = (props) => {
         if (res?.status === 200 && res?.data?.length > 0) {
           allSelectedUsers?.forEach(async (ele) => {
             const payload = {
-              cardpunchInTime,
-              cardpunchOutTime,
-              cardworkingTimeIn,
-              cardworkingTimeOut,
-              // ...punchInOutTime,
-              // ...lunchPunchInOutTime,
+              time_entry_in: entryTimeIn,
+              time_entry_out: entryTimeOut,
+              time_lunch_start: lunchTimeIn,
+              time_lunch_end: lunchTimeOut,
               entry_time: getCurrentDateTime(),
               time_entry_type_id: 1,
               crew_user_id: ele?.value?.crew_user_id,
@@ -245,8 +242,10 @@ const RightDrawerModal = (props) => {
                 console.log("ele?.value?.crew_user_id", ele);
 
                 const payload = {
-                  ...punchInOutTime,
-                  ...lunchPunchInOutTime,
+                  time_entry_in: entryTimeIn,
+                  time_entry_out: entryTimeOut,
+                  time_lunch_start: lunchTimeIn,
+                  time_lunch_end: lunchTimeOut,
                   entry_time: getCurrentDateTime(),
                   time_entry_type_id: 1,
                   crew_user_id: ele?.value?.crew_user_id,
@@ -383,13 +382,13 @@ const RightDrawerModal = (props) => {
             <div className="input-box d-flex align-items-center justify-content-between">
               <TimePickerComponent
                 label={"Start Time"}
-                time={time.workingTimeIn}
+                time={time?.workingTimeIn}
                 type="workingTimeIn"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
               <TimePickerComponent
                 label={"End Time"}
-                time={time.workingTimeOut}
+                time={time?.workingTimeOut}
                 type="workingTimeOut"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
@@ -401,13 +400,13 @@ const RightDrawerModal = (props) => {
             </label>
             <TimePickerComponent
               label={"Start Time"}
-              time={time.punchIn}
+              time={time?.punchIn}
               type="punchIn"
               handleTimeSelectChange={handleTimeSelectChange}
             />
             <TimePickerComponent
               label={"End Time"}
-              time={time.punchOut}
+              time={time?.punchOut}
               type="punchOut"
               handleTimeSelectChange={handleTimeSelectChange}
             />
