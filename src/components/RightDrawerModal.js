@@ -33,6 +33,8 @@ const RightDrawerModal = (props) => {
   const [time, setTime] = useState({
     punchIn: { hours: 1, minutes: 0, ampm: "AM" },
     punchOut: { hours: 1, minutes: 0, ampm: "AM" },
+    workingTimeIn: { hours: 1, minutes: 0, ampm: "AM" },
+    workingTimeOut: { hours: 1, minutes: 0, ampm: "AM" },
   });
 
   const [allProjectTasks, setAllProjectTasks] = useState([]);
@@ -345,13 +347,13 @@ const RightDrawerModal = (props) => {
             <div className="input-box d-flex align-items-center justify-content-between">
               <TimePickerComponent
                 label={"Start Time"}
-                time={time.punchIn}
+                time={time.workingTimeIn}
                 type="workingTimeIn"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
               <TimePickerComponent
                 label={"End Time"}
-                time={time.punchOut}
+                time={time.workingTimeOut}
                 type="workingTimeOut"
                 handleTimeSelectChange={handleTimeSelectChange}
               />
