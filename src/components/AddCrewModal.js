@@ -7,7 +7,7 @@ const AddCrewModal = (props) => {
 
   const [addCrewDetails, setAddCrewDetails] = useState({
     name: "",
-    boss_user_id: "",
+    boss_user_id: "5",
   });
 
   const onHandleChange = (e) => {
@@ -85,7 +85,7 @@ const AddCrewModal = (props) => {
                     className="form-control"
                   />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label for="recipient-name" className="col-form-label">
                     Boss_user_id
                   </label>
@@ -96,7 +96,7 @@ const AddCrewModal = (props) => {
                     type="text"
                     className="form-control"
                   />
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <label for="recipient-name" className="col-form-label">
                     Project_id

@@ -65,7 +65,11 @@ const CrewManagement = () => {
         let employeeArr = [];
         await empList.data.forEach((user) => {
           if (user.role.name === "member") {
-            employeeArr.push({ value: user.id, name: user.name });
+            employeeArr.push({
+              value: user.id,
+              name: user.name,
+              employee_id: user?.employee_id,
+            });
           }
         });
 
@@ -100,7 +104,7 @@ const CrewManagement = () => {
     toast.success("New member added successfully");
   };
 
-  const crewTableHeadings = ["User Id", "Name", "Crew Id"];
+  const crewTableHeadings = ["Name", "Employee ID"];
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
@@ -162,6 +166,7 @@ const CrewManagement = () => {
     setActiveCostCodes(activeCostCodes.data);
   };
   console.log("costCodes11", costCodes);
+  console.log("userOptionssssss", userOptions);
 
   return (
     <div className="crew-mgmt">
@@ -325,13 +330,11 @@ const CrewManagement = () => {
                 <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      {["Team", "id", "Cost code", "Description"].map(
-                        (item, key) => (
-                          <th scope="col" className="table-heading" key={key}>
-                            {item}
-                          </th>
-                        )
-                      )}
+                      {["Team", "Cost code", "Description"].map((item, key) => (
+                        <th scope="col" className="table-heading" key={key}>
+                          {item}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
@@ -362,8 +365,6 @@ const CrewManagement = () => {
                                   checked={!!activeCostCode}
                                 />
                               </td>
-                              <td>{costCode.id}</td>
-
                               <td>{costCode?.cost_code}</td>
                               <td>{costCode?.description}</td>
                             </tr>
@@ -421,6 +422,8 @@ const CrewManagement = () => {
                       const user = employeeOptions.find(
                         (user) => user.value === item.user_id
                       );
+                      console.log("useruseruseruser", user);
+                      console.log("useruseruseruserItem", item);
                       return (
                         <tr
                           className={
@@ -429,12 +432,8 @@ const CrewManagement = () => {
                           onClick={() => setSelectedUser(item)}
                           key={key}
                         >
-                          <th scope="row" className="table-heading">
-                            {item?.user_id}
-                          </th>
                           <td>{user?.name}</td>
-                          <td>{item?.crew_id}</td>
-                          <td>{item?.description}</td>
+                          <td>{user?.employee_id}</td>
                           <td className="details-td"></td>
                         </tr>
                       );

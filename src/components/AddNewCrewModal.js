@@ -4,7 +4,7 @@ import { addNewCrew } from "../API";
 const AddNewCrewModal = (addNewCrewUser) => {
   const [addCrewDetails, setAddCrewDetails] = useState({
     name: "",
-    boss_user_id: "",
+    boss_user_id: "5",
     project_id: "",
   });
 
@@ -77,7 +77,7 @@ const AddNewCrewModal = (addNewCrewUser) => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label for="recipient-name" className="col-form-label">
+                  {/* <label for="recipient-name" className="col-form-label">
                     Boss_user_id
                   </label>
                   <input
@@ -86,7 +86,7 @@ const AddNewCrewModal = (addNewCrewUser) => {
                     name="boss_user_id"
                     type="text"
                     className="form-control"
-                  />
+                  /> */}
                 </div>
                 <div className="mb-3">
                   <label for="recipient-name" className="col-form-label">

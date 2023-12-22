@@ -121,7 +121,7 @@ const RightDrawerModal = (props) => {
         console.log("userData", userData);
         await getAllCrewUser(crew_id)
           .then((res) => {
-            if (res?.status === 200) {              
+            if (res?.status === 200) {
               const filteredCrewUsers = res?.data?.map((ele) => {
                 const matchingUser = userData?.find(
                   (crewEle) => ele?.user_id == crewEle?.id
@@ -158,71 +158,75 @@ const RightDrawerModal = (props) => {
   const onClickSave = async () => {
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
 
-    await getWeekSheet(getSelectedWeek).then((res) => {
-      if (res?.status === 200 && res?.data?.length > 0) {
-        allSelectedUsers?.forEach(async (ele) => {
-          const payload = {
-            ...punchInOutTime,
-            ...lunchPunchInOutTime,
-            entry_time: getCurrentDateTime(),
-            time_entry_type_id: 1,
-            crew_user_id: ele?.value?.crew_user_id,
+    if (getSelectedWeek) {
+      await getWeekSheet(getSelectedWeek).then((res) => {
+        if (res?.status === 200 && res?.data?.length > 0) {
+          allSelectedUsers?.forEach(async (ele) => {
+            const payload = {
+              ...punchInOutTime,
+              ...lunchPunchInOutTime,
+              entry_time: getCurrentDateTime(),
+              time_entry_type_id: 1,
+              crew_user_id: ele?.value?.crew_user_id,
+              crew_id,
+              time_entry_date: selectedDate.selectedDateValue || "",
+              is_crew_entry: true,
+              time_entry_status_id: 1,
+              project_task_id: selectedProjectTaskId,
+              crew_project_cost_code_id: selectedCostCodeId,
+              time_sheet_id: res?.data[0]?.id,
+            };
+            await addCrewTimeEntry(payload)
+              .then((res) => {
+                if (res?.data?.crew_id) {
+                  toast.success("Time entry successfully added.");
+                  navigate("/time-sheet");
+                }
+              })
+              .catch((err) => toast.error("Unable to add time entry"));
+          });
+        } else {
+          const addMyTimeSheetPayload = {
+            week: getSelectedWeek,
             crew_id,
-            time_entry_date: selectedDate.selectedDateValue || "",
-            is_crew_entry: true,
-            time_entry_status_id: 1,
-            project_task_id: selectedProjectTaskId,
-            crew_project_cost_code_id: selectedCostCodeId,
-            time_sheet_id: res?.data[0]?.id,
+            time_sheet_status_id: 1,
           };
-          await addCrewTimeEntry(payload)
-            .then((res) => {
-              if (res?.data?.crew_id) {
-                toast.success("Time entry successfully added.");
-                navigate("/time-sheet");
-              }
-            })
-            .catch((err) => toast.error("Unable to add time entry"));
-        });
-      } else {
-        const addMyTimeSheetPayload = {
-          week: getSelectedWeek,
-          crew_id,
-          time_sheet_status_id: 1,
-        };
-        addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
-          if (res?.status === 200) {
-            allSelectedUsers?.forEach(async (ele) => {
-            console.log("ele?.value?.crew_user_id", ele);
+          addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
+            if (res?.status === 200) {
+              allSelectedUsers?.forEach(async (ele) => {
+                console.log("ele?.value?.crew_user_id", ele);
 
-              const payload = {
-                ...punchInOutTime,
-                ...lunchPunchInOutTime,
-                entry_time: getCurrentDateTime(),
-                time_entry_type_id: 1,
-                crew_user_id: ele?.value?.crew_user_id,
-                crew_id,
-                time_entry_date: selectedDate.selectedDateValue || "",
-                is_crew_entry: true,
-                time_entry_status_id: 1,
-                project_task_id: selectedProjectTaskId,
-                crew_project_cost_code_id: selectedCostCodeId,
-                time_sheet_id: res?.data?.id,
-              };
-              await addCrewTimeEntry(payload)
-                .then((res) => {
-                  if (res?.data?.crew_id) {
-                    toast.success("Time sheet successfully added for the selected week");
-                    toast.success("Time entry successfully added.");
-                    navigate("/time-sheet");
-                  }
-                })
-                .catch((err) => toast.error("Unable to add time entry"));
-            });
-          }
-        });
-      }
-    });
+                const payload = {
+                  ...punchInOutTime,
+                  ...lunchPunchInOutTime,
+                  entry_time: getCurrentDateTime(),
+                  time_entry_type_id: 1,
+                  crew_user_id: ele?.value?.crew_user_id,
+                  crew_id,
+                  time_entry_date: selectedDate.selectedDateValue || "",
+                  is_crew_entry: true,
+                  time_entry_status_id: 1,
+                  project_task_id: selectedProjectTaskId,
+                  crew_project_cost_code_id: selectedCostCodeId,
+                  time_sheet_id: res?.data?.id,
+                };
+                await addCrewTimeEntry(payload)
+                  .then((res) => {
+                    if (res?.data?.crew_id) {
+                      toast.success(
+                        "Time sheet successfully added for the selected week"
+                      );
+                      toast.success("Time entry successfully added.");
+                      navigate("/time-sheet");
+                    }
+                  })
+                  .catch((err) => toast.error("Unable to add time entry"));
+              });
+            }
+          });
+        }
+      });
+    }
   };
 
   const onCloseClick = () => {
