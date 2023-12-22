@@ -19,6 +19,7 @@ import {
   getWeekFromDate,
 } from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
+import TimePickerComponent from "./TimePicker";
 
 const RightDrawerModal = (props) => {
   const { crew_id, project_id } = props;
@@ -28,6 +29,12 @@ const RightDrawerModal = (props) => {
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
     selectedDateValue: "",
+  });
+  const [time, setTime] = useState({
+    punchIn: { hours: 1, minutes: "00", ampm: "AM" },
+    punchOut: { hours: 1, minutes: "00", ampm: "AM" },
+    workingTimeIn: { hours: 1, minutes: "00", ampm: "AM" },
+    workingTimeOut: { hours: 1, minutes: "00", ampm: "AM" },
   });
 
   const [allProjectTasks, setAllProjectTasks] = useState([]);
@@ -59,7 +66,14 @@ const RightDrawerModal = (props) => {
       }
     });
   };
-
+  const handleTimeSelectChange = (field, value, type) => {
+    console.log("handleTimeSelectChange", field, value, type);
+    const copiedTime = { ...time };
+    const selectedTime = copiedTime[type];
+    copiedTime[type][field] = value;
+    console.log("copiedTimecopiedTime", copiedTime);
+    setTime(copiedTime);
+  };
   const getAllCostCodes = async () => {
     await getCrewCostCodes(crew_id).then((res) => {
       if (res?.status === 200) {
@@ -154,9 +168,38 @@ const RightDrawerModal = (props) => {
       getAllProjectTasks();
     }
   }, [crew_id, project_id]);
+  // Function to format time in 24-hour format
+  const formatTimeForBackend = (timeData) => {
+    let { hours, minutes, ampm } = timeData;
+    console.log("timeDatatimeData", typeof hours, Number(hours) < 9, timeData);
+    let formattedHours = ampm === "PM" ? hours + 12 : hours;
 
+    debugger;
+    if (Number(formattedHours) < 9) {
+      formattedHours = "0" + formattedHours;
+    }
+    return `${formattedHours}:${minutes}`;
+  };
+
+  const sendDataToBackend = () => {
+    const formattedTime = formatTimeForBackend();
+    console.log(`Date: ${date.toISOString()}, Time: ${formattedTime}`);
+  };
   const onClickSave = async () => {
+    console.log("iiiiitime", time);
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
+
+    const cardpunchInTime = formatTimeForBackend(time.punchIn);
+    const cardpunchOutTime = formatTimeForBackend(time.punchOut);
+    const cardworkingTimeIn = formatTimeForBackend(time.workingTimeIn);
+    const cardworkingTimeOut = formatTimeForBackend(time.workingTimeOut);
+    console.log(
+      "onClickSave",
+      cardpunchInTime,
+      cardpunchOutTime,
+      cardworkingTimeIn,
+      cardworkingTimeOut
+    );
 
     if (getSelectedWeek) {
       await getWeekSheet(getSelectedWeek).then((res) => {
@@ -242,7 +285,7 @@ const RightDrawerModal = (props) => {
     });
   };
 
-  console.log("selectedDate====>", selectedDate);
+  console.log("selectedDate====>1", time);
 
   return (
     <>
@@ -318,7 +361,7 @@ const RightDrawerModal = (props) => {
             <label htmlFor="" class="col-form-label">
               Cost Code
             </label>
-            <div className="input-box">
+            <div className="input-box d-flex align-items-center justify-content-between">
               <Select
                 className="react-select-container"
                 classNamePrefix="react-select"
@@ -329,10 +372,41 @@ const RightDrawerModal = (props) => {
             </div>
           </div>
           <div className="input-flex">
+            <label for="recipient-name" class="col-form-label">
+              Working Time
+            </label>
+            <div className="input-box d-flex align-items-center justify-content-between">
+              <TimePickerComponent
+                label={"Start Time"}
+                time={time.workingTimeIn}
+                type="workingTimeIn"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+              <TimePickerComponent
+                label={"End Time"}
+                time={time.workingTimeOut}
+                type="workingTimeOut"
+                handleTimeSelectChange={handleTimeSelectChange}
+              />
+            </div>
+          </div>
+          <div className="input-flex">
             <label htmlFor="" class="col-form-label">
               Lunch
             </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
+            <TimePickerComponent
+              label={"Start Time"}
+              time={time.punchIn}
+              type="punchIn"
+              handleTimeSelectChange={handleTimeSelectChange}
+            />
+            <TimePickerComponent
+              label={"End Time"}
+              time={time.punchOut}
+              type="punchOut"
+              handleTimeSelectChange={handleTimeSelectChange}
+            />
+            {/* <div className="input-box d-flex align-items-center justify-content-between">
               <div className="col-md-6" style={{ width: "48%" }}>
                 <div>
                   <input
@@ -363,45 +437,9 @@ const RightDrawerModal = (props) => {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className="input-flex">
-            <label for="recipient-name" class="col-form-label">
-              Working Time
-            </label>
-            <div className="input-box d-flex align-items-center justify-content-between">
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_entry_in"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field"
-                    onChange={(e) => onTimeChange(e)}
-                    value={punchInOutTime?.time_entry_in}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    Start
-                  </label>
-                </div>
-              </div>
-              <div className="col-md-6" style={{ width: "48%" }}>
-                <div>
-                  <input
-                    name="time_entry_out"
-                    aria-label="Time"
-                    type="time"
-                    className="input-field"
-                    onChange={(e) => onTimeChange(e)}
-                    value={punchInOutTime?.time_entry_out}
-                  />
-                  <label for="recipient-name" class="col-form-label">
-                    End
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div className="input-flex">
             <label for="recipient-name" class="col-form-label">
               Notes
