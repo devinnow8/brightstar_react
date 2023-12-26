@@ -60,7 +60,7 @@ export const ROUTES = {
   //   availability: ["all"],
   // },
   TIME_CARD: {
-    path: "/time-card/:id",
+    path: "/timesheet-card/:id",
     element: <TimeCard />,
     // availability: ["Forman", "General Forman"],
     availability: ["all"],

@@ -22,7 +22,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimePickerComponent from "./TimePicker";
 
 const RightDrawerModal = (props) => {
-  const { crew_id, project_id } = props;
+  const { crew_id, project_id, addCrewModal } = props;
 
   console.log("crew_iddddddddd", crew_id);
 
@@ -160,14 +160,16 @@ const RightDrawerModal = (props) => {
   };
 
   useEffect(() => {
-    if (crew_id) {
-      onClickAddCrewTimeDate();
-      getAllCostCodes();
+    if (addCrewModal) {
+      if (crew_id) {
+        onClickAddCrewTimeDate();
+        getAllCostCodes();
+      }
+      if (project_id) {
+        getAllProjectTasks();
+      }
     }
-    if (project_id) {
-      getAllProjectTasks();
-    }
-  }, [crew_id, project_id]);
+  }, [addCrewModal, crew_id, project_id]);
   // Function to format time in 24-hour format
   const formatTimeForBackend = (timeData) => {
     let { hours, minutes, ampm } = timeData;

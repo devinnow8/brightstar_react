@@ -26,7 +26,7 @@ const MyTimesheet = (props) => {
   console.log("timeSheetDetailstimeSheetDetails", timeSheetDetails);
 
   const onCardClick = (card) => {
-    navigate(`/time-card/${card.id}`);
+    navigate(`/timesheet-card/${card.id}`);
   };
 
   return (

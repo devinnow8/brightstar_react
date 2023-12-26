@@ -17,6 +17,7 @@ export const TimeCard = () => {
   const [timeSheetDetails, setTimeSheetDetails] = useState({});
   const [timeSheetWeekDetails, setTimeSheetWeekDetails] = useState({});
   const [showAddTimeButton, setShowAddTimeButton] = useState(false);
+  const [addCrewModal, setAddCrewModal] = useState(false);
 
   const costCodes = [1, 2, 3, 4];
   const loading = false;
@@ -102,6 +103,9 @@ export const TimeCard = () => {
     console.log("dayyyy", day);
     return day;
   };
+  const onModalClick = () => {
+    setAddCrewModal(true);
+  };
   console.log("cachedValueii", cachedValue);
   return (
     <div className="crew-mgmt">
@@ -119,6 +123,7 @@ export const TimeCard = () => {
           data-bs-target="#offcanvasRight"
           aria-controls="offcanvasRight"
           disabled={showAddTimeButton}
+          onClick={() => onModalClick()}
         >
           + Add Crew Time/Date
         </button>
@@ -158,24 +163,24 @@ export const TimeCard = () => {
                 </thead>
                 <tbody>
                   {cachedValue[dayDetails] &&
-                    cachedValue[dayDetails]?.length > 0
+                  cachedValue[dayDetails]?.length > 0
                     ? cachedValue[dayDetails]?.map((item, key) => {
-                      console.log("fastmap ==>", item);
-                      return (
-                        <tr
-                          //   className={selectedUser.id === item.id ? "activeRow" : ""}
-                          //   onClick={() => setSelectedUser(item)}
-                          key={key}
-                        >
-                          <td>{item?.name}</td>
-                          <td>{item?.task}</td>
-                          <td>{item?.cost_code}</td>
-                          <td>{item?.time_entry_in}</td>
-                          <td>{item?.time_entry_out}</td>
-                          <td>{item?.hours}hr</td>
-                        </tr>
-                      );
-                    })
+                        console.log("fastmap ==>", item);
+                        return (
+                          <tr
+                            //   className={selectedUser.id === item.id ? "activeRow" : ""}
+                            //   onClick={() => setSelectedUser(item)}
+                            key={key}
+                          >
+                            <td>{item?.name}</td>
+                            <td>{item?.task}</td>
+                            <td>{item?.cost_code}</td>
+                            <td>{item?.time_entry_in}</td>
+                            <td>{item?.time_entry_out}</td>
+                            <td>{item?.hours}hr</td>
+                          </tr>
+                        );
+                      })
                     : !loading && <tr>No data found</tr>}
                 </tbody>
               </table>
@@ -183,6 +188,7 @@ export const TimeCard = () => {
                 crew_id={timeSheetDetails?.crew_id}
                 id="offcanvasRight"
                 project_id={timeSheetDetails?.crew?.project_id}
+                addCrewModal={addCrewModal}
               />
             </div>
           );
