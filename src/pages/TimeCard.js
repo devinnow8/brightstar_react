@@ -19,7 +19,6 @@ export const TimeCard = () => {
   const [showAddTimeButton, setShowAddTimeButton] = useState(false);
   const [addCrewModal, setAddCrewModal] = useState(false);
 
-  const costCodes = [1, 2, 3, 4];
   const loading = false;
   const { id } = useParams();
 
@@ -48,7 +47,6 @@ export const TimeCard = () => {
         console.log("ppppp", res.data);
         setTimeSheetDetails(res?.data[0]);
         getTimeSheetWeekDetails(res?.data[0]);
-        //   setTimeSheetDeatils(res?.data);
       }
     });
   };
@@ -75,20 +73,21 @@ export const TimeCard = () => {
     }
   }, [timeSheetWeekDetails]);
 
-  console.log("cachedValue123", timeSheetWeekDetails, cachedValue);
+  const CardData = useMemo(() => {
+    let cardStartDate = "";
+    let cardEndDate = "";
+    if (timeSheetDetails && Object?.keys(timeSheetDetails)?.length) {
+      const week = timeSheetDetails?.week;
+      const year = week?.split("-")[0];
+      const cardWeek = week?.split("W")[1];
+      const { startDate, endDate } = getDateFromWeek(year, cardWeek);
+      console.log("startDate", startDate);
+      cardStartDate = startDate;
+      cardEndDate = endDate;
+    }
+    return { cardStartDate, cardEndDate };
+  }, [timeSheetDetails]);
 
-  let cardStartDate = "";
-  let cardEndDate = "";
-  if (timeSheetDetails && Object?.keys(timeSheetDetails)?.length) {
-    const week = timeSheetDetails?.week;
-    const year = week?.split("-")[0];
-    const cardWeek = week?.split("W")[1];
-    const { startDate, endDate } = getDateFromWeek(year, cardWeek);
-    console.log("startDate", startDate);
-    cardStartDate = startDate;
-    cardEndDate = endDate;
-  }
-  console.log("timeSheetWeekDetails", timeSheetWeekDetails);
   const getDayFromDate = (date) => {
     let days = [
       "Sunday",
@@ -103,9 +102,12 @@ export const TimeCard = () => {
     console.log("dayyyy", day);
     return day;
   };
-  const onModalClick = () => {
-    setAddCrewModal(true);
+  const onModalClick = (value) => {
+    setAddCrewModal(value);
   };
+  useEffect(() => {
+    console.log("addddddddd", addCrewModal);
+  }, [addCrewModal]);
   console.log("cachedValueii", cachedValue);
   return (
     <div className="crew-mgmt">
@@ -123,7 +125,7 @@ export const TimeCard = () => {
           data-bs-target="#offcanvasRight"
           aria-controls="offcanvasRight"
           disabled={showAddTimeButton}
-          onClick={() => onModalClick()}
+          onClick={() => onModalClick(true)}
         >
           + Add Crew Time/Date
         </button>
@@ -131,7 +133,7 @@ export const TimeCard = () => {
 
       <h2>{timeSheetDetails?.crew?.name}</h2>
       {cachedValue && Object?.keys(cachedValue)?.length > 0 && (
-        <h3>{cardStartDate + "-" + cardEndDate}</h3>
+        <h3>{CardData?.cardStartDate + "-" + CardData?.cardEndDate}</h3>
       )}
       {Object?.keys(cachedValue)?.length > 0 &&
         Object?.keys(cachedValue)?.map((dayDetails) => {
@@ -184,70 +186,15 @@ export const TimeCard = () => {
                     : !loading && <tr>No data found</tr>}
                 </tbody>
               </table>
-              <RightDrawerModal
-                crew_id={timeSheetDetails?.crew_id}
-                id="offcanvasRight"
-                project_id={timeSheetDetails?.crew?.project_id}
-                addCrewModal={addCrewModal}
-              />
             </div>
           );
         })}
-
-      {/* <div className="crew-mgmt-card">
-        <h3 className="title">Equipment hours</h3>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              {["Team", "id", "Cost code", "Description", "Action"]?.map(
-                (item, key) => (
-                  <th scope="col" className="table-heading" key={key}>
-                    {item}
-                  </th>
-                )
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {costCodes && costCodes.length > 0
-              ? costCodes.map((item, key) => {
-                  return (
-                    <tr
-                      //   className={selectedUser.id === item.id ? "activeRow" : ""}
-                      //   onClick={() => setSelectedUser(item)}
-                      key={key}
-                    >
-                      <th scope="col">
-                        <input
-                          //   onChange={(evt) => onRowSelection(evt, item)}
-                          type="checkbox"
-                        />
-                      </th>
-                      <td>pp</td>
-
-                      <td>ffed</td>
-                      <td>dcesc</td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <img
-                            src={editIcon}
-                            className="img-fluid me-3 icon"
-                            alt=""
-                          />
-                          <img
-                            src={deleteIcon}
-                            className="img-fluid icon"
-                            alt=""
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              : !loading && <tr>No data found</tr>}
-          </tbody>
-        </table>
-      </div> */}
+      <RightDrawerModal
+        crew_id={timeSheetDetails?.crew_id}
+        project_id={timeSheetDetails?.crew?.project_id}
+        addCrewModal={addCrewModal}
+        onModalClick={onModalClick}
+      />
     </div>
   );
 };

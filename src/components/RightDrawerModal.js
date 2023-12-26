@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { toast } from "react-toastify";
@@ -20,11 +21,15 @@ import {
 } from "../utils/utils";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePickerComponent from "./TimePicker";
+import useFetch from "./AddCrew";
 
-const RightDrawerModal = (props) => {
-  const { crew_id, project_id, addCrewModal } = props;
-
-  console.log("crew_iddddddddd", crew_id);
+const RightDrawerModal = React.memo((props) => {
+  const { crew_id, project_id, addCrewModal, onModalClick } = props;
+  const { crewUsers, projectTaskOptions, costCodesOptions } = useFetch(
+    addCrewModal,
+    crew_id,
+    project_id
+  );
 
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
@@ -37,9 +42,6 @@ const RightDrawerModal = (props) => {
     workingTimeOut: { hours: 5, minutes: "00", ampm: "PM" },
   });
 
-  const [allProjectTasks, setAllProjectTasks] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
-  const [crewUsers, setCrewUsers] = useState([]);
   const [allSelectedUsers, setAllSelectedUsers] = useState([]);
   const [selectedCostCodeId, setSelectedCostCodeId] = useState();
   const [selectedProjectTaskId, setSelectedProjectTaskId] = useState();
@@ -51,49 +53,14 @@ const RightDrawerModal = (props) => {
     time_lunch_start: "13:00",
     time_lunch_end: "14:00",
   });
-  const [projectTaskOptions, setProjectTaskOptions] = useState([]);
-  const [costCodesOptions, setCostCodesOptions] = useState([]);
 
   const navigate = useNavigate();
 
-  const getAllProjectTasks = async () => {
-    await getProjectTask(project_id).then((res) => {
-      if (res?.status === 200) {
-        const dropDownOptions = res?.data?.map((ele) => {
-          return { label: ele?.description, value: ele };
-        });
-        setProjectTaskOptions(dropDownOptions);
-      }
-    });
-  };
   const handleTimeSelectChange = (field, value, type) => {
-    console.log("handleTimeSelectChange", field, value, type);
     const copiedTime = { ...time };
     const selectedTime = copiedTime[type];
     copiedTime[type][field] = value;
-    console.log("copiedTimecopiedTime", copiedTime);
     setTime(copiedTime);
-  };
-  const getAllCostCodes = async () => {
-    await getCrewCostCodes(crew_id).then((res) => {
-      if (res?.status === 200) {
-        console.log("getCrewCostCodes ==>", res?.data);
-        const costCodes = res?.data?.map((ele) => ({
-          label: ele?.project_cost_code?.description,
-          value: ele,
-        }));
-        setCostCodesOptions(costCodes);
-      }
-    });
-    // await getCostCodes(project_id).then((res) => {
-    //   if (res?.status === 200) {
-    //     const costCodes = res?.data?.map((ele) => ({
-    //       label: ele?.description,
-    //       value: ele,
-    //     }));
-    //     setCostCodesOptions(costCodes);
-    //   }
-    // });
   };
 
   const onChangeUserSelect = (item) => {
@@ -118,62 +85,16 @@ const RightDrawerModal = (props) => {
   };
 
   const onProjectTaskChange = (e) => {
-    console.log("onProjectTaskChange", e?.value?.id);
     setSelectedProjectTaskId(e?.value?.id);
   };
 
   const onCostCodeChange = (e) => {
-    console.log("onCostCodeChange", e?.value?.id);
     setSelectedCostCodeId(e?.value?.id);
   };
 
-  const onClickAddCrewTimeDate = async () => {
-    await getUserDetails()
-      .then(async (res) => {
-        setAllUsers(res?.data);
-        const userData = res?.data.slice();
-        console.log("userData", userData);
-        await getAllCrewUser(crew_id)
-          .then((res) => {
-            if (res?.status === 200) {
-              const filteredCrewUsers = res?.data?.map((ele) => {
-                const matchingUser = userData?.find(
-                  (crewEle) => ele?.user_id == crewEle?.id
-                );
-                console.log("eleelelel", ele);
-                matchingUser.crew_user_id = ele?.id;
-                return {
-                  value: matchingUser,
-                  label: matchingUser?.name,
-                };
-              });
-              setCrewUsers(filteredCrewUsers);
-            }
-          })
-          .catch((err) =>
-            console.log("Error Occured in AddCrewTimeDateModal", err)
-          );
-      })
-      .catch((err) =>
-        console.log("error occured in AddCrewTimeDateModal", err)
-      );
-  };
-
-  useEffect(() => {
-    if (addCrewModal) {
-      if (crew_id) {
-        onClickAddCrewTimeDate();
-        getAllCostCodes();
-      }
-      if (project_id) {
-        getAllProjectTasks();
-      }
-    }
-  }, [addCrewModal, crew_id, project_id]);
   // Function to format time in 24-hour format
   const formatTimeForBackend = (timeData) => {
     let { hours, minutes, ampm } = timeData;
-    console.log("timeDatatimeData", typeof hours, Number(hours) < 9, timeData);
     let formattedHours = ampm === "PM" ? hours + 12 : hours;
 
     if (Number(formattedHours) < 9) {
@@ -185,10 +106,8 @@ const RightDrawerModal = (props) => {
   const sendDataToBackend = () => {
     const formattedTime = formatTimeForBackend();
     const date = new Date();
-    console.log(`Date: ${date.toISOString()}, Time: ${formattedTime}`);
   };
   const onClickSave = async () => {
-    console.log("iiiiitime", time);
     const getSelectedWeek = getWeekFromDate(selectedDate?.selectedDateValue);
 
     const lunchTimeIn = formatTimeForBackend(time?.punchIn);
@@ -280,6 +199,7 @@ const RightDrawerModal = (props) => {
 
   const onCloseClick = () => {
     console.log("onCloseClick");
+    onModalClick(false);
     setSelectedDate("");
     setPunchInOutTime({
       time_entry_in: "08:30",
@@ -292,6 +212,8 @@ const RightDrawerModal = (props) => {
   };
 
   console.log("selectedDate====>1", time);
+  const myElement = document.getElementById("offcanvasRight");
+  console.log("myElement", myElement);
 
   return (
     <>
@@ -456,6 +378,6 @@ const RightDrawerModal = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default RightDrawerModal;
