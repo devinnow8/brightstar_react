@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Roles } from "../utils/constants";
 
 const SideBar = () => {
+  console.log("sidebar called");
   const navigate = useNavigate();
   const location = useLocation();
   let role_id;
@@ -17,7 +18,6 @@ const SideBar = () => {
   let capitalizedString = "";
   if (userName) {
     capitalizedString = capitalizeWords(userName);
-    console.log(capitalizedString);
   }
 
   if (localStorage.getItem("role_id")) {
@@ -28,7 +28,6 @@ const SideBar = () => {
   const sideBarItems = [
     { name: "Projects", route: "/projects", label: "projects" },
     { name: "Users", route: "/users", label: "user" },
-    // { name: "Time Sheet", route: "/time-sheet", label: "sheet" },
   ];
 
   // if (
@@ -52,27 +51,25 @@ const SideBar = () => {
   const currentSelectedTab = sideBarItems.findIndex((item) =>
     location.pathname.split("/")[1].includes(item.label)
   );
-  console.log(
-    "currentSelectedTab",
-    location.pathname.split("/")[1],
-    currentSelectedTab
-  );
-  const [selectedTab, setSelectedTab] = useState(
-    currentSelectedTab !== -1
-      ? sideBarItems[currentSelectedTab]?.name
-      : sideBarItems[0].name
-  );
-
-  const signOutHandler = (event) => {
+  console.log("currentSelectedTab", currentSelectedTab);
+  const [selectedTab, setSelectedTab] = useState(sideBarItems[0]?.name);
+  const signOutHandler = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("role_id");
-
     navigate("/");
   };
 
   const onTabClick = (item) => {
     setSelectedTab(item?.name);
   };
+
+  useEffect(() => {
+    let selectedTab = sideBarItems[0]?.name;
+    if (currentSelectedTab !== -1) {
+      selectedTab = sideBarItems[currentSelectedTab]?.name;
+    }
+    setSelectedTab(selectedTab);
+  }, [location.pathname.split("/")[1]]);
 
   return (
     <>
@@ -84,14 +81,15 @@ const SideBar = () => {
             id="menu"
           >
             {sideBarItems?.map((item, key) => {
+              console.log("item ==>", item);
               return (
                 <li
-                  onClick={() => onTabClick(item)}
                   className={
                     selectedTab === item?.name
                       ? "nav-item selectedTab"
                       : "nav-item"
                   }
+                  onClick={() => onTabClick(item)}
                   key={key}
                 >
                   <span className="nav-link align-middle px-User0">
