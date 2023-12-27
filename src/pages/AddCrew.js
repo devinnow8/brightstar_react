@@ -115,21 +115,16 @@ const CrewManagement = () => {
 
     setSelectedOptions(obj);
     const selectedRoleUser = roles.find((role) => role.name === dropdown);
-    const data = {
-      user_id: Number(event.target.value),
-      project_role_id: selectedRoleUser.id,
+    const payload = {
+      crew_id: Number(crewId),
+      user_id: Number(event?.target?.value),
+      project_role_id: selectedRoleUser?.id,
     };
-    addNewCrewMember(data);
+    addNewCrewMember(payload);
   }
 
-  const addNewCrewMember = async (data) => {
-    const crewUserPayload = {
-      crew_id: Number(crewId),
-      user_id: data?.user_id,
-      crew_role_id: 4,
-    };
-
-    await addCrewUser(crewUserPayload).then((res) => {
+  const addNewCrewMember = async (payload) => {
+    await addCrewUser(payload).then((res) => {
       if (res?.status === 200) {
         toast.success("Changed Successfully");
       }
