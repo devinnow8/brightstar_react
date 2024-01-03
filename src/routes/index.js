@@ -9,6 +9,9 @@ import Login from "../pages/Login";
 import SideBar from "../components/Sidebar";
 import { Roles } from "../utils/constants";
 import { ROUTES } from "../utils/routes";
+import RoleSelect from "../pages/RoleSelect";
+
+
 function AuthRoute({ children, userroles }) {
   const accessToken = localStorage.getItem("accessToken");
   let role_id;
@@ -36,7 +39,7 @@ function AuthRoute({ children, userroles }) {
       return (
         <>
           {" "}
-          <SideBar />
+          {/* <SideBar /> */}
           {children}
         </>
       );
@@ -50,17 +53,21 @@ function AuthRoute({ children, userroles }) {
 
 function Routing() {
   const location = useLocation();
+  console.log("pathnamepathnamepathname", location.pathname);
+    const selectRole = location.pathname.split("/");
+    console.log("selectRoleselectRole", selectRole);
   return (
     <>
       <main className="main">
         <div
           className={`right-content ${
-            location.pathname === "/" ? "login-content" : ""
+            location.pathname === "/" || location.pathname.includes("/role-select") ? "login-content" : ""
           }`}
         >
           <Routes>
             {}
             <Route path="/" element={<Login />} />
+            <Route path="/role-select/:id" element={<RoleSelect />} />
             {Object.values(ROUTES).map((route) => {
               return (
                 <Route

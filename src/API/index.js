@@ -76,7 +76,7 @@ export const getAllCrewUser = async (id) => {
 };
 
 export const getCrewUserByUserId = async (userId) => {
-  const apiUrl = `${url}/api/crew_user?expand=crew_role%2Cuser&user_id=${userId}`;
+  const apiUrl = `${url}/api/crew_user?expand=crew_role%2Ccrew&user_id=${userId}`;
   return await makeApiCall("get", apiUrl, {}, headers);
 };
 

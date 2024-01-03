@@ -9,7 +9,7 @@ const RoleSelect = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   console.log("ididiidid", id);
-  let tableHeadings = ["Crew", "Role", "Select"];
+  let tableHeadings = ["Crew", "Role", "Action"];
 
   const fetchCrewDetails = async () => {
     getCrewUserByUserId(192)
@@ -24,7 +24,7 @@ const RoleSelect = () => {
 
   useEffect(() => {
     if (id) {
-      fetchCrewDetails();
+    fetchCrewDetails();
     }
   }, []);
 
@@ -50,7 +50,7 @@ const RoleSelect = () => {
             {crewDetails && crewDetails.length > 0
               ? crewDetails.map((item, key) => (
                   <tr key={key}>
-                    <td>{item?.id}</td>
+                    <td>{item?.crew?.name}</td>
                     <td>{item?.crew_role?.name}</td>
                     <td className="">
                       <button
