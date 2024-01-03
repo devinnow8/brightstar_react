@@ -118,7 +118,7 @@ const CrewManagement = () => {
     const payload = {
       crew_id: Number(crewId),
       user_id: Number(event?.target?.value),
-      project_role_id: selectedRoleUser?.id,
+      crew_role_id: selectedRoleUser?.id,
     };
     addNewCrewMember(payload);
   }
@@ -130,8 +130,6 @@ const CrewManagement = () => {
       }
     });
   };
-
-  console.log("selectedOptions", selectedOptions);
   const navigate = useNavigate();
   const onRowSelection = async (e, item, key) => {
     if (e.target.checked) {

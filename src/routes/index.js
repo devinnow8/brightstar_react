@@ -36,7 +36,7 @@ function AuthRoute({ children, userroles }) {
       return (
         <>
           {" "}
-          <SideBar />
+          {/* <SideBar /> */}
           {children}
         </>
       );
