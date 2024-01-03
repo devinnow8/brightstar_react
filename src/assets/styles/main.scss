@@ -358,6 +358,11 @@ $primary-color: #49adff;
       tr > * {
         width: 33.333333%;
       }
+      .role-table {
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.16);
+        padding: 12px 14px;
+        border-radius: 0px;
+      }
     }
     
   }

@@ -34,8 +34,8 @@ const RoleSelect = () => {
     <>
       {loading && <Loader />}
       <div className="role-select">
-      <div className="table-responsive">
-        <h1 className="role-text">Select Role</h1>
+      <h1 className="role-text">Select Role</h1>
+      <div className="table-responsive role-table">
         <table className="table table-striped">
           <thead>
             <tr>
