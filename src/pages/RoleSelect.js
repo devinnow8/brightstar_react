@@ -33,7 +33,9 @@ const RoleSelect = () => {
   return (
     <>
       {loading && <Loader />}
+      <div className="role-select">
       <div className="table-responsive">
+        <h1 className="role-text">Select Role</h1>
         <table className="table table-striped">
           <thead>
             <tr>
@@ -50,7 +52,7 @@ const RoleSelect = () => {
                   <tr key={key}>
                     <td>{item?.id}</td>
                     <td>{item?.crew_role?.name}</td>
-                    <td className="details-td">
+                    <td className="">
                       <button
                         className="btn btn-info detail-btn"
                         onClick={() => console.log("button clicked")}
@@ -67,6 +69,7 @@ const RoleSelect = () => {
                 )}
           </tbody>
         </table>
+      </div>
       </div>
       {}
     </>
