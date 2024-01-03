@@ -16,11 +16,12 @@ const Login = () => {
   const onSignIn = async () => {
     await brightStarLogin(loginDetails)
       .then((res) => {
+        console.log("brightStarLogin", res?.data?.user?.id);
         if (res.status === 200) {
           localStorage.setItem("accessToken", res?.data?.access_token);
           localStorage.setItem("role_id", 3);
           localStorage.setItem("name", res?.data?.user?.name);
-          navigate("/projects");
+          navigate(`/role-select/${res?.data?.user?.id}`);
         }
       })
       .catch((err) => console.log("error", err));

@@ -11,6 +11,7 @@ import NotFound from "../components/NotFound";
 import TimeSheet from "../pages/TimeSheet";
 import TimeCards from "../pages/TimeSheetStatus";
 import TimeCard from "../pages/TimeCard";
+import RoleSelect from "../pages/RoleSelect";
 
 export const ROUTES = {
   HOME: {
@@ -63,6 +64,11 @@ export const ROUTES = {
     path: "/timesheet-card/:id",
     element: <TimeCard />,
     // availability: ["Forman", "General Forman"],
+    availability: ["all"],
+  },
+  ROLE_SELECT: {
+    path: "/role-select/:id",
+    element: <RoleSelect />,
     availability: ["all"],
   },
   NOTFOUND: {
