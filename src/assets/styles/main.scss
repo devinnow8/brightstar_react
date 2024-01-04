@@ -292,14 +292,21 @@ $primary-color: #49adff;
         font-weight: 700;
       }
       .crew-tables {
-        // > * {
-        //   width: 45%;
-        // }
         .crew-tb {
           height: 240px;
           overflow-y: scroll;
-          // margin-right: 20px;
           box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
+          &::-webkit-scrollbar {
+            width: 6px;
+            border-radius: 8px;
+            background-color: #efefef;
+            border: 1px solid #e1e1e1;
+          }
+          &::-webkit-scrollbar-thumb {
+            width: 6px;
+            border-radius: 8px;
+            background-color: #888888;
+          }
         }
         .table-responsive {
           overflow-x: inherit;
