@@ -18,6 +18,8 @@ import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
 import { Button } from "bootstrap";
 import ArrowLeft from "../assets/images/arrow-left.svg";
+import { res } from "../utils/mockData";
+import AddCrewEquipment from "../components/AddCrewEquipment";
 // import axios from "axios";
 
 const CrewManagement = () => {
@@ -25,6 +27,7 @@ const CrewManagement = () => {
   const [loading, setLoading] = useState(true);
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
+  const [allEquipment, setAllEquipment] = useState(res?.data);
   const [roles, setRoles] = useState([]);
   // const [selectedCostCodes, setSelectedCostCodes] = useState([]);
   const { crewId, projectId } = useParams();
@@ -58,9 +61,6 @@ const CrewManagement = () => {
         const projectLists = projects.data?.map((project) => {
           return { value: project.id, name: project.id };
         });
-        // const employeesLists = employees.data.map((project) => {
-        //   return { value: project.name, name: project.name };
-        // });
 
         let employeeArr = [];
         await empList.data.forEach((user) => {
@@ -86,8 +86,6 @@ const CrewManagement = () => {
           "Ops Manager": employeeArr[0].value,
         };
         setSelectedOptions(selectedByDefaultOptions);
-
-        // setData3(response3.data);
       }
     } catch (error) {
       setLoading(false);
@@ -105,6 +103,7 @@ const CrewManagement = () => {
   };
 
   const crewTableHeadings = ["Name", "Employee ID"];
+  const crewEquipmentHeadings = ["Items", "Equpiments"];
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
@@ -291,29 +290,6 @@ const CrewManagement = () => {
               ) : (
                 <Loader />
               )}
-              {/* {crewDropdownData.map((dropdown) => (
-            <div className="col-md-6 col-lg-3">
-              <label htmlFor="">{dropdown.label}</label>
-              <Dropdown
-                key={dropdown.id}
-                isOpen={manageCrewDropdownData[dropdown.id]}
-                toggle={() => toggleCrewDropdown(dropdown.id)}
-              >
-                <DropdownToggle
-                  className="primary-btn"
-                  onSelect={(e) => console.log("event ===>", e)}
-                  caret
-                >
-                  {dropdown.name}
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>Some Action</DropdownItem>
-                  <DropdownItem>Some Action</DropdownItem>
-                  <DropdownItem>Some Action</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          ))} */}
             </div>
           </div>
           <div class="col-xl-7">
@@ -427,6 +403,52 @@ const CrewManagement = () => {
                         >
                           <td>{user?.name}</td>
                           <td>{user?.employee_id}</td>
+                          <td className="details-td"></td>
+                        </tr>
+                      );
+                    })
+                  : !loading && <tr>No data found</tr>}
+              </tbody>
+            </table>
+          </div>
+        }
+      </>
+
+      <AddCrewEquipment
+        state={crewId}
+        userOptions={employeeOptions}
+        onAddNewMember={onAddNewMember}
+      />
+      <>
+        {
+          <div className="table-responsive">
+            <h3>Crew Equipments</h3>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  {crewEquipmentHeadings?.map((item, key) => (
+                    <th scope="col" className="table-heading" key={key}>
+                      {item}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {allEquipment && allEquipment.length > 0
+                  ? allEquipment.map((item, key) => {
+                      // const user = employeeOptions.find(
+                      //   (user) => user.value === item.user_id
+                      // );
+                      return (
+                        <tr
+                          className={
+                            selectedUser.id === item.id ? "activeRow" : ""
+                          }
+                          onClick={() => setSelectedUser(item)}
+                          key={key}
+                        >
+                          <td>{item?.name}</td>
+                          <td>{item?.acumatica_id}</td>
                           <td className="details-td"></td>
                         </tr>
                       );
