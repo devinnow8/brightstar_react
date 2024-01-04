@@ -291,6 +291,36 @@ $primary-color: #49adff;
       .modal-title {
         font-weight: 700;
       }
+      .crew-tables {
+        display: flex;
+        justify-content: space-between;
+        > div {
+          width: 50%;
+          margin-right: 0px;
+        }
+        .crew-tb {
+          width: 90%;
+          height: 240px;
+          overflow-y: auto;
+          margin-right: 20px;
+          box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.18);
+        }
+        .crew-title {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 90%;
+          margin-bottom: 2rem;
+          .primary-btn-outlined {
+            margin-bottom: 0 !important;
+          }
+          h3 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 0;
+          }
+        }
+      }
     }
     .loader {
       background: rgba(0, 0, 0, 0.6);
