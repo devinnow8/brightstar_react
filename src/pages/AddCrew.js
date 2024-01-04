@@ -350,29 +350,30 @@ const CrewManagement = () => {
 
       <>
         {
-          <div className="crew-tables">
-            <div className="table-responsive">
-              <div className="crew-title">
-                <h3>Crew members</h3>
-                <AddProjectCrewUser
-                  state={crewId}
-                  userOptions={employeeOptions}
-                  onAddNewMember={onAddNewMember}
-                />
-              </div>
-              <div className="crew-tb">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    {crewTableHeadings?.map((item, key) => (
-                      <th scope="col" className="table-heading" key={key}>
-                        {item}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* {userOptions?.map((item, key) => {
+          <div className="row crew-tables">
+            <div className="col-lg-6 col-xl-6">
+              <div className="table-responsive">
+                <div className="crew-title">
+                  <h3>Crew members</h3>
+                  <AddProjectCrewUser
+                    state={crewId}
+                    userOptions={employeeOptions}
+                    onAddNewMember={onAddNewMember}
+                  />
+                </div>
+                <div className="crew-tb">
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        {crewTableHeadings?.map((item, key) => (
+                          <th scope="col" className="table-heading" key={key}>
+                            {item}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* {userOptions?.map((item, key) => {
                   return (
                     <tr
                       className={selectedUser.id === item.id ? "activeRow" : ""}
@@ -390,33 +391,34 @@ const CrewManagement = () => {
                   );
                   
                 })} */}
-                  {userOptions && userOptions.length > 0
-                    ? userOptions.map((item, key) => {
-                        const user = employeeOptions.find(
-                          (user) => user.value === item.user_id
-                        );
-                        console.log("useruseruseruser", user);
-                        console.log("useruseruseruserItem", item);
-                        return (
-                          <tr
-                            className={
-                              selectedUser.id === item.id ? "activeRow" : ""
-                            }
-                            onClick={() => setSelectedUser(item)}
-                            key={key}
-                          >
-                            <td>{user?.name}</td>
-                            <td>{user?.employee_id}</td>
-                            <td className="details-td"></td>
-                          </tr>
-                        );
-                      })
-                    : !loading && <tr>No data found</tr>}
-                </tbody>
-              </table>
+                      {userOptions && userOptions.length > 0
+                        ? userOptions.map((item, key) => {
+                            const user = employeeOptions.find(
+                              (user) => user.value === item.user_id
+                            );
+                            console.log("useruseruseruser", user);
+                            console.log("useruseruseruserItem", item);
+                            return (
+                              <tr
+                                className={
+                                  selectedUser.id === item.id ? "activeRow" : ""
+                                }
+                                onClick={() => setSelectedUser(item)}
+                                key={key}
+                              >
+                                <td>{user?.name}</td>
+                                <td>{user?.employee_id}</td>
+                                <td className="details-td"></td>
+                              </tr>
+                            );
+                          })
+                        : !loading && <tr>No data found</tr>}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              
             </div>
+            <div className="col-lg-6 col-xl-6">
             <div className="table-responsive">
               <div className="crew-title">
                 <h3>Crew Equipments</h3>
@@ -427,47 +429,48 @@ const CrewManagement = () => {
                 />
               </div>
               <div className="crew-tb">
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    {crewEquipmentHeadings?.map((item, key) => (
-                      <th scope="col" className="table-heading" key={key}>
-                        {item}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {allEquipment && allEquipment.length > 0
-                    ? allEquipment.map((item, key) => {
-                        // const user = employeeOptions.find(
-                        //   (user) => user.value === item.user_id
-                        // );
-                        return (
-                          <tr
-                            className={
-                              selectedUser.id === item.id ? "activeRow" : ""
-                            }
-                            onClick={() => setSelectedUser(item)}
-                            key={key}
-                          >
-                            <td>{item?.name}</td>
-                            <td>{item?.acumatica_id}</td>
-                            <td className="details-td"></td>
-                          </tr>
-                        );
-                      })
-                    : !loading && <tr>No data found</tr>}
-                </tbody>
-              </table>
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      {crewEquipmentHeadings?.map((item, key) => (
+                        <th scope="col" className="table-heading" key={key}>
+                          {item}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allEquipment && allEquipment.length > 0
+                      ? allEquipment.map((item, key) => {
+                          // const user = employeeOptions.find(
+                          //   (user) => user.value === item.user_id
+                          // );
+                          return (
+                            <tr
+                              className={
+                                selectedUser.id === item.id ? "activeRow" : ""
+                              }
+                              onClick={() => setSelectedUser(item)}
+                              key={key}
+                            >
+                              <td>{item?.name}</td>
+                              <td>{item?.acumatica_id}</td>
+                              <td className="details-td"></td>
+                            </tr>
+                          );
+                        })
+                      : !loading && <tr>No data found</tr>}
+                  </tbody>
+                </table>
               </div>
-              
             </div>
+            </div>
+
+            
           </div>
         }
       </>
 
-      
       <>{}</>
     </div>
   );
