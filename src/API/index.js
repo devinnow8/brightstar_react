@@ -146,3 +146,19 @@ export const getTimeSheetByWeek = async (data) => {
   const apiUrl = `${url}/api/time_entry/time_sheet_by_week?week=${data?.week}&crew_id=${data?.crew_id}`;
   return await makeApiCall("get", apiUrl, data, headers);
 };
+
+// Equipment
+export const getCrewEquipmentList = async (id) => {
+  const apiUrl = `${url}/api/crew_equipment?expand=crew%2Cequipment&crew_id=${id}`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};
+
+export const getAllEquipmentList = async () => {
+  const apiUrl = `${url}/api/equipment`;
+  return await makeApiCall("get", apiUrl, {}, headers);
+};
+
+export const addCrewEquipment = async (data) => {
+  const apiUrl = `${url}/api/crew_equipment?expand=crew%2Cequipment`;
+  return await makeApiCall("post", apiUrl, data, headers);
+};

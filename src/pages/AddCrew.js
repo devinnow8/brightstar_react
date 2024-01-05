@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getAllProjectList,
   getUserDetails,
@@ -7,29 +7,31 @@ import {
   getProjectUserDetails,
   getRoleIds,
   addCrewUser,
-  addProjectUser,
   getCostCodesByProjectId,
   addCostCode,
   getActiveCostCodes,
   removeCostCode,
+  getCrewEquipmentList,
+  getAllEquipmentList,
+  addCrewEquipment,
 } from "../API";
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
+// Don't comment or remove {Button} 
 import { Button } from "bootstrap";
 import ArrowLeft from "../assets/images/arrow-left.svg";
-import { res } from "../utils/mockData";
 import AddCrewEquipment from "../components/AddCrewEquipment";
-// import axios from "axios";
 
 const CrewManagement = () => {
   const [employeeOptions, setEmployeeOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [projectOptions, setProjectOptions] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
-  const [allEquipment, setAllEquipment] = useState(res?.data);
+  const [allCrewEquipment, setAllCrewEquipment] = useState([]);
+  const [allEquipments, setAllEquipments] = useState([]);
+  // const [activeCostCodes, setActiveCostCodes] = useState([]);
   const [roles, setRoles] = useState([]);
-  // const [selectedCostCodes, setSelectedCostCodes] = useState([]);
   const { crewId, projectId } = useParams();
   const [costCodes, setCostCodes] = useState([]);
   const [activeCostCodes, setActiveCostCodes] = useState([]);
@@ -44,6 +46,9 @@ const CrewManagement = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log("allEquipmentallEquipment", allCrewEquipment);
+
   const fetchData = async () => {
     try {
       const request5 = await getRoleIds();
@@ -51,15 +56,31 @@ const CrewManagement = () => {
       setRoles(request5.data);
       setActiveCostCodes(activeCostCodes.data);
 
-      const [projects, employees, userOptions, empList, projectCostCodes] =
-        await Promise.all([
-          getAllProjectList(),
-          getUserDetails(),
-          getAllCrewUser(crewId),
-          getProjectUserDetails(),
-          getCostCodesByProjectId(projectId),
-        ]);
-      console.log("projectCostCodes", projectCostCodes.data);
+      const [
+        projects,
+        employees,
+        userOptions,
+        empList,
+        projectCostCodes,
+        crewEquipments,
+        allEquipments
+      ] = await Promise.all([
+        getAllProjectList(),
+        getUserDetails(),
+        getAllCrewUser(crewId),
+        getProjectUserDetails(),
+        getCostCodesByProjectId(projectId),
+        getCrewEquipmentList(crewId),
+        getAllEquipmentList()
+      ]);
+      console.log("crewEquipments ==>", crewEquipments);
+      if (allEquipments?.status === 200) {
+        setAllEquipments(allEquipments?.data);
+      }
+
+      if (crewEquipments?.status === 200) {
+        setAllCrewEquipment(crewEquipments?.data);
+      }
       if (projectCostCodes?.data?.length) {
         setCostCodes(projectCostCodes.data);
       }
@@ -110,8 +131,14 @@ const CrewManagement = () => {
     toast.success("New member added successfully");
   };
 
+  const onAddNewEquipment = async () => {
+    const equipmentOptions = await getCrewEquipmentList(crewId);
+    setAllCrewEquipment(equipmentOptions?.data);
+    toast.success("New Equipment added successfully");
+  };
+
   const crewTableHeadings = ["Name", "Employee ID"];
-  const crewEquipmentHeadings = ["Items", "Equpiments"];
+  const crewEquipmentHeadings = ["Item", "Equipment Number"];
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedUser, setSelectedUser] = useState({});
@@ -441,8 +468,8 @@ const CrewManagement = () => {
                   <h3>Crew Equipments</h3>
                   <AddCrewEquipment
                     state={crewId}
-                    userOptions={employeeOptions}
-                    onAddNewMember={onAddNewMember}
+                    allEquipments={allEquipments}
+                    onAddNewEquipment={onAddNewEquipment}
                   />
                 </div>
                 <div className="crew-tb">
@@ -457,11 +484,8 @@ const CrewManagement = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {allEquipment && allEquipment.length > 0
-                        ? allEquipment.map((item, key) => {
-                            // const user = employeeOptions.find(
-                            //   (user) => user.value === item.user_id
-                            // );
+                      {allCrewEquipment && allCrewEquipment.length > 0
+                        ? allCrewEquipment.map((item, key) => {
                             return (
                               <tr
                                 className={
@@ -470,8 +494,8 @@ const CrewManagement = () => {
                                 onClick={() => setSelectedUser(item)}
                                 key={key}
                               >
-                                <td>{item?.name}</td>
-                                <td>{item?.acumatica_id}</td>
+                                <td>{item?.equipment?.name}</td>
+                                <td>{item?.equipment?.acumatica_id}</td>
                                 <td className="details-td"></td>
                               </tr>
                             );

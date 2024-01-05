@@ -1,32 +1,31 @@
 import React, { useState } from "react";
-import { addCrewUser } from "../API";
+import { addCrewEquipment } from "../API";
 import { useParams } from "react-router-dom";
 // import { toast } from "react-toastify";
 
-const AddCrewEquipment = ({ onAddNewMember, userOptions }) => {
-  const [selectedUser, setSelectedUser] = useState({});
-  const crewTableHeadings = [];
+const AddCrewEquipment = ({ onAddNewEquipment, allEquipments }) => {
+  const [selectedEquipment, setSelectedEquipment] = useState({});
+  const crewTableHeadings = ["Item", "Equipment Number"];
   const { crewId, projectId } = useParams();
 
-  const onAddNewUser = () => {
-    addNewCrewMemberPromise(selectedUser);
+  const onAddEquipment = () => {
+    addNewEquipmentPromise(selectedEquipment);
   };
 
-  const addNewCrewMemberPromise = async (data) => {
-    const crewUserPayload = {
+  const addNewEquipmentPromise = async (data) => {
+    const payload = {
       crew_id: crewId,
-      user_id: data?.value,
-      crew_role_id: 4,
+      equipment_id: data?.id,
     };
 
-    await addCrewUser(crewUserPayload).then((res) => {
+    await addCrewEquipment(payload).then((res) => {
       if (res?.status === 200) {
-        onAddNewMember();
+        onAddNewEquipment();
       }
-    });
+    }).catch((err) => console.log("err in addCrewEquipment =>", err))
   };
 
-  console.log("userOptionsuserOptions", userOptions);
+  console.log("selectedEquipment ==>", selectedEquipment);
 
   return (
     <>
@@ -80,21 +79,19 @@ const AddCrewEquipment = ({ onAddNewMember, userOptions }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {userOptions?.map((item, key) => {
+                      {allEquipments?.map((item, key) => {
                         return (
                           <tr
                             className={
-                              selectedUser.value === item.value
+                              selectedEquipment.id === item.id
                                 ? "activeRow"
                                 : ""
                             }
-                            onClick={() => setSelectedUser(item)}
+                            onClick={() => setSelectedEquipment(item)}
                             key={key}
                           >
-                            {/* <td>{item.id}</td> */}
-                            {/* <td>{item.value}</td> */}
                             <td>{item.name}</td>
-                            {/* <td>{item.description}</td> */}
+                            <td>{item.acumatica_id}</td>
                             <td className="details-td"></td>
                           </tr>
                         );
@@ -110,7 +107,7 @@ const AddCrewEquipment = ({ onAddNewMember, userOptions }) => {
                 type="button"
                 className="primary-btn"
                 aria-label="Close"
-                onClick={() => onAddNewUser()}
+                onClick={() => onAddEquipment()}
               >
                 Submit
               </button>

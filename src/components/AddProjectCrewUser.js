@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 // import { toast } from "react-toastify";
 
 const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
-  const [selectedEquipment, setSelectedEquipment] = useState({});
+  const [selectedUsers, setSelectedUsers] = useState({});
   const crewTableHeadings = [];
   const { crewId, projectId } = useParams();
 
   const onAddNewUser = () => {
-    addNewCrewMemberPromise(selectedEquipment);
+    addNewCrewMemberPromise(selectedUsers);
   };
 
   const addNewCrewMemberPromise = async (data) => {
@@ -33,8 +33,6 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
       }
     });
   };
-
-  console.log("userOptionsuserOptions", userOptions);
 
   return (
     <>
@@ -92,11 +90,11 @@ const AddProjectCrewUser = ({ onAddNewMember, userOptions }) => {
                         return (
                           <tr
                             className={
-                              selectedEquipment.value === item.value
+                              selectedUsers.value === item.value
                                 ? "activeRow"
                                 : ""
                             }
-                            onClick={() => setSelectedEquipment(item)}
+                            onClick={() => setSelectedUsers(item)}
                             key={key}
                           >
                             {/* <td>{item.id}</td> */}
