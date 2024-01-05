@@ -57,7 +57,7 @@ const ProjectCrewTable = (props) => {
                   >
                     + Add Crew Time/Date old
                   </button> */}
-                  <button
+                  {/* <button
                     class="btn btn-primary primary-btn detail-btn px-3"
                     type="button"
                     data-bs-toggle="offcanvas"
@@ -66,7 +66,7 @@ const ProjectCrewTable = (props) => {
                     onClick={() => selectCrewIdForTimeEntry(item?.id)}
                   >
                     + Add Crew Time/Date
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             );
@@ -74,7 +74,7 @@ const ProjectCrewTable = (props) => {
         </tbody>
       </table>
       {/* <AddCrewTimeDateModal crew_id={selectedCrewId} id="largeModal" /> */}
-      <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" project_id={projectId} />
+      {/* <RightDrawerModal crew_id={selectedCrewId} id="offcanvasRight" project_id={projectId} /> */}
     </div>
   );
 };

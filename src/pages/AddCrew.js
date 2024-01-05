@@ -18,7 +18,7 @@ import {
 import Loader from "./Loader";
 import AddProjectCrewUser from "../components/AddProjectCrewUser";
 import { toast } from "react-toastify";
-// Don't comment or remove {Button} 
+// Don't comment or remove {Button}
 import { Button } from "bootstrap";
 import ArrowLeft from "../assets/images/arrow-left.svg";
 import AddCrewEquipment from "../components/AddCrewEquipment";
@@ -63,7 +63,7 @@ const CrewManagement = () => {
         empList,
         projectCostCodes,
         crewEquipments,
-        allEquipments
+        allEquipments,
       ] = await Promise.all([
         getAllProjectList(),
         getUserDetails(),
@@ -71,7 +71,7 @@ const CrewManagement = () => {
         getProjectUserDetails(),
         getCostCodesByProjectId(projectId),
         getCrewEquipmentList(crewId),
-        getAllEquipmentList()
+        getAllEquipmentList(),
       ]);
       console.log("crewEquipments ==>", crewEquipments);
       if (allEquipments?.status === 200) {
@@ -165,33 +165,47 @@ const CrewManagement = () => {
     });
   };
   const navigate = useNavigate();
+
   const onRowSelection = async (e, item, key) => {
     if (e.target.checked) {
       console.log("itemitemitem", item);
-      const costCodePayload = {
-        crew_id: Number(crewId),
-        project_cost_code_id: item?.id,
-      };
+      console.log("onRowSelection", e.target.name);
+      let payload;
+      if (e.target.name === "costCode") {
+        payload = {
+          type: "user",
+          crew_id: Number(crewId),
+          project_cost_code_id: item?.id,
+        };
+      }
+      else if (e.target.name === "equipment") {
+        payload = {
+          type: "equipment",
+          crew_id: Number(crewId),
+          project_cost_code_id: item?.id,
+        };
+      }
 
-      await addCostCode(costCodePayload).then(async (res) => {
+      await addCostCode(payload).then(async (res) => {
         if (res?.status === 200) {
           toast.success("Cost code added Successfully");
         }
       });
     } else {
-      const costCodePayload = {
+      const payload = {
         is_active: false,
       };
-
-      await removeCostCode(costCodePayload, item.id).then((res) => {
+      await removeCostCode(payload, item?.id).then((res) => {
         if (res?.status === 200) {
           toast.success("Cost code removed Successfully");
         }
       });
     }
     const activeCostCodes = await getActiveCostCodes(crewId);
+    console.log("activeCostCodesactiveCostCodesactiveCostCodes", activeCostCodes?.data);
     setActiveCostCodes(activeCostCodes.data);
   };
+
   console.log("costCodes11", costCodes);
   console.log("userOptionssssss", userOptions);
 
@@ -362,6 +376,7 @@ const CrewManagement = () => {
                             <tr key={key}>
                               <td scope="col">
                                 <input
+                                  name="costCode"
                                   onChange={(evt) =>
                                     onRowSelection(evt, selectedCostCode, key)
                                   }
@@ -371,11 +386,12 @@ const CrewManagement = () => {
                               </td>
                               <td scope="col">
                                 <input
-                                  // onChange={(evt) =>
-                                  //   onRowSelection(evt, selectedCostCode, key)
-                                  // }
+                                  name="equipment"
+                                  onChange={(evt) =>
+                                    onRowSelection(evt, selectedCostCode, key)
+                                  }
                                   type="checkbox"
-                                  // checked={!!activeCostCode}
+                                  checked={!!activeCostCode}
                                 />
                               </td>
                               <td>{costCode?.cost_code}</td>
