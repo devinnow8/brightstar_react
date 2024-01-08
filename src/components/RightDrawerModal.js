@@ -22,15 +22,18 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import TimePickerComponent from "./TimePicker";
 import useFetch from "./AddCrew";
+import { EntryTypeOptions } from "../utils/constants";
 
 const RightDrawerModal = React.memo((props) => {
   const { crew_id, project_id, addCrewModal, onModalClick } = props;
-  const { crewUsers, projectTaskOptions, costCodesOptions } = useFetch(
+  const { crewUsers, projectTaskOptions } = useFetch(
     addCrewModal,
     crew_id,
     project_id
   );
 
+  const [entryType, setEntryType] = useState();
+  const [costCodesOptions, setCostCodesOptions] = useState([]);
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
     selectedDateValue: "",
@@ -56,11 +59,35 @@ const RightDrawerModal = React.memo((props) => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (crew_id) {
+      getAllCostCodes();
+    }
+  }, [entryType]);
+
   const handleTimeSelectChange = (field, value, type) => {
     const copiedTime = { ...time };
     const selectedTime = copiedTime[type];
     copiedTime[type][field] = value;
     setTime(copiedTime);
+  };
+
+  const getAllCostCodes = async () => {
+    await getCrewCostCodes(crew_id, entryType?.value).then((res) => {
+      if (res?.status === 200) {
+        console.log("getCrewCostCodes ==>", res?.data);
+        const costCodes = res?.data?.map((ele) => ({
+          label: ele?.project_cost_code?.description,
+          value: ele,
+        }));
+        setCostCodesOptions(costCodes);
+      }
+    });
+  };
+
+  const onEntryTypeChange = (selected) => {
+    // console.log("eventonEntryTypeChange", selected);
+    setEntryType(selected);
   };
 
   const onChangeUserSelect = (item) => {
@@ -126,22 +153,40 @@ const RightDrawerModal = React.memo((props) => {
       await getWeekSheet(getSelectedWeek).then((res) => {
         if (res?.status === 200 && res?.data?.length > 0) {
           allSelectedUsers?.forEach(async (ele) => {
-            const payload = {
-              time_entry_in: entryTimeIn,
-              time_entry_out: entryTimeOut,
-              time_lunch_start: lunchTimeIn,
-              time_lunch_end: lunchTimeOut,
-              entry_time: getCurrentDateTime(),
-              time_entry_type_id: 1,
-              crew_user_id: ele?.value?.crew_user_id,
-              crew_id,
-              time_entry_date: selectedDate?.selectedDateValue || "",
-              is_crew_entry: true,
-              time_entry_status_id: 1,
-              project_task_id: selectedProjectTaskId,
-              crew_project_cost_code_id: selectedCostCodeId,
-              time_sheet_id: res?.data[0]?.id,
-            };
+            let payload;
+            if (entryType?.value === "user") {
+              payload = {
+                time_entry_in: entryTimeIn,
+                time_entry_out: entryTimeOut,
+                time_lunch_start: lunchTimeIn,
+                time_lunch_end: lunchTimeOut,
+                entry_time: getCurrentDateTime(),
+                time_entry_type_id: 1, // user
+                crew_user_id: ele?.value?.crew_user_id,
+                crew_id,
+                time_entry_date: selectedDate?.selectedDateValue || "",
+                is_crew_entry: true,
+                time_entry_status_id: 1,
+                project_task_id: selectedProjectTaskId,
+                crew_project_cost_code_id: selectedCostCodeId,
+                time_sheet_id: res?.data[0]?.id,
+              };
+            } else if (entryType?.value === "equipment") {
+              payload = {
+                time_entry_in: entryTimeIn,
+                time_entry_out: entryTimeOut,
+                entry_time: getCurrentDateTime(),
+                time_entry_type_id: 2, // equipment
+                crew_user_id: ele?.value?.crew_user_id,
+                crew_id,
+                time_entry_date: selectedDate?.selectedDateValue || "",
+                is_crew_entry: true,
+                time_entry_status_id: 1,
+                project_task_id: selectedProjectTaskId,
+                crew_project_cost_code_id: selectedCostCodeId,
+                time_sheet_id: res?.data[0]?.id,
+              };
+            }
             await addCrewTimeEntry(payload)
               .then((res) => {
                 if (res?.data?.crew_id) {
@@ -160,24 +205,40 @@ const RightDrawerModal = React.memo((props) => {
           addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
             if (res?.status === 200) {
               allSelectedUsers?.forEach(async (ele) => {
-                console.log("ele?.value?.crew_user_id", ele);
-
-                const payload = {
-                  time_entry_in: entryTimeIn,
-                  time_entry_out: entryTimeOut,
-                  time_lunch_start: lunchTimeIn,
-                  time_lunch_end: lunchTimeOut,
-                  entry_time: getCurrentDateTime(),
-                  time_entry_type_id: 1,
-                  crew_user_id: ele?.value?.crew_user_id,
-                  crew_id,
-                  time_entry_date: selectedDate?.selectedDateValue || "",
-                  is_crew_entry: true,
-                  time_entry_status_id: 1,
-                  project_task_id: selectedProjectTaskId,
-                  crew_project_cost_code_id: selectedCostCodeId,
-                  time_sheet_id: res?.data?.id,
-                };
+                let payload;
+                if (entryType?.value === "user") {
+                  payload = {
+                    time_entry_in: entryTimeIn,
+                    time_entry_out: entryTimeOut,
+                    time_lunch_start: lunchTimeIn,
+                    time_lunch_end: lunchTimeOut,
+                    entry_time: getCurrentDateTime(),
+                    time_entry_type_id: 1, // user
+                    crew_user_id: ele?.value?.crew_user_id,
+                    crew_id,
+                    time_entry_date: selectedDate?.selectedDateValue || "",
+                    is_crew_entry: true,
+                    time_entry_status_id: 1,
+                    project_task_id: selectedProjectTaskId,
+                    crew_project_cost_code_id: selectedCostCodeId,
+                    time_sheet_id: res?.data[0]?.id,
+                  };
+                } else if (entryType?.value === "equipment") {
+                  payload = {
+                    time_entry_in: entryTimeIn,
+                    time_entry_out: entryTimeOut,
+                    entry_time: getCurrentDateTime(),
+                    time_entry_type_id: 2, // equipment
+                    crew_user_id: ele?.value?.crew_user_id,
+                    crew_id,
+                    time_entry_date: selectedDate?.selectedDateValue || "",
+                    is_crew_entry: true,
+                    time_entry_status_id: 1,
+                    project_task_id: selectedProjectTaskId,
+                    crew_project_cost_code_id: selectedCostCodeId,
+                    time_sheet_id: res?.data[0]?.id,
+                  };
+                }
                 await addCrewTimeEntry(payload)
                   .then((res) => {
                     if (res?.data?.crew_id) {
@@ -230,10 +291,25 @@ const RightDrawerModal = React.memo((props) => {
             class="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
-            onClick={() => onCloseClick()}
+            onClick={() => onEntryTypeChange()}
           ></button>
         </div>
         <div class="offcanvas-body">
+          <div class="input-flex">
+            <label for="recipient-name" class="col-form-label">
+              Select Entry Type
+            </label>
+            <div className="input-box">
+              <Select
+                className="react-select-container"
+                classNamePrefix="react-select"
+                name="colors"
+                options={EntryTypeOptions}
+                onChange={(item) => onEntryTypeChange(item)}
+                defaultValue={entryType}
+              />
+            </div>
+          </div>
           <div class="input-flex">
             <label for="recipient-name" class="col-form-label">
               Date
@@ -322,29 +398,31 @@ const RightDrawerModal = React.memo((props) => {
               </div>
             </div>
           </div>
-          <div className="input-flex">
-            <label htmlFor="" class="col-form-label">
-              Lunch
-            </label>
-            <div className="input-box d-flex align-items-center justify-content-between row">
-              <div className="col-6">
-                <TimePickerComponent
-                  label={"Start"}
-                  time={time?.punchIn}
-                  type="punchIn"
-                  handleTimeSelectChange={handleTimeSelectChange}
-                />
-              </div>
-              <div className="col-6">
-                <TimePickerComponent
-                  label={"End"}
-                  time={time?.punchOut}
-                  type="punchOut"
-                  handleTimeSelectChange={handleTimeSelectChange}
-                />
+          {entryType?.value === "user" && (
+            <div className="input-flex">
+              <label htmlFor="" class="col-form-label">
+                Lunch
+              </label>
+              <div className="input-box d-flex align-items-center justify-content-between row">
+                <div className="col-6">
+                  <TimePickerComponent
+                    label={"Start"}
+                    time={time?.punchIn}
+                    type="punchIn"
+                    handleTimeSelectChange={handleTimeSelectChange}
+                  />
+                </div>
+                <div className="col-6">
+                  <TimePickerComponent
+                    label={"End"}
+                    time={time?.punchOut}
+                    type="punchOut"
+                    handleTimeSelectChange={handleTimeSelectChange}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="input-flex">
             <label for="recipient-name" class="col-form-label">

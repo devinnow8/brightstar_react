@@ -6,17 +6,16 @@ import {
   getCrewCostCodes,
 } from "../API";
 function useFetch(addCrewModal, crew_id, project_id) {
-  console.log("api call");
   const [crewUsers, setCrewUsers] = useState([]);
   const [projectTaskOptions, setProjectTaskOptions] = useState([]);
-  const [costCodesOptions, setCostCodesOptions] = useState([]);
+  // const [costCodesOptions, setCostCodesOptions] = useState([]);
   useEffect(() => {
     console.log("addCrewModaladdCrewModal", addCrewModal);
 
     if (addCrewModal) {
       if (crew_id) {
         onClickAddCrewTimeDate();
-        getAllCostCodes();
+        // getAllCostCodes();
       }
       if (project_id) {
         getAllProjectTasks();
@@ -65,20 +64,21 @@ function useFetch(addCrewModal, crew_id, project_id) {
       }
     });
   };
-  const getAllCostCodes = async () => {
-    await getCrewCostCodes(crew_id).then((res) => {
-      if (res?.status === 200) {
-        console.log("getCrewCostCodes ==>", res?.data);
-        const costCodes = res?.data?.map((ele) => ({
-          label: ele?.project_cost_code?.description,
-          value: ele,
-        }));
-        setCostCodesOptions(costCodes);
-      }
-    });
-  };
 
-  return { projectTaskOptions, crewUsers, costCodesOptions };
+  // const getAllCostCodes = async () => {
+  //   await getCrewCostCodes(crew_id, entryType).then((res) => {
+  //     if (res?.status === 200) {
+  //       console.log("getCrewCostCodes ==>", res?.data);
+  //       const costCodes = res?.data?.map((ele) => ({
+  //         label: ele?.project_cost_code?.description,
+  //         value: ele,
+  //       }));
+  //       setCostCodesOptions(costCodes);
+  //     }
+  //   });
+  // };
+
+  return { projectTaskOptions, crewUsers };
 }
 
 export default useFetch;

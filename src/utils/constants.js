@@ -4,4 +4,16 @@ const Roles = {
   3: "Ops Manager",
   4: "Crew Member",
 };
-export { Roles };
+
+const EntryTypeOptions = [
+  {
+    label: "User",
+    value: "user",
+  },
+  {
+    label: "Equipment",
+    value: "equipment",
+  },
+];
+
+export { Roles, EntryTypeOptions };

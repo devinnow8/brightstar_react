@@ -16,6 +16,7 @@ export const TimeCard = () => {
   const navigate = useNavigate();
   const [timeSheetDetails, setTimeSheetDetails] = useState({});
   const [timeSheetWeekDetails, setTimeSheetWeekDetails] = useState({});
+  const [equipmentTimeSheet, setEquipmentTimeSheet] = useState({});
   const [showAddTimeButton, setShowAddTimeButton] = useState(false);
   const [addCrewModal, setAddCrewModal] = useState(false);
 
@@ -35,7 +36,15 @@ export const TimeCard = () => {
     console.log("getTimeSheetWeekDetails", data);
     await getTimeSheetByWeek(data).then((res) => {
       setShowAddTimeButton(false);
-      setTimeSheetWeekDetails(res?.data);
+      const filteredUserTime = res?.data?.filter(
+        (ele) => ele.time_entry_type_id === 1
+      );
+      const filteredEquipmentTime = res?.data?.filter(
+        (ele) => ele.time_entry_type_id === 2
+      );
+      console.log("filteredEquipmentTime ==>", filteredEquipmentTime);
+      setTimeSheetWeekDetails(filteredUserTime);
+      setEquipmentTimeSheet(filteredEquipmentTime);
     });
   };
 
@@ -55,7 +64,7 @@ export const TimeCard = () => {
     return _.groupBy(data, "time_entry_date");
   };
 
-  const cachedValue = useMemo(() => {
+  const cachedUserValue = useMemo(() => {
     if (timeSheetWeekDetails?.length > 0) {
       const data = getPerDayDetails(timeSheetWeekDetails);
       const dates = structuredClone(data);
@@ -72,6 +81,24 @@ export const TimeCard = () => {
       return {};
     }
   }, [timeSheetWeekDetails]);
+
+  const cachedEquipmentValue = useMemo(() => {
+    if (equipmentTimeSheet?.length > 0) {
+      const data = getPerDayDetails(equipmentTimeSheet);
+      const dates = structuredClone(data);
+      let orderedDates = {};
+      _(dates)
+        .keys()
+        .sort()
+        .each(function (key) {
+          orderedDates[key] = dates[key];
+        });
+
+      return orderedDates;
+    } else {
+      return {};
+    }
+  }, [equipmentTimeSheet]);
 
   const CardData = useMemo(() => {
     let cardStartDate = "";
@@ -108,7 +135,7 @@ export const TimeCard = () => {
   useEffect(() => {
     console.log("addddddddd", addCrewModal);
   }, [addCrewModal]);
-  console.log("cachedValueii", cachedValue);
+  console.log("cachedEquipmentValueii", cachedEquipmentValue);
   return (
     <div className="crew-mgmt">
       <div className="d-flex justify-content-between">
@@ -132,12 +159,12 @@ export const TimeCard = () => {
       </div>
 
       <h2>{timeSheetDetails?.crew?.name}</h2>
-      {cachedValue && Object?.keys(cachedValue)?.length > 0 && (
+      {cachedUserValue && Object?.keys(cachedUserValue)?.length > 0 && (
         <h3>{CardData?.cardStartDate + "-" + CardData?.cardEndDate}</h3>
       )}
-      {Object?.keys(cachedValue)?.length > 0 &&
-        Object?.keys(cachedValue)?.map((dayDetails) => {
-          console.log("dayDetails111", cachedValue[dayDetails]);
+      {Object?.keys(cachedUserValue)?.length > 0 &&
+        Object?.keys(cachedUserValue)?.map((dayDetails) => {
+          console.log("dayDetails111", cachedUserValue[dayDetails]);
           const currentDisplayDate = new Date(dayDetails)
             .toISOString()
             .split("T");
@@ -146,6 +173,8 @@ export const TimeCard = () => {
           return (
             <div className="crew-mgmt-card">
               <h3 className="title">{day + " " + currentDisplayDate[0]}</h3>
+              {cachedUserValue[dayDetails]?.length > 0 && <>
+              <h2>Team Hours</h2>
               <table className="table table-striped">
                 <thead>
                   <tr>
@@ -156,6 +185,7 @@ export const TimeCard = () => {
                       "Start",
                       "Stop",
                       "Hour",
+                      "Lunch",
                     ]?.map((item, key) => (
                       <th scope="col" className="table-heading" key={key}>
                         {item}
@@ -164,9 +194,9 @@ export const TimeCard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cachedValue[dayDetails] &&
-                  cachedValue[dayDetails]?.length > 0
-                    ? cachedValue[dayDetails]?.map((item, key) => {
+                  {cachedUserValue[dayDetails] &&
+                  cachedUserValue[dayDetails]?.length > 0
+                    ? cachedUserValue[dayDetails]?.map((item, key) => {
                         console.log("fastmap ==>", item);
                         return (
                           <tr
@@ -180,12 +210,62 @@ export const TimeCard = () => {
                             <td>{item?.time_entry_in}</td>
                             <td>{item?.time_entry_out}</td>
                             <td>{item?.hours}hr</td>
+                            <td>{item?.lunch}hr</td>
                           </tr>
                         );
                       })
                     : !loading && <tr>No data found</tr>}
                 </tbody>
               </table>
+              </>}
+              {cachedEquipmentValue[dayDetails]?.length > 0 && (
+                <>
+                  <h2>Equipment Hours</h2>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        {[
+                          "Item",
+                          "Equip. No.",
+                          "Task",
+                          "Cost Code",
+                          "Start",
+                          "Stop",
+                          "Hour",
+                        ]?.map((item, key) => (
+                          <th scope="col" className="table-heading" key={key}>
+                            {item}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cachedEquipmentValue[dayDetails] &&
+                      cachedEquipmentValue[dayDetails]?.length > 0
+                        ? cachedEquipmentValue[dayDetails]?.map((item, key) => {
+                            console.log("fastmap ==>", item);
+                            return (
+                              <tr
+                                //   className={selectedUser.id === item.id ? "activeRow" : ""}
+                                //   onClick={() => setSelectedUser(item)}
+                                key={key}
+                              >
+                                <td>{item?.cost_code}</td>
+                                <td>{item?.cost_code}</td>
+                                <td>{item?.task}</td>
+                                <td>{item?.cost_code}</td>
+                                <td>{item?.time_entry_in}</td>
+                                <td>{item?.time_entry_out}</td>
+                                <td>{item?.hours}</td>
+                               
+                              </tr>
+                            );
+                          })
+                        : !loading && <tr>No data found</tr>}
+                    </tbody>
+                  </table>
+                </>
+              )}
             </div>
           );
         })}
