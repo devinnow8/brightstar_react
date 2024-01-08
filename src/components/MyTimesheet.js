@@ -58,6 +58,14 @@ const MyTimesheet = (props) => {
                       >
                         Open
                       </button>
+                      <button
+                        onClick={() => {
+                          onCardClick(card);
+                        }}
+                        className="primary-btn open"
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 );

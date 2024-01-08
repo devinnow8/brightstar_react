@@ -33,20 +33,17 @@ export const TimeCard = () => {
       week: timeSheetData?.week,
       crew_id: timeSheetData?.crew_id,
     };
-    console.log("getTimeSheetWeekDetails", data);
-    await getTimeSheetByWeek(data).then((res) => {
+    await getTimeSheetByWeek(data, 1).then((res) => {
       setShowAddTimeButton(false);
-      const filteredUserTime = res?.data?.filter(
-        (ele) => ele.time_entry_type_id === 1
-      );
-      const filteredEquipmentTime = res?.data?.filter(
-        (ele) => ele.time_entry_type_id === 2
-      );
-      console.log("filteredEquipmentTime ==>", filteredEquipmentTime);
-      setTimeSheetWeekDetails(filteredUserTime);
-      setEquipmentTimeSheet(filteredEquipmentTime);
+      setTimeSheetWeekDetails(res?.data);
+    });
+    await getTimeSheetByWeek(data, 2).then((res) => {
+      setShowAddTimeButton(false);
+      setEquipmentTimeSheet(res?.data);
     });
   };
+
+  console.log("setEquipmentTimeSheet", equipmentTimeSheet);
 
   const getDetailsofCard = async () => {
     const queryParams = `id=${id}`;
@@ -250,8 +247,8 @@ export const TimeCard = () => {
                                 //   onClick={() => setSelectedUser(item)}
                                 key={key}
                               >
-                                <td>{item?.cost_code}</td>
-                                <td>{item?.cost_code}</td>
+                                <td>{item?.name}</td>
+                                <td>{item?.equipment_id}</td>
                                 <td>{item?.task}</td>
                                 <td>{item?.cost_code}</td>
                                 <td>{item?.time_entry_in}</td>

@@ -180,7 +180,7 @@ const RightDrawerModal = React.memo((props) => {
               };
               await addCrewTimeEntry(payload)
                 .then((res) => {
-                  if (res?.data?.crew_id) {
+                  if (res?.data) {
                     toast.success("Time entry successfully added.");
                     navigate("/time-sheet");
                   }
@@ -207,7 +207,7 @@ const RightDrawerModal = React.memo((props) => {
               };
               await addCrewTimeEntry(payload)
                 .then((res) => {
-                  if (res?.data?.crew_id) {
+                  if (res?.data) {
                     toast.success("Time entry successfully added.");
                     navigate("/time-sheet");
                   }
@@ -243,7 +243,7 @@ const RightDrawerModal = React.memo((props) => {
                   };
                   await addCrewTimeEntry(payload)
                     .then((res) => {
-                      if (res?.data?.crew_id) {
+                      if (res?.data) {
                         toast.success(
                           "Time sheet successfully added for the selected week"
                         );
@@ -272,7 +272,7 @@ const RightDrawerModal = React.memo((props) => {
                   };
                   await addCrewTimeEntry(payload)
                     .then((res) => {
-                      if (res?.data?.crew_id) {
+                      if (res?.data) {
                         toast.success(
                           "Time sheet successfully added for the selected week"
                         );
