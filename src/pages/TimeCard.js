@@ -248,7 +248,7 @@ export const TimeCard = () => {
                                 key={key}
                               >
                                 <td>{item?.name}</td>
-                                <td>{item?.equipment_id}</td>
+                                <td>{item?.acumatica_id}</td>
                                 <td>{item?.task}</td>
                                 <td>{item?.cost_code}</td>
                                 <td>{item?.time_entry_in}</td>
