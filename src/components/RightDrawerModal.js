@@ -26,13 +26,16 @@ import { EntryTypeOptions } from "../utils/constants";
 
 const RightDrawerModal = React.memo((props) => {
   const { crew_id, project_id, addCrewModal, onModalClick } = props;
-  const { crewUsers, projectTaskOptions } = useFetch(
+  const { crewUsers, crewEquipments, projectTaskOptions } = useFetch(
     addCrewModal,
     crew_id,
     project_id
   );
 
+  console.log("crewEquipmentscrewEquipments", crewEquipments);
+
   const [entryType, setEntryType] = useState();
+  console.log("entryTypeentryType", entryType);
   const [costCodesOptions, setCostCodesOptions] = useState([]);
   const [selectedDate, setSelectedDate] = useState({
     selectedDateLabel: "",
@@ -46,6 +49,7 @@ const RightDrawerModal = React.memo((props) => {
   });
 
   const [allSelectedUsers, setAllSelectedUsers] = useState([]);
+  const [allSelectedEquipments, setAllSelectedEquipments] = useState([]);
   const [selectedCostCodeId, setSelectedCostCodeId] = useState();
   const [selectedProjectTaskId, setSelectedProjectTaskId] = useState();
   const [punchInOutTime, setPunchInOutTime] = useState({
@@ -73,7 +77,7 @@ const RightDrawerModal = React.memo((props) => {
   };
 
   const getAllCostCodes = async () => {
-    await getCrewCostCodes(crew_id, entryType?.value).then((res) => {
+    await getCrewCostCodes(crew_id, entryType).then((res) => {
       if (res?.status === 200) {
         console.log("getCrewCostCodes ==>", res?.data);
         const costCodes = res?.data?.map((ele) => ({
@@ -86,12 +90,16 @@ const RightDrawerModal = React.memo((props) => {
   };
 
   const onEntryTypeChange = (selected) => {
-    // console.log("eventonEntryTypeChange", selected);
-    setEntryType(selected);
+    console.log("eventonEntryTypeChange", selected);
+    setEntryType(selected?.value);
   };
 
   const onChangeUserSelect = (item) => {
     setAllSelectedUsers(item);
+  };
+
+  const onChangeEquipmentSelect = (item) => {
+    setAllSelectedEquipments(item);
   };
 
   const onDateChange = (e) => {
@@ -152,17 +160,16 @@ const RightDrawerModal = React.memo((props) => {
     if (getSelectedWeek) {
       await getWeekSheet(getSelectedWeek).then((res) => {
         if (res?.status === 200 && res?.data?.length > 0) {
-          allSelectedUsers?.forEach(async (ele) => {
-            let payload;
-            if (entryType?.value === "user") {
-              payload = {
+          if (entryType === "user") {
+            allSelectedUsers?.forEach(async (ele) => {
+              const payload = {
                 time_entry_in: entryTimeIn,
                 time_entry_out: entryTimeOut,
                 time_lunch_start: lunchTimeIn,
                 time_lunch_end: lunchTimeOut,
                 entry_time: getCurrentDateTime(),
                 time_entry_type_id: 1, // user
-                crew_user_id: ele?.value?.crew_user_id,
+                crew_user_equipment_id: ele?.value?.crew_user_id,
                 crew_id,
                 time_entry_date: selectedDate?.selectedDateValue || "",
                 is_crew_entry: true,
@@ -171,13 +178,25 @@ const RightDrawerModal = React.memo((props) => {
                 crew_project_cost_code_id: selectedCostCodeId,
                 time_sheet_id: res?.data[0]?.id,
               };
-            } else if (entryType?.value === "equipment") {
-              payload = {
+              await addCrewTimeEntry(payload)
+                .then((res) => {
+                  if (res?.data?.crew_id) {
+                    toast.success("Time entry successfully added.");
+                    navigate("/time-sheet");
+                  }
+                })
+                .catch((err) => toast.error("Unable to add time entry"));
+            });
+          } else if (entryType === "equipment") {
+            console.log("reaching here!!!!");
+            allSelectedEquipments?.forEach(async (ele) => {
+              console.log("equipment ele ==>", ele);
+              const payload = {
                 time_entry_in: entryTimeIn,
                 time_entry_out: entryTimeOut,
                 entry_time: getCurrentDateTime(),
                 time_entry_type_id: 2, // equipment
-                crew_user_id: ele?.value?.crew_user_id,
+                crew_user_equipment_id: ele?.value?.id,
                 crew_id,
                 time_entry_date: selectedDate?.selectedDateValue || "",
                 is_crew_entry: true,
@@ -186,16 +205,16 @@ const RightDrawerModal = React.memo((props) => {
                 crew_project_cost_code_id: selectedCostCodeId,
                 time_sheet_id: res?.data[0]?.id,
               };
-            }
-            await addCrewTimeEntry(payload)
-              .then((res) => {
-                if (res?.data?.crew_id) {
-                  toast.success("Time entry successfully added.");
-                  navigate("/time-sheet");
-                }
-              })
-              .catch((err) => toast.error("Unable to add time entry"));
-          });
+              await addCrewTimeEntry(payload)
+                .then((res) => {
+                  if (res?.data?.crew_id) {
+                    toast.success("Time entry successfully added.");
+                    navigate("/time-sheet");
+                  }
+                })
+                .catch((err) => toast.error("Unable to add time entry"));
+            });
+          }
         } else {
           const addMyTimeSheetPayload = {
             week: getSelectedWeek,
@@ -204,32 +223,45 @@ const RightDrawerModal = React.memo((props) => {
           };
           addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
             if (res?.status === 200) {
-              allSelectedUsers?.forEach(async (ele) => {
-                let payload;
-                if (entryType?.value === "user") {
-                  payload = {
+              if (entryType === "user") {
+                allSelectedUsers?.forEach(async (ele) => {
+                  const payload = {
                     time_entry_in: entryTimeIn,
                     time_entry_out: entryTimeOut,
                     time_lunch_start: lunchTimeIn,
                     time_lunch_end: lunchTimeOut,
                     entry_time: getCurrentDateTime(),
                     time_entry_type_id: 1, // user
-                    crew_user_id: ele?.value?.crew_user_id,
+                    crew_user_equipment_id: ele?.value?.crew_user_id,
                     crew_id,
                     time_entry_date: selectedDate?.selectedDateValue || "",
                     is_crew_entry: true,
                     time_entry_status_id: 1,
                     project_task_id: selectedProjectTaskId,
                     crew_project_cost_code_id: selectedCostCodeId,
-                    time_sheet_id: res?.data[0]?.id,
+                    time_sheet_id: res?.data[0]?.id
                   };
-                } else if (entryType?.value === "equipment") {
-                  payload = {
+                  await addCrewTimeEntry(payload)
+                    .then((res) => {
+                      if (res?.data?.crew_id) {
+                        toast.success(
+                          "Time sheet successfully added for the selected week"
+                        );
+                        toast.success("Time entry successfully added.");
+                        navigate("/time-sheet");
+                      }
+                    })
+                    .catch((err) => toast.error("Unable to add time entry"));
+                });
+              } 
+              else if (entryType === "equipment") {
+                allSelectedEquipments?.forEach(async (ele) => {
+                  const payload = {
                     time_entry_in: entryTimeIn,
                     time_entry_out: entryTimeOut,
                     entry_time: getCurrentDateTime(),
                     time_entry_type_id: 2, // equipment
-                    crew_user_id: ele?.value?.crew_user_id,
+                    crew_user_equipment_id: ele?.value?.id,
                     crew_id,
                     time_entry_date: selectedDate?.selectedDateValue || "",
                     is_crew_entry: true,
@@ -238,19 +270,19 @@ const RightDrawerModal = React.memo((props) => {
                     crew_project_cost_code_id: selectedCostCodeId,
                     time_sheet_id: res?.data[0]?.id,
                   };
-                }
-                await addCrewTimeEntry(payload)
-                  .then((res) => {
-                    if (res?.data?.crew_id) {
-                      toast.success(
-                        "Time sheet successfully added for the selected week"
-                      );
-                      toast.success("Time entry successfully added.");
-                      navigate("/time-sheet");
-                    }
-                  })
-                  .catch((err) => toast.error("Unable to add time entry"));
-              });
+                  await addCrewTimeEntry(payload)
+                    .then((res) => {
+                      if (res?.data?.crew_id) {
+                        toast.success(
+                          "Time sheet successfully added for the selected week"
+                        );
+                        toast.success("Time entry successfully added.");
+                        navigate("/time-sheet");
+                      }
+                    })
+                    .catch((err) => toast.error("Unable to add time entry"));
+                });
+              }
             }
           });
         }
@@ -332,21 +364,40 @@ const RightDrawerModal = React.memo((props) => {
               /> */}
             </div>
           </div>
-          <div class="input-flex">
-            <label for="recipient-name" class="col-form-label">
-              Select Team Members
-            </label>
-            <div className="input-box">
-              <Select
-                className="react-select-container"
-                classNamePrefix="react-select"
-                isMulti
-                name="colors"
-                options={crewUsers}
-                onChange={(item) => onChangeUserSelect(item)}
-              />
+          {entryType === "user" && (
+            <div class="input-flex">
+              <label for="recipient-name" class="col-form-label">
+                Select Team Members
+              </label>
+              <div className="input-box">
+                <Select
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                  isMulti
+                  name="colors"
+                  options={crewUsers}
+                  onChange={(item) => onChangeUserSelect(item)}
+                />
+              </div>
             </div>
-          </div>
+          )}
+          {entryType === "equipment" && (
+            <div class="input-flex">
+              <label for="recipient-name" class="col-form-label">
+                Select Equipments
+              </label>
+              <div className="input-box">
+                <Select
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                  isMulti
+                  name="colors"
+                  options={crewEquipments}
+                  onChange={(item) => onChangeEquipmentSelect(item)}
+                />
+              </div>
+            </div>
+          )}
           <div class="input-flex">
             <label htmlFor="" class="col-form-label">
               Project Task
@@ -398,7 +449,7 @@ const RightDrawerModal = React.memo((props) => {
               </div>
             </div>
           </div>
-          {entryType?.value === "user" && (
+          {entryType === "user" && (
             <div className="input-flex">
               <label htmlFor="" class="col-form-label">
                 Lunch

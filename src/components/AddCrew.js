@@ -4,9 +4,12 @@ import {
   getProjectTask,
   getUserDetails,
   getCrewCostCodes,
+  getCrewEquipmentList,
 } from "../API";
+import { toast } from "react-toastify";
 function useFetch(addCrewModal, crew_id, project_id) {
   const [crewUsers, setCrewUsers] = useState([]);
+  const [crewEquipments, setCrewEquipments] = useState([]);
   const [projectTaskOptions, setProjectTaskOptions] = useState([]);
   // const [costCodesOptions, setCostCodesOptions] = useState([]);
   useEffect(() => {
@@ -16,12 +19,27 @@ function useFetch(addCrewModal, crew_id, project_id) {
       if (crew_id) {
         onClickAddCrewTimeDate();
         // getAllCostCodes();
+        fetchEquipmentList();
       }
       if (project_id) {
         getAllProjectTasks();
       }
     }
   }, [addCrewModal, crew_id, project_id]);
+
+  const fetchEquipmentList = async () => {
+    try {
+      const equipmentList = await getCrewEquipmentList(crew_id);
+      if (equipmentList?.data?.length > 0) {
+        const listOptions = equipmentList?.data?.map((item) => {
+          return { label: item?.equipment?.name, value: item };
+        });
+        setCrewEquipments(listOptions);
+      }
+    } catch (error) {
+      toast.error("Something went wrong.");
+    }
+  };
 
   const onClickAddCrewTimeDate = async () => {
     await getUserDetails()
@@ -78,7 +96,7 @@ function useFetch(addCrewModal, crew_id, project_id) {
   //   });
   // };
 
-  return { projectTaskOptions, crewUsers };
+  return { projectTaskOptions, crewUsers, crewEquipments };
 }
 
 export default useFetch;

@@ -99,7 +99,7 @@ export const TimeCard = () => {
       return {};
     }
   }, [equipmentTimeSheet]);
-
+  console.log("cachedEquipmentValuecachedEquipmentValue", cachedEquipmentValue);
   const CardData = useMemo(() => {
     let cardStartDate = "";
     let cardEndDate = "";
@@ -243,7 +243,7 @@ export const TimeCard = () => {
                       {cachedEquipmentValue[dayDetails] &&
                       cachedEquipmentValue[dayDetails]?.length > 0
                         ? cachedEquipmentValue[dayDetails]?.map((item, key) => {
-                            console.log("fastmap ==>", item);
+                            console.log("fastmap cachedEquipmentValue", item);
                             return (
                               <tr
                                 //   className={selectedUser.id === item.id ? "activeRow" : ""}
