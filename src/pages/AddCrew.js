@@ -47,8 +47,6 @@ const CrewManagement = () => {
     fetchData();
   }, []);
 
-  console.log("allEquipmentallEquipment", allCrewEquipment);
-
   const fetchData = async () => {
     try {
       const request5 = await getRoleIds();
@@ -73,7 +71,7 @@ const CrewManagement = () => {
         getCrewEquipmentList(crewId),
         getAllEquipmentList(),
       ]);
-      console.log("crewEquipments ==>", crewEquipments);
+
       if (allEquipments?.status === 200) {
         setAllEquipments(allEquipments?.data);
       }
@@ -166,19 +164,18 @@ const CrewManagement = () => {
   };
   const navigate = useNavigate();
 
-  const onRowSelection = async (e, item, key) => {
+  const onRowSelection = async (e, item, selectedItem, key) => {
     if (e.target.checked) {
       console.log("itemitemitem", item);
       console.log("onRowSelection", e.target.name);
       let payload;
-      if (e.target.name === "costCode") {
+      if (e.target.name === "user") {
         payload = {
           type: "user",
           crew_id: Number(crewId),
           project_cost_code_id: item?.id,
         };
-      }
-      else if (e.target.name === "equipment") {
+      } else if (e.target.name === "equipment") {
         payload = {
           type: "equipment",
           crew_id: Number(crewId),
@@ -188,26 +185,40 @@ const CrewManagement = () => {
 
       await addCostCode(payload).then(async (res) => {
         if (res?.status === 200) {
-          toast.success("Cost code added Successfully");
+          if (res?.data?.type === "equipment") {
+            toast.success("Equipment added Successfully");
+          } else if (res?.data?.type === "user") {
+            toast.success("Cost code added Successfully");
+          }
         }
       });
     } else {
-      const payload = {
-        is_active: false,
-      };
-      await removeCostCode(payload, item?.id).then((res) => {
-        if (res?.status === 200) {
-          toast.success("Cost code removed Successfully");
-        }
-      });
+      if (selectedItem) {
+        const payload = {
+          is_active: false,
+        };
+        await removeCostCode(payload, selectedItem?.id).then((res) => {
+          if (res?.status === 200) {
+            if (selectedItem?.type === "equipment") {
+              toast.success("Equipment removed Successfully");
+            } else if (selectedItem?.type === "user") {
+              toast.success("Cost code removed Successfully");
+            }
+          }
+        });
+      }
+      else {
+        toast.error("Something went wrong");
+      }
     }
     const activeCostCodes = await getActiveCostCodes(crewId);
-    console.log("activeCostCodesactiveCostCodesactiveCostCodes", activeCostCodes?.data);
     setActiveCostCodes(activeCostCodes.data);
   };
 
-  console.log("costCodes11", costCodes);
-  console.log("userOptionssssss", userOptions);
+  // console.log("costCodes11", costCodes);
+  // console.log("activeCostCodesactiveCostCodesactiveCostCodes", activeCostCodes);
+  // console.log("userOptionssssss", userOptions);
+  // console.log("activeCostCodeactiveCostCode", activeCostCode);
 
   return (
     <div className="crew-mgmt">
@@ -358,40 +369,55 @@ const CrewManagement = () => {
                   <tbody>
                     {costCodes && costCodes.length > 0
                       ? costCodes.map((costCode, key) => {
-                          const activeCostCode = activeCostCodes.find(
-                            (code) => code.project_cost_code_id === costCode.id
+                          // const activeCostCode = activeCostCodes.find(
+                          //   (code) => code.project_cost_code_id === costCode.id
+                          // );
+                          const activeEquipment = activeCostCodes.find(
+                            (item) =>
+                              item.project_cost_code_id === costCode.id &&
+                              item?.type === "equipment"
+                          );
+                          const activeUser = activeCostCodes.find(
+                            (item) =>
+                              item.project_cost_code_id === costCode.id &&
+                              item?.type === "user"
                           );
                           let selectedCostCode = costCode;
                           console.log(
                             "activeCostCodes111",
                             activeCostCodes,
-                            costCode,
-                            activeCostCode
+                            costCode
                           );
-                          if (activeCostCode) {
-                            selectedCostCode = activeCostCode;
-                          }
-
                           return (
                             <tr key={key}>
                               <td scope="col">
                                 <input
-                                  name="costCode"
+                                  name="user"
                                   onChange={(evt) =>
-                                    onRowSelection(evt, selectedCostCode, key)
+                                    onRowSelection(
+                                      evt,
+                                      selectedCostCode,
+                                      activeUser,
+                                      key
+                                    )
                                   }
                                   type="checkbox"
-                                  checked={!!activeCostCode}
+                                  checked={!!activeUser}
                                 />
                               </td>
                               <td scope="col">
                                 <input
                                   name="equipment"
                                   onChange={(evt) =>
-                                    onRowSelection(evt, selectedCostCode, key)
+                                    onRowSelection(
+                                      evt,
+                                      selectedCostCode,
+                                      activeEquipment,
+                                      key
+                                    )
                                   }
                                   type="checkbox"
-                                  checked={!!activeCostCode}
+                                  checked={!!activeEquipment}
                                 />
                               </td>
                               <td>{costCode?.cost_code}</td>
