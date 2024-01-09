@@ -67,6 +67,32 @@ export function getDateFromWeek(year, weekNumber) {
   return { startDate, endDate };
 }
 
+export function getStartEndDate(year, weekNumber) {
+  var januaryFirst = new Date(year, 0, 1);
+
+  var dayOfWeek = januaryFirst.getDay();
+
+  var daysToFirstWeekDay = 1 - dayOfWeek;
+
+  var startOfWeek = new Date(januaryFirst);
+  startOfWeek.setDate(januaryFirst.getDate() + daysToFirstWeekDay + (7 * (weekNumber - 1)));
+
+  var endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+  function formatDate(date) {
+    var yyyy = date.getFullYear();
+    var mm = (date.getMonth() + 1).toString().padStart(2, '0');
+    var dd = date.getDate().toString().padStart(2, '0');
+    return `${yyyy}/${mm}/${dd}`;
+  }
+
+  return {
+    startDate: formatDate(startOfWeek),
+    endDate: formatDate(endOfWeek)
+  };
+}
+
 export const getWeekFromDate = (dateString) => {
   const date = new Date(dateString);
 

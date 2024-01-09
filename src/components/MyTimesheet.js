@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../pages/Loader";
 import { getMyTimeSheetDetails, updateMyTimeCardStatus } from "../API";
-import { getDateInFormat, getDateFromWeek } from "../utils/utils";
+import { getDateFromWeek,getStartEndDate } from "../utils/utils";
 import { toast } from "react-toastify";
 
 const MyTimesheet = (props) => {
@@ -73,7 +73,7 @@ const MyTimesheet = (props) => {
                 const year = week.split("-")[0];
                 const cardWeek = week.split("W")[1];
 
-                const { startDate, endDate } = getDateFromWeek(year, cardWeek);
+                const { startDate, endDate } = getStartEndDate(year, cardWeek);
                 console.log("datt", startDate, endDate);
                 return (
                   <div className="status-card">
