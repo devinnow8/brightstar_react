@@ -169,10 +169,10 @@ export const TimeCard = () => {
           console.log("day", new Date(dayDetails).getDay());
           return (
             <div className="crew-mgmt-card">
-              <h3 className="title">{day + " " + currentDisplayDate[0]}</h3>
+              <h3 className="title title2">{day + " " + currentDisplayDate[0]}</h3>
               {cachedUserValue[dayDetails]?.length > 0 && <>
-              <h2>Team Hours</h2>
-              <table className="table table-striped">
+              <h2 className="heading">Team Hours</h2>
+              <table className="table table-striped mb-5">
                 <thead>
                   <tr>
                     {[
@@ -217,7 +217,7 @@ export const TimeCard = () => {
               </>}
               {cachedEquipmentValue[dayDetails]?.length > 0 && (
                 <>
-                  <h2>Equipment Hours</h2>
+                  <h2 className="heading">Equipment Hours</h2>
                   <table className="table table-striped">
                     <thead>
                       <tr>
