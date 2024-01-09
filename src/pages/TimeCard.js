@@ -169,52 +169,56 @@ export const TimeCard = () => {
           console.log("day", new Date(dayDetails).getDay());
           return (
             <div className="crew-mgmt-card">
-              <h3 className="title title2">{day + " " + currentDisplayDate[0]}</h3>
-              {cachedUserValue[dayDetails]?.length > 0 && <>
-              <h2 className="heading">Team Hours</h2>
-              <table className="table table-striped mb-5">
-                <thead>
-                  <tr>
-                    {[
-                      "Name",
-                      "Task",
-                      "Cost Code",
-                      "Start",
-                      "Stop",
-                      "Hour",
-                      "Lunch",
-                    ]?.map((item, key) => (
-                      <th scope="col" className="table-heading" key={key}>
-                        {item}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {cachedUserValue[dayDetails] &&
-                  cachedUserValue[dayDetails]?.length > 0
-                    ? cachedUserValue[dayDetails]?.map((item, key) => {
-                        console.log("fastmap ==>", item);
-                        return (
-                          <tr
-                            //   className={selectedUser.id === item.id ? "activeRow" : ""}
-                            //   onClick={() => setSelectedUser(item)}
-                            key={key}
-                          >
-                            <td>{item?.name}</td>
-                            <td>{item?.task}</td>
-                            <td>{item?.cost_code}</td>
-                            <td>{item?.time_entry_in}</td>
-                            <td>{item?.time_entry_out}</td>
-                            <td>{item?.hours}hr</td>
-                            <td>{item?.lunch}hr</td>
-                          </tr>
-                        );
-                      })
-                    : !loading && <tr>No data found</tr>}
-                </tbody>
-              </table>
-              </>}
+              <h3 className="title title2">
+                {day + " " + currentDisplayDate[0]}
+              </h3>
+              {cachedUserValue[dayDetails]?.length > 0 && (
+                <>
+                  <h2 className="heading">Team Hours</h2>
+                  <table className="table table-striped mb-5">
+                    <thead>
+                      <tr>
+                        {[
+                          "Name",
+                          "Task",
+                          "Cost Code",
+                          "Start",
+                          "Stop",
+                          "Hour",
+                          "Lunch",
+                        ]?.map((item, key) => (
+                          <th scope="col" className="table-heading" key={key}>
+                            {item}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cachedUserValue[dayDetails] &&
+                      cachedUserValue[dayDetails]?.length > 0
+                        ? cachedUserValue[dayDetails]?.map((item, key) => {
+                            console.log("fastmap ==>", item);
+                            return (
+                              <tr
+                                //   className={selectedUser.id === item.id ? "activeRow" : ""}
+                                //   onClick={() => setSelectedUser(item)}
+                                key={key}
+                              >
+                                <td>{item?.name}</td>
+                                <td>{item?.task}</td>
+                                <td>{item?.cost_code}</td>
+                                <td>{item?.time_entry_in}</td>
+                                <td>{item?.time_entry_out}</td>
+                                <td>{item?.hours}hr</td>
+                                <td>{item?.lunch}hr</td>
+                              </tr>
+                            );
+                          })
+                        : !loading && <tr>No data found</tr>}
+                    </tbody>
+                  </table>
+                </>
+              )}
               {cachedEquipmentValue[dayDetails]?.length > 0 && (
                 <>
                   <h2 className="heading">Equipment Hours</h2>
@@ -229,6 +233,7 @@ export const TimeCard = () => {
                           "Start",
                           "Stop",
                           "Hour",
+                          "Action",
                         ]?.map((item, key) => (
                           <th scope="col" className="table-heading" key={key}>
                             {item}
@@ -254,7 +259,10 @@ export const TimeCard = () => {
                                 <td>{item?.time_entry_in}</td>
                                 <td>{item?.time_entry_out}</td>
                                 <td>{item?.hours}</td>
-                               
+                                <td>
+                                  <img src={editIcon} />
+                                  <img src={deleteIcon} />
+                                </td>
                               </tr>
                             );
                           })
