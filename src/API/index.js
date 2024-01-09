@@ -142,6 +142,11 @@ export const addMyTimeSheetDetails = async (data) => {
   return await makeApiCall("post", apiUrl, data, headers);
 };
 
+export const updateMyTimeCardStatus = async (data, id) => {
+  const apiUrl = `${url}/api/time_sheet/${id}`;
+  return await makeApiCall("put", apiUrl, data, headers);
+};
+
 export const getTimeSheetByWeek = async (data, entryTypeId) => {
   const apiUrl = `${url}/api/time_entry/time_sheet_by_week?week=${data?.week}&crew_id=${data?.crew_id}&time_entry_type_id=${entryTypeId}`;
   return await makeApiCall("get", apiUrl, data, headers);

@@ -160,6 +160,7 @@ const RightDrawerModal = React.memo((props) => {
     if (getSelectedWeek) {
       await getWeekSheet(getSelectedWeek).then((res) => {
         if (res?.status === 200 && res?.data?.length > 0) {
+          console.log("getWeekSheet ===>", res?.data);
           if (entryType === "user") {
             allSelectedUsers?.forEach(async (ele) => {
               const payload = {
@@ -223,6 +224,7 @@ const RightDrawerModal = React.memo((props) => {
           };
           addMyTimeSheetDetails(addMyTimeSheetPayload).then((res) => {
             if (res?.status === 200) {
+              console.log("addMyTimeSheetPayload", res?.data);
               if (entryType === "user") {
                 allSelectedUsers?.forEach(async (ele) => {
                   const payload = {
@@ -239,8 +241,9 @@ const RightDrawerModal = React.memo((props) => {
                     time_entry_status_id: 1,
                     project_task_id: selectedProjectTaskId,
                     crew_project_cost_code_id: selectedCostCodeId,
-                    time_sheet_id: res?.data[0]?.id
+                    time_sheet_id: res?.data?.id
                   };
+                  console.log("payloadddddddddd", payload);
                   await addCrewTimeEntry(payload)
                     .then((res) => {
                       if (res?.data) {
@@ -253,8 +256,7 @@ const RightDrawerModal = React.memo((props) => {
                     })
                     .catch((err) => toast.error("Unable to add time entry"));
                 });
-              } 
-              else if (entryType === "equipment") {
+              } else if (entryType === "equipment") {
                 allSelectedEquipments?.forEach(async (ele) => {
                   const payload = {
                     time_entry_in: entryTimeIn,
@@ -268,8 +270,9 @@ const RightDrawerModal = React.memo((props) => {
                     time_entry_status_id: 1,
                     project_task_id: selectedProjectTaskId,
                     crew_project_cost_code_id: selectedCostCodeId,
-                    time_sheet_id: res?.data[0]?.id,
+                    time_sheet_id: res?.data?.id
                   };
+                  console.log("payloadddddddddd", payload);
                   await addCrewTimeEntry(payload)
                     .then((res) => {
                       if (res?.data) {
