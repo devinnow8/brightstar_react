@@ -270,6 +270,13 @@ $primary-color: #49adff;
         .icon {
           cursor: pointer;
         }
+        .icons {
+          display: flex;
+          justify-content: space-around;
+          > img {
+            cursor: pointer;
+          }
+        }
       }
       .team-table {
         height: 100%;

@@ -260,8 +260,10 @@ export const TimeCard = () => {
                                 <td>{item?.time_entry_out}</td>
                                 <td>{item?.hours}</td>
                                 <td>
-                                  <img src={editIcon} />
-                                  <img src={deleteIcon} />
+                                  <div className="icons">
+                                  <img src={editIcon} className="img-fluid" />
+                                  <img src={deleteIcon} className="img-fluid" />
+                                  </div>
                                 </td>
                               </tr>
                             );
